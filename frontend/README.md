@@ -21,6 +21,19 @@
 }
 ```
 
+package.json 하단에 아래와 같이 추가
+
+```
+  },
+  "eslintConfig": {
+    "extends": [
+      "next/core-web-vitals",
+      "prettier"
+    ]
+  }
+}
+```
+
 ## tailwind
 
 https://tailwindcss.com/docs/guides/nextjs
