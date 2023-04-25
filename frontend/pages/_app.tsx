@@ -8,11 +8,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Music Jam</title>
-        <meta
-          name="description"
-          content="Music Jam is the easiest way to make music"
-        />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <RecoilRoot>
         <Component {...pageProps} />
