@@ -111,8 +111,6 @@ pages\app.css에 아래와 같이 추가한다.
   }
 ```
 
------ 여기까지 완료
-
 ## recoil, recoil-persist
 
 아래의 깃헙 페이지에서 리코일의 기본적인 사용법이 나와있다.
@@ -132,6 +130,8 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp;
 ```
+
+----- 여기까지 완료
 
 ## recoil-persist
 
