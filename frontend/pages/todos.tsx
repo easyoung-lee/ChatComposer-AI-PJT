@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState, useSsrComplectedState } from "../store/atoms";
 import TodoItemCreator from "../components/TodoItemCreator";
 import { removeTodo, toggleTodo } from "../store/selectors";
+import Link from "next/link";
 
 function Todos() {
   //useRecoilValue로 상태와 setRecoilValue를 가져올 수 있다.
@@ -22,6 +23,7 @@ function Todos() {
   return (
     <div>
       <div>todos</div>
+      <Link href="/queryTodos">리액트-쿼리 용으로 링크</Link>
       <TodoItemCreator />
 
       {todoList.map((todoItem) => (
