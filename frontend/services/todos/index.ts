@@ -36,10 +36,26 @@ export const useCreateTodoMutate = () => {
   return getMutate(queryKey, mutationFn);
 };
 
+export const useUpdateTodoMutate = () => {
+  const mutationFn = (todo: Todo) => TodosApi.put("", { ...todo });
+  const queryKey = QueryKeys.todos.list();
+
+  return getMutate(queryKey, mutationFn);
+};
+
+export const useDestoryTodoMutate = () => {
+  const mutationFn = (id: number) => TodosApi.delete(`?id=${id}`);
+  const queryKey = QueryKeys.todos.list();
+
+  return getMutate(queryKey, mutationFn);
+};
+
 const todosQuery = {
   listTodoQuery,
   retrieveTodoQuery,
   useCreateTodoMutate,
+  useUpdateTodoMutate,
+  useDestoryTodoMutate,
 };
 
 export default todosQuery;

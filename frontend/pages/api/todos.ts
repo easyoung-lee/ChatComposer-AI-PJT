@@ -38,8 +38,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   } else if (req.method === "DELETE") {
     // DELETE 요청 처리
-    const { id } = req.body;
-    const todoIndex = todos.findIndex((todo) => todo.id === id);
+    const { id } = req.query;
+    const todoIndex = todos.findIndex((todo) => todo.id === Number(id));
     if (todoIndex === -1) {
       res.status(404).end();
     } else {

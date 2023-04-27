@@ -4,6 +4,8 @@ import {
   useCreateTodoMutate,
   listTodoQuery,
   retrieveTodoQuery,
+  useUpdateTodoMutate,
+  useDestoryTodoMutate,
 } from "../services/todos";
 
 function QueryTodos() {
@@ -17,10 +19,11 @@ function QueryTodos() {
   const [input, setInput] = useState("");
 
   const createTodoMutate = useCreateTodoMutate();
-
   const onCreate = () => {
     createTodoMutate(input);
   };
+  const updateTodoMutate = useUpdateTodoMutate();
+  const destroyTodoMutate = useDestoryTodoMutate();
 
   return (
     <div>
@@ -40,9 +43,25 @@ function QueryTodos() {
       {todoListData &&
         todoListData.map((e) => {
           return (
-            <div key={e.id} onClick={() => setSelectedId(e.id)}>
-              <div>
-                {e.id} / {e.text} / {e.completed.toString()}
+            <div key={e.id}>
+              <div onClick={() => setSelectedId(e.id)}>
+                <div>
+                  {e.id} / {e.text} / {e.completed.toString()}
+                </div>
+              </div>
+              <div
+                onClick={() => {
+                  updateTodoMutate({ ...e, completed: !e.completed });
+                }}
+              >
+                완료하기
+              </div>
+              <div
+                onClick={() => {
+                  destroyTodoMutate(e.id);
+                }}
+              >
+                삭제하기
               </div>
             </div>
           );
