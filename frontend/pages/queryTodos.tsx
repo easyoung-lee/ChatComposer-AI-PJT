@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  useListTodoQuery,
-  useRetrieveTodoQuery,
-} from "../services/todos/query";
+import { useListTodoQuery, useRetrieveTodoQuery } from "../services/todos";
 
 function QueryTodos() {
   const [todoListData, todoListDataRefetch] = useListTodoQuery();

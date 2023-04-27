@@ -6,10 +6,16 @@ export type CustomQueryHookReturnType<TData = any> = [
   UseQueryResult<TData, TError>,
 ];
 
+export type UseQueryOptionsType = Omit<
+  UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+  "initialData" | "queryFn" | "queryKey"
+> & {
+  initialData?: () => undefined;
+};
+
 export type CustomQueryHookType<TParams = unknown, TData = any> = (
   params?: TParams,
-  options?: Omit<
-    UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
-    "queryKey" | "queryFn" | "initialData"
-  > & { initialData?: () => undefined },
+  options?: UseQueryOptionsType,
 ) => CustomQueryHookReturnType<TData>;
+
+export type AxiosQueryFuntion = () => () => Promise<AxiosResponse<any, any>>;
