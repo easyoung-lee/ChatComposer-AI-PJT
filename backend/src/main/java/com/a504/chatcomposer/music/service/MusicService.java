@@ -1,4 +1,4 @@
-package com.a504.chatcomposer.api.service;
+package com.a504.chatcomposer.music.service;
 
 import org.springframework.stereotype.Service;
 
