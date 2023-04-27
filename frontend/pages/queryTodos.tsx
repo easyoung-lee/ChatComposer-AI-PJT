@@ -1,30 +1,47 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useListTodoQuery, useRetrieveTodoQuery } from "../services/todos";
+import {
+  useCreateTodoMutate,
+  listTodoQuery,
+  retrieveTodoQuery,
+} from "../services/todos";
 
 function QueryTodos() {
-  const [todoListData, todoListDataRefetch] = useListTodoQuery();
+  const [todoListData, todoListDataRefetch] = listTodoQuery();
 
   const [selectedId, setSelectedId] = useState(0);
-  const [TodoData] = useRetrieveTodoQuery(selectedId, {
+  const [TodoData] = retrieveTodoQuery(selectedId, {
     keepPreviousData: true,
   });
+
+  const [input, setInput] = useState("");
+
+  const createTodoMutate = useCreateTodoMutate();
+
+  const onCreate = () => {
+    createTodoMutate(input);
+  };
 
   return (
     <div>
       QueryTodos
       <div
+        role="button"
         onClick={() => {
           todoListDataRefetch();
         }}
       >
-        페치하기
+        불러오기
+      </div>
+      <input type="text" onChange={(e) => setInput(e.target.value)} />
+      <div role="button" onClick={onCreate}>
+        생성하기
       </div>
       {todoListData &&
         todoListData.map((e) => {
           return (
-            <div onClick={() => setSelectedId(e.id)}>
-              <div key={e.id}>
+            <div key={e.id} onClick={() => setSelectedId(e.id)}>
+              <div>
                 {e.id} / {e.text} / {e.completed.toString()}
               </div>
             </div>

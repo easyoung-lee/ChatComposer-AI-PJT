@@ -1,8 +1,7 @@
 const QueryKeys = {
-  todoKeys: {
+  todos: {
     list: () => ["todo-list"] as const,
-    retrieve: (TodoId: number) =>
-      [...QueryKeys.todoKeys.list(), TodoId] as const,
+    retrieve: (TodoId: number) => [...QueryKeys.todos.list(), TodoId] as const,
   },
 };
 

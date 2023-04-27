@@ -1,15 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import TodosApi from "../TodosApi";
 import { Todo } from "../../types/todos";
 import { CustomQueryHookType } from "../../types/query";
-import { getQueryResult } from "..";
+import { getMutate, getQueryResult, useInvalidate } from "..";
 import QueryKeys from "../QueryKeys";
 
-export const useListTodoQuery: CustomQueryHookType<null, Array<Todo>> = (
+export const listTodoQuery: CustomQueryHookType<null, Array<Todo>> = (
   _,
   options = {},
 ) => {
-  const queryKey = QueryKeys.todoKeys.list();
+  const queryKey = QueryKeys.todos.list();
   const getQueryFn = () => {
     return () => TodosApi.get("");
   };
@@ -17,11 +17,11 @@ export const useListTodoQuery: CustomQueryHookType<null, Array<Todo>> = (
   return getQueryResult(queryKey, getQueryFn(), options);
 };
 
-export const useRetrieveTodoQuery: CustomQueryHookType<number, Todo> = (
+export const retrieveTodoQuery: CustomQueryHookType<number, Todo> = (
   selectedId,
   options = {},
 ) => {
-  const queryKey = QueryKeys.todoKeys.retrieve(selectedId);
+  const queryKey = QueryKeys.todos.retrieve(selectedId);
   const getQueryFn = (id: number) => {
     return () => TodosApi.get(`?id=${id}`);
   };
@@ -29,9 +29,17 @@ export const useRetrieveTodoQuery: CustomQueryHookType<number, Todo> = (
   return getQueryResult(queryKey, getQueryFn(selectedId), options);
 };
 
+export const useCreateTodoMutate = () => {
+  const mutationFn = (text: string) => TodosApi.post("", { text });
+  const queryKey = QueryKeys.todos.list();
+
+  return getMutate(queryKey, mutationFn);
+};
+
 const todosQuery = {
-  useListTodoQuery,
-  useRetrieveTodoQuery,
+  listTodoQuery,
+  retrieveTodoQuery,
+  useCreateTodoMutate,
 };
 
 export default todosQuery;
