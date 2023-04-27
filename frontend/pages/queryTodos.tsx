@@ -1,44 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useCallback, useState } from "react";
-import { listTodos, retrieveTodos } from "../services/TodosApi";
-import axios from "axios";
+import React, { useState } from "react";
 import Link from "next/link";
-import { ListTodoQueryKey, RetrieveTodoQueryKey } from "../services/queryKeys";
+import {
+  useListTodoQuery,
+  useRetrieveTodoQuery,
+} from "../services/todos/query";
 
 function QueryTodos() {
-  const {
-    data: TodoListData,
-    isLoading: TodoListIsLoading,
-    fetchStatus,
-    status,
-    refetch,
-  } = useQuery(ListTodoQueryKey(), listTodos, {
-    staleTime: 3 * 60 * 1000,
-    enabled: false,
-  });
+  const [todoListData, todoListDataRefetch] = useListTodoQuery();
 
   const [selectedId, setSelectedId] = useState(0);
-  const { data: TodoData, isLoading: TodoIsLoading } = useQuery(
-    RetrieveTodoQueryKey(selectedId),
-    () => retrieveTodos(selectedId),
-    {
-      staleTime: 3 * 60 * 1000,
-      keepPreviousData: true,
-    },
-  );
+  const [TodoData] = useRetrieveTodoQuery(selectedId, {
+    keepPreviousData: true,
+  });
 
   return (
     <div>
       QueryTodos
       <div
         onClick={() => {
-          refetch();
+          todoListDataRefetch();
         }}
       >
         페치하기
       </div>
-      {TodoListData &&
-        TodoListData.data.map((e) => {
+      {todoListData &&
+        todoListData.map((e) => {
           return (
             <div onClick={() => setSelectedId(e.id)}>
               <div key={e.id}>
@@ -50,8 +36,8 @@ function QueryTodos() {
       {TodoData ? (
         <div>
           <div>선택된 데이터</div>
-          <div>{TodoData.data.text}</div>
-          <div>{TodoData.data.completed}</div>
+          <div>{TodoData.text}</div>
+          <div>{TodoData.completed}</div>
         </div>
       ) : (
         <></>

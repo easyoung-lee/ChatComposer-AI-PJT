@@ -8,4 +8,7 @@ const queryClient = new QueryClient({
   },
 });
 
+export const useInvalidate = (queryKey: Array<any>, options = {}) =>
+  queryClient.invalidateQueries(queryKey, options);
+
 export default queryClient;

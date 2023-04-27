@@ -1,5 +1,6 @@
 import { selector } from "recoil";
-import { todoListState, Todo } from "./atoms";
+import { todoListState } from "./atoms";
+import { Todo } from "../types/todos";
 
 export const todoListSelector = selector<Todo[]>({
   key: "todoListSelector",
