@@ -1,9 +1,4 @@
-import {
-  QueryClient,
-  QueryKey,
-  QueryOptions,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClient, QueryKey, useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { CustomQueryHookReturnType, UseQueryOptionsType } from "../types/query";
 
@@ -14,14 +9,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-export const QueryKeys = {
-  todoKeys: {
-    list: () => ["todo-list"] as const,
-    retrieve: (TodoId: number) =>
-      [...QueryKeys.todoKeys.list(), TodoId] as const,
-  },
-};
 
 export const getQueryResult = (
   queryKey: QueryKey,

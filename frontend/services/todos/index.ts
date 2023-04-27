@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import TodosApi from "../TodosApi";
 import { Todo } from "../../types/todos";
 import { CustomQueryHookType } from "../../types/query";
-import { QueryKeys, getQueryResult } from "..";
+import { getQueryResult } from "..";
+import QueryKeys from "../QueryKeys";
 
 export const useListTodoQuery: CustomQueryHookType<null, Array<Todo>> = (
   _,
