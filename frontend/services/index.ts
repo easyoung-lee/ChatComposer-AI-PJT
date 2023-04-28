@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
 export const useInvalidate = (queryKey: QueryKey, options = {}) =>
   queryClient.invalidateQueries(queryKey, options);
 
-export const getQueryResult = (
+export const useQueryResult = (
   queryKey: QueryKey,
   queryFn: (...args: any[]) => Promise<AxiosResponse<any, any>>,
   options?: UseQueryOptionsType,
@@ -27,7 +27,7 @@ export const getQueryResult = (
   return [query.data?.data, query.refetch, query];
 };
 
-export const getMutate = (
+export const useCustomMutate = (
   queryKey: QueryKey,
   mutationFn: (...args: any[]) => Promise<AxiosResponse<any, any>>,
 ) => {
