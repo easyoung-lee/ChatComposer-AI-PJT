@@ -10,11 +10,9 @@ export const listTodoQuery: CustomQueryHookType<null, Array<Todo>> = (
   options = {},
 ) => {
   const queryKey = QueryKeys.todos.list();
-  const getQueryFn = () => {
-    return () => TodosApi.get("");
-  };
+  const queryFn = () => TodosApi.get("");
 
-  return useQueryResult(queryKey, getQueryFn(), options);
+  return useQueryResult(queryKey, queryFn, options);
 };
 
 export const retrieveTodoQuery: CustomQueryHookType<number, Todo> = (
@@ -22,11 +20,9 @@ export const retrieveTodoQuery: CustomQueryHookType<number, Todo> = (
   options = {},
 ) => {
   const queryKey = QueryKeys.todos.retrieve(selectedId);
-  const getQueryFn = (id: number) => {
-    return () => TodosApi.get(`?id=${id}`);
-  };
+  const queryFn = () => TodosApi.get(`?id=${selectedId}`);
 
-  return useQueryResult(queryKey, getQueryFn(selectedId), options);
+  return useQueryResult(queryKey, queryFn, options);
 };
 
 export const useCreateTodoMutate = () => {
