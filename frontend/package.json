@@ -11,8 +11,12 @@
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-ga": "^3.3.1",
+    "react-select": "^5.7.2",
+    "reactronica": "^0.8.1-canary.0",
     "recoil": "^0.7.7",
     "recoil-persist": "^4.2.0",
+    "sass": "^1.62.1",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
