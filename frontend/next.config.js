@@ -5,6 +5,22 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-}
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(ogg|mp3|wav|mpe?g)$/i,
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            publicPath: "/_next",
+            name: "static/media/[name].[hash].[ext]",
+          },
+        },
+      ],
+    });
 
-module.exports = nextConfig
+    return config;
+  },
+};
+
+module.exports = nextConfig;
