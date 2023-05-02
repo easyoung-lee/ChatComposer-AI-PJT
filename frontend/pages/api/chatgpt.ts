@@ -20,7 +20,7 @@ export default async function handler(
   //시스템 프롬프트와 유저 프롬프트 넣기
   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
 you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
-Notation looks like this:
+Notation looks like this and keep the form:
 (Note-duration-time in beats)
 C4-1/4-0, Eb4-1/8-2.5, D4-1/4-3, F4-1/4-3 etc.`;
 
@@ -62,7 +62,7 @@ C4-1/4-0, Eb4-1/8-2.5, D4-1/4-3, F4-1/4-3 etc.`;
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages,
-    max_tokens: 50,
+    // max_tokens: 50,
     n: 1,
     stop: null,
     temperature: 1,
@@ -116,14 +116,19 @@ function textToMid(responseMessage) {
   const noteInfo = [];
   for (const i of inText.matchAll(monsters[notationIndex])) {
     const n = i[1].split("-");
-    console.log("뀨");
-    console.log(n);
+    //최대 16분음표까지 쓰도록 수정
     if (notationIndex) {
-      // noteInfo.push([noteToInt(n[0]), parseFloat(n[1]) * 4, parseFloat(n[2])]); // note, duration, time
-      noteInfo.push([n[0], parseFloat(n[1]), parseFloat(n[2])]); // note, duration, time
+      noteInfo.push([n[0], fraction(n[1]) * 16, parseFloat(n[2]) * 8]);
     } else {
-      noteInfo.push([n[0], parseFloat(n[1])]); // note, duration
+      noteInfo.push([n[0], fraction(n[1])]) * 16; // note, duration
     }
   }
   return noteInfo;
+}
+
+function fraction(str: string) {
+  let [numerator, denom] = str.split("/");
+  let denominator = denom;
+  if (!denominator) denominator = "1";
+  return ~~numerator / ~~denominator;
 }

@@ -16,6 +16,8 @@ const chat = () => {
     },
   ];
 
+  const [notes, setNotes] = useState([]);
+
   return (
     <div>
       <input value={input} onChange={(e) => setInput(e.target.value)}></input>
@@ -24,7 +26,9 @@ const chat = () => {
           ChatApi.post("http://localhost:3000/api/chatgpt", {
             message: input,
             prevData,
-          }).then((res) => setMessage(JSON.stringify(res.data)));
+          }).then((res) => {
+            setMessage(JSON.stringify(res.data));
+          });
         }}
       >
         전송하기
