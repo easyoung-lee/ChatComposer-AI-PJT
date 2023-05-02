@@ -28,7 +28,6 @@ const chat = () => {
     notes.forEach((e) => {
       // 해당 id의 atom을 가져와서
       const note = e[0].toLowerCase();
-      console.log(note);
       const index = e[2];
       const activeNotes = noteRowActiveBeatsAtom(note);
 
@@ -36,7 +35,6 @@ const chat = () => {
       set(activeNotes, (activeNotes) => {
         const state = [...activeNotes];
         state[index] = !activeNotes[index];
-        console.log(JSON.stringify(state));
         return state;
       });
 
@@ -47,7 +45,8 @@ const chat = () => {
     const scaleArray = Array.from(scaleSet);
     set(notesAtom, (notes) => {
       const state = [...notes];
-      scaleArray.forEach((e, index) => {
+      scaleArray.forEach((e) => {
+        const index = state.findIndex((note) => note.note === e);
         state[index] = { ...state[index], isActive: true };
       });
       return state;
@@ -55,7 +54,6 @@ const chat = () => {
   });
 
   useEffect(() => {
-    console.log(JSON.stringify(notes));
     if (!notes.length) return;
     setAllDone();
   }, [notes]);
