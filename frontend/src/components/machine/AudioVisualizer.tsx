@@ -42,6 +42,7 @@ const AudioVisualizer = () => {
     if (machineIsOn) {
       const analyser = new Analyser("fft", 16);
       Destination.connect(analyser);
+      Transport.bpm.value = 480;
       Transport.scheduleRepeat(
         () => {
           const frequencyData = analyser.getValue();
@@ -50,13 +51,13 @@ const AudioVisualizer = () => {
             (value, index) => ({
               name: index,
               value,
-            })
+            }),
           );
 
           setData(newData);
         },
         "128n",
-        "0:1:0"
+        "0:1:0",
       );
     }
   }, [machineIsOn]);

@@ -10,6 +10,47 @@ export default async function handler(
   const method = req.method;
   if (method !== "POST") return;
 
+  /* 오프라인 테스트용 코드 */
+  const message = {
+    role: "assistant",
+    content:
+      "F#4-1/4-0, G#4-1/8-0.5, F#4-1/8-1, G#4-1/8-1.5, F#4-1/8-2, G#4-1/8-2.5, F#4-1/8-3, G#4-1/8-3.5, F#4-1/8-4, G#4-1/8-4.5, F#4-1/8-5, G#4-1/8-5.5, F#4-1/8-6, G#4-1/8-6.5, F#4-1/4-7, G#4-1/8-7.5, F#4-1/8-8, G#4-1/8-8.5, A4-1/8-9, B4-1/8-9.5, C#5-1/4-10, C#5-1/4-10.5, B4-1/4-11, A4-1/4-11.5, G#4-1/2-12.",
+  };
+  const array = [
+    ["F#4", 4, 0],
+    ["G#4", 2, 4],
+    ["F#4", 2, 8],
+    ["G#4", 2, 12],
+    ["F#4", 2, 16],
+    ["G#4", 2, 20],
+    ["F#4", 2, 24],
+    ["G#4", 2, 28],
+    ["F#4", 2, 32],
+    ["G#4", 2, 36],
+    ["F#4", 2, 40],
+    ["G#4", 2, 44],
+    ["F#4", 2, 48],
+    ["G#4", 2, 52],
+    ["F#4", 4, 56],
+    ["G#4", 2, 60],
+    ["F#4", 2, 64],
+    ["G#4", 2, 68],
+    ["A4", 2, 72],
+    ["B4", 2, 76],
+    ["C#5", 4, 80],
+    ["C#5", 4, 84],
+    ["B4", 4, 88],
+    ["A4", 4, 92],
+    ["G#4", 8, 96],
+  ];
+
+  array.forEach((e) => {
+    const note = e[0] as string;
+    e[0] = sharpToFlat(note);
+  });
+  return res.status(200).json({ message, noteInfo: array });
+  /* 오프라인 테스트용 코드 종료 */
+
   //gpt 실행하기
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_BASE,
@@ -91,10 +132,31 @@ const notes = [
   ["Bb", "A#"],
   ["B"],
 ];
+
 const monsters = [
   /(?<![A-Za-z\d])([A-G](?:#|b)?\d-(?:\d+\/\d+|\d+))(?![A-Za-z\d])/g,
   /(?<![A-Za-z\d])([A-G](?:#|b)?\d(?:-\d+(?:\/\d+)?(?:-\d+(?:\.\d+)?)?)+)(?![A-Za-z\d])/g,
 ];
+
+function sharpToFlat(note: string) {
+  if (note.includes("#")) {
+    const scale = note.slice(0, 2);
+    const octav = note.slice(2, 3);
+    switch (scale) {
+      case "C#":
+        return "Db" + octav;
+      case "D#":
+        return "Eb" + octav;
+      case "F#":
+        return "Gb" + octav;
+      case "G#":
+        return "Ab" + (~~octav + 1).toString();
+      case "A#":
+        return "Bb" + octav;
+    }
+  }
+  return note;
+}
 
 function noteToInt(n) {
   const oct = parseInt(n.slice(-1));
@@ -118,9 +180,13 @@ function textToMid(responseMessage) {
     const n = i[1].split("-");
     //최대 16분음표까지 쓰도록 수정
     if (notationIndex) {
-      noteInfo.push([n[0], fraction(n[1]) * 16, parseFloat(n[2]) * 8]);
+      noteInfo.push([
+        sharpToFlat(n[0]),
+        fraction(n[1]) * 16,
+        parseFloat(n[2]) * 8,
+      ]);
     } else {
-      noteInfo.push([n[0], fraction(n[1])]) * 16; // note, duration
+      noteInfo.push([sharpToFlat(n[0]), fraction(n[1])]) * 16; // note, duration
     }
   }
   return noteInfo;

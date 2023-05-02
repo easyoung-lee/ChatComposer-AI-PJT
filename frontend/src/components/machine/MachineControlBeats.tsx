@@ -21,8 +21,8 @@ const MachineControlBeats = () => {
         <input
           type="number"
           name="beats"
-          min={1}
-          max={48}
+          min={4}
+          max={192}
           value={machineBeatsCountState}
           onChange={(e) => setMachineBeatsCountState(Number(e.target.value))}
           className="w-8 items-center mx-2 border-b-2 border-violetdark text-center bg-violetlight text-emerald"

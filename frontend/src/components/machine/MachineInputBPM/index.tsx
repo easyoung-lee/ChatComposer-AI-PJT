@@ -10,7 +10,7 @@ const MachineInputBPM = ({}) => {
     let newTempo = Number(e.target.value);
     if (newTempo > 220) newTempo = 220;
     else if (newTempo < 10) newTempo = 10;
-    Transport.bpm.value = newTempo;
+    Transport.bpm.value = newTempo * 4;
     setMachineTempoState(newTempo);
   };
   return (
