@@ -15,7 +15,7 @@ const MachineControlBeats = () => {
             className="bg-emerald rounded-full"
             size={28}
             color="purple"
-            onClick={() => setMachineBeatsCountState((state) => (state -= 1))}
+            onClick={() => setMachineBeatsCountState((state) => (state -= 4))}
           />
         </button>
         <input
@@ -32,7 +32,7 @@ const MachineControlBeats = () => {
             size={28}
             color="purple"
             className="bg-emerald rounded-full"
-            onClick={() => setMachineBeatsCountState((state) => (state += 1))}
+            onClick={() => setMachineBeatsCountState((state) => (state += 4))}
           />
         </button>
       </div>

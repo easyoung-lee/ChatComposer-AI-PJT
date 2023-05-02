@@ -4,6 +4,7 @@ import { useRecoilCallback } from "recoil";
 import noteRowActiveBeatsAtom from "../src/lib/store/noteRowActiveBeatsAtom";
 import Link from "next/link";
 import notesAtom from "../src/lib/store/notesAtom";
+import machineBeatsCount from "../src/lib/store/machineBeatsCount";
 
 const chat = () => {
   const ChatApi = axios.create();
@@ -24,6 +25,7 @@ const chat = () => {
 
   const setAllDone = useRecoilCallback(({ set }) => () => {
     let scaleSet = new Set();
+    let maxIndex = 0;
     // 배열의 각 요소에 대해
     notes.forEach((e) => {
       // 해당 id의 atom을 가져와서
@@ -40,6 +42,7 @@ const chat = () => {
 
       //악기를 사용하도록 집합에 추가
       scaleSet.add(note);
+      maxIndex = Math.max(maxIndex, index);
     });
 
     const scaleArray = Array.from(scaleSet);
@@ -50,6 +53,10 @@ const chat = () => {
         state[index] = { ...state[index], isActive: true };
       });
       return state;
+    });
+
+    set(machineBeatsCount, () => {
+      return maxIndex + 1 * 4;
     });
   });
 

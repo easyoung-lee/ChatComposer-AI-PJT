@@ -12,7 +12,8 @@ const NotesView = () => {
       <NoteRow synth={synth} index={index} key={Math.random()} note={note} />
     ));
   return (
-    <div className="flex-col border border-black rounded-lg bg-black w-full p-2">
+    //노트 갯수가 많을 때 스크롤 할 수 있도록
+    <div className="flex-col border border-black rounded-lg bg-black w-full p-2 overflow-x-scroll">
       {noteTable}
     </div>
   );
