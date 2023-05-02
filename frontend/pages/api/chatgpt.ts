@@ -96,7 +96,6 @@ C4-1/4-0, Eb4-1/8-2.5, D4-1/4-3, F4-1/4-3 etc.`;
       .catch((err) => console.log(JSON.stringify(err)));
   }
   //유저 프롬프트를 메시지 내역에 추가
-  console.log("유저프롬프트:", userPrompt);
   messages.push({ role: "user", content: userPrompt });
 
   //유처 프롬프트를 createChatCompletion에 넘겨서 결과를 받음.

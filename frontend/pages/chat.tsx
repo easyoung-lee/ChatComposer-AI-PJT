@@ -21,7 +21,9 @@ const chat = () => {
   ];
 
   const [notes, setNotes] = useState([]);
+
   const setAllDone = useRecoilCallback(({ set }) => () => {
+    let scaleSet = new Set();
     // 배열의 각 요소에 대해
     notes.forEach((e) => {
       // 해당 id의 atom을 가져와서
@@ -38,27 +40,17 @@ const chat = () => {
         return state;
       });
 
-      set(notesAtom, (prevNoteValues) => {
-        const index = prevNoteValues.findIndex(
-          (prevNote) => prevNote.note == note,
-        );
-        console.log(index);
-        return [
-          ...prevNoteValues.filter((prevNote) => {
-            // console.log(prevNote.note);
-            // console.log(note);
-            // console.log(prevNote.note != note);
-            return prevNote.note != note;
-          }),
-          {
-            note: note,
-            isActive: true,
-            frequency:
-              prevNoteValues.find((prevNote) => prevNote.note == note)
-                ?.frequency ?? 0,
-          },
-        ].sort((a, b) => a.frequency - b.frequency);
+      //악기를 사용하도록 집합에 추가
+      scaleSet.add(note);
+    });
+
+    const scaleArray = Array.from(scaleSet);
+    set(notesAtom, (notes) => {
+      const state = [...notes];
+      scaleArray.forEach((e, index) => {
+        state[index] = { ...state[index], isActive: true };
       });
+      return state;
     });
   });
 
