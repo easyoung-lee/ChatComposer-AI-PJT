@@ -30,3 +30,9 @@ export const todoListState = atom({
   // effects_UNSTABLE: [persistAtom],
   effects_UNSTABLE: [persistAtomEffect],
 });
+
+export const loginState = atom<boolean>({
+  key: 'loginState',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+})
