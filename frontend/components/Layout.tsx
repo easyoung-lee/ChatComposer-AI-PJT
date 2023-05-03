@@ -1,27 +1,33 @@
+import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
-import Sidebar from "../components/dashboard/sidebar";
-import Library from "../components/dashboard/library";
-import MusicPlayer from "../components/dashboard/musicPlayer";
+import Sidebar from "./dashboard/sidebar";
 
-function dashboard() {
+function Layout({ children }) {
+  const router = useRouter();
+  const excetionRoutes = ["/login", "/signup"];
+
+  //excetionRoutes 포함된 경로에서는 레이아웃 적용 안함
+  let isExcetion = false;
+  excetionRoutes.forEach((path) => {
+    if (router.pathname.startsWith(path)) isExcetion = true;
+  });
+  if (isExcetion) return children;
+
+  //그 외에는 레이아웃 적용
   return (
     // 대시보드 디자인 출처 : https://codepen.io/utbaz/pen/VwBWebL
     <StyledDashboardContainer>
+      {String(isExcetion)}
       <main className="mp_main relative -translate-x-2/4 -translate-y-2/4 w-[1300px] h-[860px] shadow-[4px_4px_50px_rgba(0,0,0,0.49)] backdrop-blur-[100px] z-[99] rounded-[20px] left-2/4 top-2/4 bg-black/50">
         <Sidebar />
-        <Library />
-        <MusicPlayer />
-        <small className="develop_by absolute bottom-[-60px] text-[15px] right-0">
-          Project by{" "}
-          <span className="develop_by_span text-xl font-black">Utba Zafar</span>
-        </small>
+        {children}
       </main>
     </StyledDashboardContainer>
   );
 }
 
-export default dashboard;
+export default Layout;
 
 export const StyledDashboardContainer = styled.div`
   @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
