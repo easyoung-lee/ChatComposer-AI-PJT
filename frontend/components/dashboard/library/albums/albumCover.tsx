@@ -36,6 +36,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 1,
     tags: ["사랑", "기쁨", "슬픔"],
     title: "10 new songs",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 2, nickname: "건전한닉네임" },
@@ -47,6 +48,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 2,
     tags: ["즐거움"],
     title: "20 new songs",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 1, nickname: "아무닉네임" },
@@ -58,6 +60,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 3,
     tags: ["개쩌는", "신나는"],
     title: "30 new songs",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 3, nickname: "스티브잡스" },
@@ -69,6 +72,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 4,
     tags: ["사랑", "슬픔"],
     title: "40 new songs",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 3, nickname: "스티브잡스" },
@@ -80,6 +84,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 5,
     tags: ["대충아무감정"],
     title: "50 new songs",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 1, nickname: "아무닉네임" },
@@ -91,6 +96,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 6,
     tags: ["사랑", "기쁨", "슬픔"],
     title: "10 new songs",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 2, nickname: "건전한닉네임" },
@@ -102,6 +108,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 7,
     tags: ["즐거움"],
     title: "20 new songs",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 1, nickname: "아무닉네임" },
@@ -113,6 +120,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 8,
     tags: ["개쩌는", "신나는"],
     title: "30 new songs",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 3, nickname: "스티브잡스" },
@@ -124,6 +132,7 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 9,
     tags: ["사랑", "슬픔"],
     title: "40 new songs",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 3, nickname: "스티브잡스" },
@@ -135,5 +144,6 @@ export const DummyCoversData: AlbumCoverType[] = [
     music_id: 10,
     tags: ["대충아무감정"],
     title: "50 new songs",
+    is_my_favorite: "y",
   },
 ];

@@ -24,7 +24,7 @@ function FavoriteSong({ song }: { song: AlbumCoverType }) {
 
 export default FavoriteSong;
 
-export const SongsDummyData = [
+export const SongsDummyData: AlbumCoverType[] = [
   {
     member: { member_id: 1, nickname: "AP Dhillon" },
     cover_source:
@@ -35,6 +35,7 @@ export const SongsDummyData = [
     music_id: 1,
     tags: ["사랑", "기쁨", "슬픔"],
     title: "Insane",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 2, nickname: "Travis Scott" },
@@ -46,6 +47,7 @@ export const SongsDummyData = [
     music_id: 2,
     tags: ["즐거움"],
     title: "Coordinate",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 3, nickname: "Krewella" },
@@ -57,6 +59,7 @@ export const SongsDummyData = [
     music_id: 3,
     tags: ["개쩌는", "신나는"],
     title: "Alive",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 4, nickname: "N.O.R.E" },
@@ -68,6 +71,7 @@ export const SongsDummyData = [
     music_id: 4,
     tags: ["사랑", "슬픔"],
     title: "Nothin'",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 5, nickname: "Drake" },
@@ -79,6 +83,7 @@ export const SongsDummyData = [
     music_id: 5,
     tags: ["대충아무감정"],
     title: "Rich Flex",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 6, nickname: "Bad Bunny" },
@@ -90,6 +95,7 @@ export const SongsDummyData = [
     music_id: 6,
     tags: ["아무감정"],
     title: "Efecto",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 1, nickname: "AP Dhillon" },
@@ -101,6 +107,7 @@ export const SongsDummyData = [
     music_id: 7,
     tags: ["사랑", "기쁨", "슬픔"],
     title: "Insane",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 2, nickname: "Travis Scott" },
@@ -112,6 +119,7 @@ export const SongsDummyData = [
     music_id: 8,
     tags: ["즐거움"],
     title: "Coordinate",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 3, nickname: "Krewella" },
@@ -123,6 +131,7 @@ export const SongsDummyData = [
     music_id: 9,
     tags: ["개쩌는", "신나는"],
     title: "Alive",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 4, nickname: "N.O.R.E" },
@@ -134,6 +143,7 @@ export const SongsDummyData = [
     music_id: 10,
     tags: ["사랑", "슬픔"],
     title: "Nothin'",
+    is_my_favorite: "y",
   },
   {
     member: { member_id: 5, nickname: "Drake" },
@@ -145,6 +155,7 @@ export const SongsDummyData = [
     music_id: 11,
     tags: ["대충아무감정"],
     title: "Rich Flex",
+    is_my_favorite: "n",
   },
   {
     member: { member_id: 6, nickname: "Bad Bunny" },
@@ -156,5 +167,6 @@ export const SongsDummyData = [
     music_id: 12,
     tags: ["아무감정"],
     title: "Efecto",
+    is_my_favorite: "y",
   },
 ];
