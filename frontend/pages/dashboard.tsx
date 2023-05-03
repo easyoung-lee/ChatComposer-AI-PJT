@@ -52,4 +52,13 @@ export const StyledDashboardContainer = styled.div`
   .custom_scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.321);
   }
+  .custom_scrollbar_x::-webkit-scrollbar {
+    height: 10px;
+  }
+  .custom_scrollbar_x::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.33);
+  }
+  .custom_scrollbar_x::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.321);
+  }
 `;

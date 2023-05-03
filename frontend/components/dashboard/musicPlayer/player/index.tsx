@@ -1,20 +1,28 @@
 import React from "react";
+import { SongsDummyData } from "../../library/favorite/favoriteSong";
 
 function Player() {
+  const song = SongsDummyData[3];
+  const {
+    title,
+    member: { nickname },
+    cover_source: coverSource,
+  } = song;
+
   return (
     <div className="mp_playlist_player absolute h-60 w-[90%] shadow-[0_0_20px_rgb(0,0,0)] transition-[0.2s] duration-[ease-in-out] rounded-[10px] left-[17px] bottom-5 bg-black/20 hover:cursor-pointer  hover:scale-[1.02]">
       <img
-        src="https://images.unsplash.com/photo-1499424017184-418f6808abf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
+        src={coverSource}
         alt=""
         className="mp_playlist_player_img relative w-full h-full rounded-[10px]"
       />
       <div className="mp_playlist_controller absolute w-full h-3/6 bg-[#0000007b] backdrop-blur-[10px] flex flex-col items-center justify-center gap-[15px] rounded-[0_0_10px_10px] left-0 bottom-0">
         <div className="mp_playlist_control_song flex flex-col justify-center items-center">
           <h4 className="mp_playlist_control_song_h4 text-xl text-white">
-            Unknown
+            {title}
           </h4>
           <p className="mp_playlist_control_song_p text-[15px] text-[rgb(152,152,152)]">
-            Sample
+            {nickname}
           </p>
         </div>
         <div className="mp_playlist_control flex justify-center items-center gap-10">
