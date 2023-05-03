@@ -2,7 +2,7 @@ import { atom } from "recoil";
 
 const machineBeatsCount = atom({
   key: "beats",
-  default: 8,
+  default: 64,
 });
 
 export default machineBeatsCount;

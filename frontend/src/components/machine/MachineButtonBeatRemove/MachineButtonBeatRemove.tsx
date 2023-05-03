@@ -5,7 +5,7 @@ import MachineButton from "../MachineButton/MachineButton";
 const MachineButtonBeatRemove = () => {
   const setMachineBeatsCountState = useSetRecoilState(machineBeatsCount);
   const handleAddBeat = () => {
-    setMachineBeatsCountState((state) => (state -= 1));
+    setMachineBeatsCountState((state) => (state -= 4));
   };
   return (
     <MachineButton clickHandler={handleAddBeat}>Remove Beat</MachineButton>

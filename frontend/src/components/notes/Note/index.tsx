@@ -13,7 +13,7 @@ export interface NoteProps {
   indexRow: number;
   synth: PolySynth;
 }
-
+//GPT노트추가하는로직임
 const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   const [activeNotes, setActiveNotes] = useRecoilState(
     // try to replace this atom with
@@ -22,7 +22,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
     // its own index and the row index {noteIndex: x, rowIndex: y}
     // then use a selector to collect all the notes and create
     // an array of active note outside of this component
-    noteRowActiveBeatsAtom(note.note)
+    noteRowActiveBeatsAtom(note.note),
   );
   const noteIsActiveState = useRecoilValue(noteIsActive(index));
   const machineIsOnState = useRecoilValue(machineIsOnAtom);
@@ -50,6 +50,8 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
   ]);
 
   const handleUpdateIsActive = () => {
+    // alert(JSON.stringify({ note, indexRow, index }));
+    // {"note":{"note":"g3","frequency":196,"isActive":true},"indexRow":4,"index":4}
     const state = [...activeNotes];
     state[index] = !activeNotes[index];
     setActiveNotes([...state]);
@@ -61,7 +63,7 @@ const Note = ({ synth, note, indexRow, index }: NoteProps) => {
 
   return (
     <button
-      className={`border rounded-lg border-black hover:brightness-150 transition-all  m-px w-full ${
+      className={`border rounded-lg border-black hover:brightness-150 transition-all  m-px w-full min-w-[15px] ${
         activeNotes[index] ? styleActive : styleInactive
       } ${noteIsActiveState ? styleCurrentBeat : null}`}
       onClick={handleUpdateIsActive}

@@ -15,7 +15,7 @@ const NotesView = dynamic(
 );
 const Sequencer = () => {
   return (
-    <div className="w-[360px]">
+    <div className="">
       <Suspense>
         <Machine />
         <NotesView />
