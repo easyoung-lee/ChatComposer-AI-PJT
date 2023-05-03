@@ -1,4 +1,4 @@
-
+// 구글 로그인만 남겨둘 예정
 export default function Login() {
   return (
     <div>
