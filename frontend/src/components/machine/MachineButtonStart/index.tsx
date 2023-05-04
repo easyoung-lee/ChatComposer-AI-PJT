@@ -4,7 +4,7 @@ import currentBeatAtom from "../../../lib/store/currentBeatAtom";
 import machineBeatsCount from "../../../lib/store/machineBeatsCount";
 import machineIsOnAtom from "../../../lib/store/machineIsOnAtom";
 import MachineButton from "../MachineButton/MachineButton";
-import { PlayerPlay, PlayerStop } from "tabler-icons-react";
+import { IconPlayerPlay, IconPlayerStop } from "@tabler/icons-react";
 
 const MachineButtonStart = () => {
   const [machineIsOn, setMachineIsOn] = useRecoilState(machineIsOnAtom);
@@ -31,7 +31,7 @@ const MachineButtonStart = () => {
           updateBeat();
         },
         "4n",
-        "0:1:0"
+        "0:1:0",
       );
       Tone.start();
       Tone.Transport.start();
@@ -41,7 +41,7 @@ const MachineButtonStart = () => {
 
   return (
     <MachineButton clickHandler={handleMachinePlay}>
-      {machineIsOn ? <PlayerStop /> : <PlayerPlay />}
+      {machineIsOn ? <IconPlayerStop /> : <IconPlayerPlay />}
     </MachineButton>
   );
 };

@@ -13,20 +13,29 @@ import NoteControls from "../NoteControls";
 
 const NoteRow = ({ synth, note, index: indexRow }: NoteRowProps) => {
   const activeNotes = useRecoilValue(activeNotesState(note.note));
-  const notes = activeNotes.map((isActive, index) => (
-    <Note
-      key={Math.random()}
-      synth={synth}
-      indexRow={indexRow}
-      index={index}
-      note={note}
-    />
-  ));
+  // const notes = activeNotes.map((isActive, index) => (
+  //   <Note
+  //     key={Math.random()}
+  //     synth={synth}
+  //     indexRow={indexRow}
+  //     index={index}
+  //     note={note}
+  //   />
+  // ));
 
   return (
     <div className="flex w-full h-12">
       <NoteControls note={note} synth={synth} />
-      {notes}
+      {/* {notes} */}
+      {activeNotes.map((isActive, index) => (
+        <Note
+          key={Math.random()}
+          synth={synth}
+          indexRow={indexRow}
+          index={index}
+          note={note}
+        />
+      ))}
     </div>
   );
 };
