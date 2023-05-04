@@ -5,7 +5,8 @@ import Sidebar from "./dashboard/sidebar";
 
 function Layout({ children }) {
   const router = useRouter();
-  const excetionRoutes = ["/login", "/signup"];
+  // const excetionRoutes = ["/login", "/signup"];
+  const excetionRoutes = ["/loggin"];
 
   //excetionRoutes 포함된 경로에서는 레이아웃 적용 안함
   let isExcetion = false;
