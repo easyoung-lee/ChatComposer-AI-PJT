@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   IconBrandDeezer,
   IconLogout,
+  IconMusic,
   IconPlaylist,
   IconPlus,
   IconSearch,
@@ -51,12 +52,17 @@ function Sidebar() {
           </Tab>
           <Tab>
             <Link href="/sequencer" prefetch={true} className={opacities[1]}>
-              <IconPlus className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125 text-white" />
+              <IconMusic className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125 text-white" />
             </Link>
           </Tab>
           <Tab>
             <Link href="/chat" className={opacities[2]}>
               <IconUserCircle className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125 text-white" />
+            </Link>
+          </Tab>
+          <Tab>
+            <Link href="/produce" className={opacities[2]}>
+              <IconPlus className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125 text-white" />
             </Link>
           </Tab>
           <Tab>

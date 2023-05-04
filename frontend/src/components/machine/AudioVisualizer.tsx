@@ -34,7 +34,7 @@ const defaultData = [
   { name: 15, value: -150 },
 ];
 
-const AudioVisualizer = () => {
+const AudioVisualizer = ({ height = 0 }) => {
   const [data, setData] = useState<AudioVisualizerData[]>(defaultData);
   const machineIsOn = useRecoilValue(machineIsOnAtom);
 
@@ -63,8 +63,12 @@ const AudioVisualizer = () => {
     }
   }, [machineIsOn]);
   return (
-    <div className="w-full max-w-2xl p-1 sm:h-52 md:h-44 lg:h-60 md:p-4 lg:p-8">
-      <ResponsiveContainer width="100%" height={200}>
+    <div
+      className={`w-full max-w-2xl p-1 md:p-4 lg:p-8 ${
+        height ? height : "sm:h-52 md:h-44 lg:h-60"
+      }`}
+    >
+      <ResponsiveContainer width="100%" height={height ? height : 200}>
         <LineChart data={data as any}>
           <CartesianGrid
             horizontal={false}
