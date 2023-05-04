@@ -42,7 +42,8 @@ const AudioVisualizer = () => {
     if (machineIsOn) {
       const analyser = new Analyser("fft", 16);
       Destination.connect(analyser);
-      Transport.bpm.value = 120 * 4;
+      // Transport.bpm.value = 120 * 4; //16분음표
+      Transport.bpm.value = 120; //4분음표
       Transport.scheduleRepeat(
         () => {
           const frequencyData = analyser.getValue();

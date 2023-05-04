@@ -25,11 +25,13 @@ const chat = () => {
 
   const setAllDone = useRecoilCallback(({ set }) => () => {
     let scaleSet = new Set();
-    let maxIndex = 0;
+    let lastIndex = 1;
+
     // 배열의 각 요소에 대해
     notes.forEach((e) => {
       // 해당 id의 atom을 가져와서
       const note = e[0].toLowerCase();
+      const length = e[1];
       const index = e[2];
       const activeNotes = noteRowActiveBeatsAtom(note);
 
@@ -42,7 +44,7 @@ const chat = () => {
 
       //악기를 사용하도록 집합에 추가
       scaleSet.add(note);
-      maxIndex = Math.max(maxIndex, index);
+      lastIndex = Math.max(lastIndex, index + length);
     });
 
     const scaleArray = Array.from(scaleSet);
@@ -56,7 +58,10 @@ const chat = () => {
     });
 
     set(machineBeatsCount, () => {
-      return maxIndex + 1 * 4;
+      // return maxIndex + 1 * 4;//16분음표
+      //4분 음표
+      // return maxIndex + 1;
+      return lastIndex;
     });
   });
 
