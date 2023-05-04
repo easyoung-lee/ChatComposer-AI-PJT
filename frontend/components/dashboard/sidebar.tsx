@@ -1,4 +1,6 @@
 import React from "react";
+import { Tab } from "@headlessui/react";
+import Link from "next/link";
 
 function Sidebar() {
   return (
@@ -9,6 +11,19 @@ function Sidebar() {
           src="https://cdn-icons-png.flaticon.com/512/3293/3293810.png"
         />
       </div>
+      <Tab.Group vertical>
+        <Tab.List className="sidebar_menu flex flex-col gap-[30px] flex-[1]">
+          <Tab className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125">
+            <Link href="/">Tab 1</Link>
+          </Tab>
+          <Tab>
+            <Link href="/sequencer">Tab 2</Link>
+          </Tab>
+          <Tab>
+            <Link href="/chat">Tab 3</Link>
+          </Tab>
+        </Tab.List>
+      </Tab.Group>
       <div className="sidebar_menu flex flex-col gap-[30px] flex-[1]">
         <img
           className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125"
