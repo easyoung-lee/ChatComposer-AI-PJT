@@ -1,50 +1,22 @@
-// import { ApiMock } from "../../src/utils/customApi";
-// import Api from "../../src/utils/customApi"
+import axios from "axios"
 
-interface CoverResponse {
-  cover: Uint8Array;
+
+interface CoverRequest {
+  coverRequest: string;
 }
 
-export async function getCover(
-  coverRequest: string,
-): Promise<CoverResponse | undefined> {
-  try {
-    const response = await ApiMock.get(`/produce/cover?cover-request=${coverRequest}`, {
-      responseType: "arraybuffer", // byte[]를 가져오기 위해 responseType을 지정
-    });
-    return {
-      cover: new Uint8Array(response.data),
-    };
-  } catch (error) {
-    console.error(error);
-  }
+export async function getAlbumCover(coverRequest: string): Promise<Buffer> {
+  const url = `/produce/cover`;
+  const params: CoverRequest = { coverRequest };
+  const response = await axios.get<ArrayBuffer>(url, { params, responseType: 'arraybuffer' });
+  return Buffer.from(response.data);
 }
 
-interface PostCoverResponse {
-  msg: string;
-  cover_source?: string;
-}
 
-export async function postCover(
-  coverFile: File,
-): Promise<PostCoverResponse> {
-  try {
-    const formData = new FormData();
-    formData.append('cover', coverFile);
-
-    const response = await ApiMock.post<PostCoverResponse>(
-      '/api/produce/cover',
-      formData,
-    );
-
-    return {
-      msg: response.data.msg,
-      cover_source: response.data.cover_source,
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      msg: '앨범 커버 저장에 실패했습니다.',
-    };
-  }
+export async function saveAlbumCover(cover: File): Promise<string> {
+  const url = `/produce/cover`;
+  const formData = new FormData();
+  formData.append('cover', cover, cover.name); 
+  const response = await axios.post(url, formData);
+  return response.data.cover_source;
 }
