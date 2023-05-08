@@ -108,10 +108,10 @@ function PianoTransport({ notes }) {
   const onClickHandler = () => {
     console.log("온클릭!!");
     const now = Tone.now();
+    Tone.Transport.bpm.value = 100;
     notes.forEach((e) => {
-      piano.triggerAttackRelease(e[0], e[1] * 4, now + e[2]);
+      piano.triggerAttackRelease(e[0], e[1], now + e[2]);
     });
-    Tone.Transport.bpm.value = 120;
   };
 
   // const map = {};
