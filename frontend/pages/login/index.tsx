@@ -1,11 +1,9 @@
-import React from 'react';
-import GoogleAuth from './googleauth';
+import GoogleLoginButton from '../../components/GoogleLoginButton';
 
 const LoginPage = () => {
   return (
     <div>
-      <h1>Login Page</h1>
-      <GoogleAuth />
+      <GoogleLoginButton />
     </div>
   );
 };
