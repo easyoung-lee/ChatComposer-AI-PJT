@@ -12,3 +12,5 @@ export interface AlbumCoverType {
   create_at: number;
   cover_source: string;
 }
+
+declare module ".*mp3";

@@ -10,46 +10,57 @@ export default async function handler(
   const method = req.method;
   if (method !== "POST") return;
 
-  // /* 오프라인 테스트용 코드 */
-  // const message = {
-  //   role: "assistant",
-  //   content:
-  //     "F#4-1/4-0, G#4-1/8-0.5, F#4-1/8-1, G#4-1/8-1.5, F#4-1/8-2, G#4-1/8-2.5, F#4-1/8-3, G#4-1/8-3.5, F#4-1/8-4, G#4-1/8-4.5, F#4-1/8-5, G#4-1/8-5.5, F#4-1/8-6, G#4-1/8-6.5, F#4-1/4-7, G#4-1/8-7.5, F#4-1/8-8, G#4-1/8-8.5, A4-1/8-9, B4-1/8-9.5, C#5-1/4-10, C#5-1/4-10.5, B4-1/4-11, A4-1/4-11.5, G#4-1/2-12.",
-  // };
-  // const array = [
-  //   ["F#4", 4, 0],
-  //   ["G#4", 2, 4],
-  //   ["F#4", 2, 8],
-  //   ["G#4", 2, 12],
-  //   ["F#4", 2, 16],
-  //   ["G#4", 2, 20],
-  //   ["F#4", 2, 24],
-  //   ["G#4", 2, 28],
-  //   ["F#4", 2, 32],
-  //   ["G#4", 2, 36],
-  //   ["F#4", 2, 40],
-  //   ["G#4", 2, 44],
-  //   ["F#4", 2, 48],
-  //   ["G#4", 2, 52],
-  //   ["F#4", 4, 56],
-  //   ["G#4", 2, 60],
-  //   ["F#4", 2, 64],
-  //   ["G#4", 2, 68],
-  //   ["A4", 2, 72],
-  //   ["B4", 2, 76],
-  //   ["C#5", 4, 80],
-  //   ["C#5", 4, 84],
-  //   ["B4", 4, 88],
-  //   ["A4", 4, 92],
-  //   ["G#4", 8, 96],
-  // ];
+  /* 오프라인 테스트용 코드 */
+  const message = {
+    role: "assistant",
+    content:
+      "F#4-1/4-0, G#4-1/8-0.5, F#4-1/8-1, G#4-1/8-1.5, F#4-1/8-2, G#4-1/8-2.5, F#4-1/8-3, G#4-1/8-3.5, F#4-1/8-4, G#4-1/8-4.5, F#4-1/8-5, G#4-1/8-5.5, F#4-1/8-6, G#4-1/8-6.5, F#4-1/4-7, G#4-1/8-7.5, F#4-1/8-8, G#4-1/8-8.5, A4-1/8-9, B4-1/8-9.5, C#5-1/4-10, C#5-1/4-10.5, B4-1/4-11, A4-1/4-11.5, G#4-1/2-12.",
+  };
+  const array = [
+    ["G3", 0.25, 0],
+    ["D4", 0.25, 2],
+    ["G4", 0.25, 3],
+    ["Bb4", 0.25, 4],
+    ["G4", 0.25, 5],
+    ["D4", 0.25, 6],
+    ["G3", 0.25, 8],
+    ["D4", 0.25, 10],
+    ["G4", 0.25, 11],
+    ["Bb4", 0.25, 12],
+    ["G4", 0.25, 13],
+    ["D4", 0.25, 14],
+    ["G2", 0.25, 0],
+    ["D3", 0.25, 2],
+    ["G3", 0.25, 3],
+    ["Bb3", 0.25, 4],
+    ["G3", 0.25, 5],
+    ["D3", 0.25, 6],
+    ["G2", 0.25, 8],
+    ["D3", 0.25, 10],
+    ["G3", 0.25, 11],
+    ["Bb3", 0.25, 12],
+    ["G3", 0.25, 13],
+    ["D3", 0.25, 14],
+    ["G3", 0.25, 0],
+    ["Bb3", 0.25, 1],
+    ["D4", 0.25, 2],
+    ["G4", 0.25, 3],
+    ["G3", 0.25, 5],
+    ["Bb3", 0.25, 6],
+    ["D4", 0.25, 7],
+    ["G4", 0.25, 8],
+    ["G3", 0.25, 10],
+    ["Bb3", 0.25, 11],
+    ["D4", 0.25, 12],
+    ["G4", 0.25, 13],
+  ];
 
-  // array.forEach((e) => {
-  //   const note = e[0] as string;
-  //   e[0] = sharpToFlat(note);
-  // });
-  // return res.status(200).json({ message, noteInfo: array });
-  // /* 오프라인 테스트용 코드 종료 */
+  array.forEach((e) => {
+    const note = e[0] as string;
+    e[0] = sharpToFlat(note);
+  });
+  return res.status(200).json({ message, noteInfo: array });
+  /* 오프라인 테스트용 코드 종료 */
 
   //gpt 실행하기
   const configuration = new Configuration({
@@ -117,7 +128,8 @@ TRACKNUMBER3 piano : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc.`;
 
   //응답 결과의 쌍으로 '{role, content}'의 형태임
   const responseMessage = response.data.choices[0].message;
-  const noteInfo = floatToInt(textToMid(responseMessage));
+  // const noteInfo = floatToInt(textToMid(responseMessage));
+  const noteInfo = textToMid(responseMessage);
   res.status(200).json({ message: response.data.choices[0].message, noteInfo });
 }
 
@@ -192,11 +204,12 @@ function textToMid(responseMessage) {
       //   parseFloat(n[2]) * 8,
       // ]);
       //4분음표를 쓰도록 수정
-      noteInfo.push([
-        sharpToFlat(n[0]),
-        fraction(n[1]) * 2,
-        parseFloat(n[2]) * 2,
-      ]);
+      // noteInfo.push([
+      //   sharpToFlat(n[0]),
+      //   fraction(n[1]) * 2,
+      //   parseFloat(n[2]) * 2,
+      // ]);
+      noteInfo.push([sharpToFlat(n[0]), fraction(n[1]), parseFloat(n[2])]);
     } else {
       // noteInfo.push([sharpToFlat(n[0]), fraction(n[1])]) * 16; // note, duration
       noteInfo.push([sharpToFlat(n[0]), fraction(n[1])]) * 2;
