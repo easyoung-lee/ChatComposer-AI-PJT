@@ -70,18 +70,18 @@ export default async function handler(
   const openai = new OpenAIApi(configuration);
 
   //시스템 프롬프트와 유저 프롬프트 넣기
-  //   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
-  // you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
-  // Notation looks like this using quaver and keep the form:
-  // (Note-duration-time in beats)
-  // C4-2/8-0, Eb4-1/8-2.5, D4-2/8-3, F4-2/8-3 etc.`;\
   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
-you return them a song showing the notes, durations, and times that they occur. Respond with just the music. Music has three instruments - guitar, bass, piano
-Notation looks like and keep the form. Use quarter note only!:
-(Note-duration-time in beats)
-TRACKNUMBER1 guitar : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc
-TRACKNUMBER2 bass : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc
-TRACKNUMBER3 piano : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc.`;
+  you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
+  Plan out the structure beforehand. Notation looks like this using quaver and keep the form:
+  (Note-duration-time in beats)
+  C4-2/8-0, Eb4-1/8-2.5, D4-2/8-3, F4-2/8-3 etc.`;
+  //   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
+  // you return them a song showing the notes, durations, and times that they occur. Respond with just the music. Music has three instruments - guitar, bass, piano
+  // Notation looks like and keep the form. Use quarter note only!:
+  // (Note-duration-time in beats)
+  // TRACKNUMBER1 guitar : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc
+  // TRACKNUMBER2 bass : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc
+  // TRACKNUMBER3 piano : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc.`;
 
   //시스템 프롬프트의 기본값입니다
   const messages: ChatCompletionRequestMessage[] = [
@@ -131,8 +131,28 @@ TRACKNUMBER3 piano : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc.`;
   // const noteInfo = floatToInt(textToMid(responseMessage));
   const noteInfo = textToMid(responseMessage);
   // console.log(response.data.choices[0].message);
-  res.status(200).json({ message: response.data.choices[0].message, noteInfo });
+  // console.log(JSON.stringify({ message: responseMessage, noteInfo }));
+  // console.log(
+  //   JSON.stringify({
+  //     prev: [{ role: "user", content: userPrompt }, { ...responseMessage }],
+  //     noteInfo,
+  //   }),
+  // );
+  // res.status(200).json({ message: responseMessage, noteInfo });
+
+  const prompt: ChatGPTPromptType = [
+    { role: "user", content: userPrompt },
+    { ...responseMessage },
+  ];
+  if (prevData) prompt.unshift(...prevData);
+  // console.log(JSON.stringify(res));
+  res.status(200).json({
+    prompt,
+    noteInfo,
+  });
 }
+
+export type ChatGPTPromptType = { role: string; content: string }[];
 
 //파이썬으로 이용하기 https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/chatgpt?pivots=programming-language-chat-completions
 //next.js chatgptui https://github.com/nemoteric/GPT-4-Chat-UI

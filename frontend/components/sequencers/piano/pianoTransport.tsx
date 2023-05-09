@@ -158,7 +158,7 @@ function PianoTransport({ notes }) {
     notes.forEach((e) => {
       // Tone.Transport.start();
       cello.triggerAttackRelease(e[0], e[1], now + e[2]);
-      piano.triggerAttackRelease(e[0], e[1], now + e[2]);
+      // piano.triggerAttackRelease(e[0], e[1], now + e[2]);
     });
   };
 
