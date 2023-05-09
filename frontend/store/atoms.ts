@@ -32,7 +32,12 @@ export const todoListState = atom({
 });
 
 export const loginState = atom<boolean>({
-  key: 'loginState',
+  key: "loginState",
   default: false,
   effects_UNSTABLE: [persistAtom],
-})
+});
+
+export const tracksState = atom<number[]>({
+  key: "tracksState",
+  default: [],
+});
