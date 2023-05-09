@@ -130,7 +130,7 @@ TRACKNUMBER3 piano : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc.`;
   const responseMessage = response.data.choices[0].message;
   // const noteInfo = floatToInt(textToMid(responseMessage));
   const noteInfo = textToMid(responseMessage);
-  console.log(response.data.choices[0].message);
+  // console.log(response.data.choices[0].message);
   res.status(200).json({ message: response.data.choices[0].message, noteInfo });
 }
 
@@ -157,20 +157,37 @@ const monsters = [
 ];
 
 function sharpToFlat(note: string) {
-  if (note.includes("#")) {
+  // if (note.includes("#")) {
+  //   const scale = note.slice(0, 2);
+  //   const octav = note.slice(2, 3);
+  //   switch (scale) {
+  //     case "C#":
+  //       return "Db" + octav;
+  //     case "D#":
+  //       return "Eb" + octav;
+  //     case "F#":
+  //       return "Gb" + octav;
+  //     case "G#":
+  //       return "Ab" + (~~octav + 1).toString();
+  //     case "A#":
+  //       return "Bb" + octav;
+  //   }
+  // }
+  //플랫일때 샾으로 바꾸도록 변경
+  if (note.includes("b")) {
     const scale = note.slice(0, 2);
     const octav = note.slice(2, 3);
     switch (scale) {
-      case "C#":
-        return "Db" + octav;
-      case "D#":
-        return "Eb" + octav;
-      case "F#":
-        return "Gb" + octav;
-      case "G#":
-        return "Ab" + (~~octav + 1).toString();
-      case "A#":
-        return "Bb" + octav;
+      case "Db":
+        return "C#" + octav;
+      case "Eb":
+        return "D#" + octav;
+      case "Gb":
+        return "F#" + octav;
+      case "Ab":
+        return "G#" + (~~octav - 1).toString();
+      case "Bb":
+        return "A#" + octav;
     }
   }
   return note;

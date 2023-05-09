@@ -1,15 +1,36 @@
-import React, { useEffect, useState } from "react";
-import * as Tone from "tone";
+export const InstrumentsMap = {
+  "bass-electric": "베이스",
+  cello: "첼로",
+  "guitar-acoustic": "어쿠스틱 기타",
+  "guitar-electric": "전자 기타",
+  piano: "피아노",
+};
 
-function PianoTransport({ notes }) {
-  const [loaded, setLoaded] = useState(false);
-  const [celloLoaded, setCelloLoaded] = useState(false);
-  // const synth = new Tone.Synth().toDestination();
-  // const polySynth = new Tone.PolySynth().toDestination();
-  // new Tone.Buffer("path/to/sound.[mp3|ogg|wav]")
-  // useEffect(() => {
+export const InstrumentsMapEntries = Object.entries(InstrumentsMap);
 
-  const cello = new Tone.Sampler({
+export const InstrumentsUrl = {
+  "bass-electric": {
+    urls: {
+      "A#1": "As1.[mp3|ogg]",
+      "A#2": "As2.[mp3|ogg]",
+      "A#3": "As3.[mp3|ogg]",
+      "A#4": "As4.[mp3|ogg]",
+      "C#1": "Cs1.[mp3|ogg]",
+      "C#2": "Cs2.[mp3|ogg]",
+      "C#3": "Cs3.[mp3|ogg]",
+      "C#4": "Cs4.[mp3|ogg]",
+      E1: "E1.[mp3|ogg]",
+      E2: "E2.[mp3|ogg]",
+      E3: "E3.[mp3|ogg]",
+      E4: "E4.[mp3|ogg]",
+      G1: "G1.[mp3|ogg]",
+      G2: "G2.[mp3|ogg]",
+      G3: "G3.[mp3|ogg]",
+      G4: "G4.[mp3|ogg]",
+    },
+    baseUrl: "/samples/bass-electric/",
+  },
+  cello: {
     urls: {
       E3: "E3.[mp3|ogg]",
       E4: "E4.[mp3|ogg]",
@@ -47,13 +68,72 @@ function PianoTransport({ notes }) {
       E2: "E2.[mp3|ogg]",
     },
     baseUrl: "/samples/cello/",
-    onload: () => {
-      setCelloLoaded(true);
-      cello.toDestination();
+  },
+  "guitar-acoustic": {
+    urls: {
+      F4: "F4.[mp3|ogg]",
+      "F#2": "Fs2.[mp3|ogg]",
+      "F#3": "Fs3.[mp3|ogg]",
+      "F#4": "Fs4.[mp3|ogg]",
+      G2: "G2.[mp3|ogg]",
+      G3: "G3.[mp3|ogg]",
+      G4: "G4.[mp3|ogg]",
+      "G#2": "Gs2.[mp3|ogg]",
+      "G#3": "Gs3.[mp3|ogg]",
+      "G#4": "Gs4.[mp3|ogg]",
+      A2: "A2.[mp3|ogg]",
+      A3: "A3.[mp3|ogg]",
+      A4: "A4.[mp3|ogg]",
+      "A#2": "As2.[mp3|ogg]",
+      "A#3": "As3.[mp3|ogg]",
+      "A#4": "As4.[mp3|ogg]",
+      B2: "B2.[mp3|ogg]",
+      B3: "B3.[mp3|ogg]",
+      B4: "B4.[mp3|ogg]",
+      C3: "C3.[mp3|ogg]",
+      C4: "C4.[mp3|ogg]",
+      C5: "C5.[mp3|ogg]",
+      "C#3": "Cs3.[mp3|ogg]",
+      "C#4": "Cs4.[mp3|ogg]",
+      "C#5": "Cs5.[mp3|ogg]",
+      D2: "D2.[mp3|ogg]",
+      D3: "D3.[mp3|ogg]",
+      D4: "D4.[mp3|ogg]",
+      D5: "D5.[mp3|ogg]",
+      "D#2": "Ds2.[mp3|ogg]",
+      "D#3": "Ds3.[mp3|ogg]",
+      "D#4": "Ds3.[mp3|ogg]",
+      E2: "E2.[mp3|ogg]",
+      E3: "E3.[mp3|ogg]",
+      E4: "E4.[mp3|ogg]",
+      F2: "F2.[mp3|ogg]",
+      F3: "F3.[mp3|ogg]",
     },
-  });
-
-  const piano = new Tone.Sampler({
+    baseUrl: "/samples/guitar-acoustic/",
+  },
+  "guitar-electric": {
+    urls: {
+      "D#3": "Ds3.[mp3|ogg]",
+      "D#4": "Ds4.[mp3|ogg]",
+      "D#5": "Ds5.[mp3|ogg]",
+      E2: "E2.[mp3|ogg]",
+      "F#2": "Fs2.[mp3|ogg]",
+      "F#3": "Fs3.[mp3|ogg]",
+      "F#4": "Fs4.[mp3|ogg]",
+      "F#5": "Fs5.[mp3|ogg]",
+      A2: "A2.[mp3|ogg]",
+      A3: "A3.[mp3|ogg]",
+      A4: "A4.[mp3|ogg]",
+      A5: "A5.[mp3|ogg]",
+      C3: "C3.[mp3|ogg]",
+      C4: "C4.[mp3|ogg]",
+      C5: "C5.[mp3|ogg]",
+      C6: "C6.[mp3|ogg]",
+      "C#2": "Cs2.[mp3|ogg]",
+    },
+    baseUrl: "/samples/guitar-electric/",
+  },
+  piano: {
     urls: {
       A7: "A7.[mp3|ogg]",
       A1: "A1.[mp3|ogg]",
@@ -141,70 +221,5 @@ function PianoTransport({ notes }) {
       "G#6": "Gs6.[mp3|ogg]",
     },
     baseUrl: "/samples/piano/",
-    onload: () => {
-      setLoaded(true);
-      console.log("하이");
-      piano.toDestination();
-
-      // piano.triggerAttack("A3");
-    },
-  });
-  // }, []);
-
-  const onClickHandler = () => {
-    console.log("온클릭!!");
-    const now = Tone.now();
-    Tone.Transport.bpm.value = 100;
-    notes.forEach((e) => {
-      // Tone.Transport.start();
-      cello.triggerAttackRelease(e[0], e[1], now + e[2]);
-      piano.triggerAttackRelease(e[0], e[1], now + e[2]);
-    });
-  };
-
-  // const map = {};
-  // //["G3", 0.25, 0],
-  // notes.forEach((e) => {
-  //   if (map[e[2]]) {
-  //     map[e[2]].push(e[0]);
-  //   } else {
-  //     map[e[2]] = [e[0]];
-  //   }
-  // });
-
-  // const notesEntries = Object.entries(map);
-
-  // useEffect(() => {
-  //   console.log(pianoLoaded);
-  //   if (!pianoLoaded) return;
-
-  //   testNotes.forEach((e) => {
-  //     // console.log(JSON.stringify(e));
-  //     // piano.triggerAttackRelease(e[0], e[1], e[2]);
-  //     // polySynth.triggerAttackRelease(e[0], e[1], e[2]);
-  //   });
-
-  //   Tone.Transport.bpm.value = 120;
-  // }, [pianoLoaded]);
-
-  return (
-    <div>
-      {JSON.stringify(notes)}{" "}
-      {loaded && celloLoaded ? (
-        <div
-          onClick={() => {
-            // piano.triggerAttack("A3");
-            console.log(JSON.stringify(notes));
-            onClickHandler();
-          }}
-        >
-          실행하기
-        </div>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
-}
-
-export default PianoTransport;
+  },
+};
