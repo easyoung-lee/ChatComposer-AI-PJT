@@ -1,4 +1,4 @@
-import { AtomEffect, atom, useSetRecoilState } from "recoil";
+import { AtomEffect, atom, atomFamily, useSetRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { Todo } from "../types/todos";
 
@@ -37,7 +37,36 @@ export const loginState = atom<boolean>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const tracksState = atom<number[]>({
-  key: "tracksState",
-  default: [],
+export const trackAtomFamily = atomFamily({
+  key: "trackAtomFamily",
+  default: (id) => ({
+    id,
+    midi_description: "",
+    musical_instrument: "",
+    request_description: "",
+    response_description: "",
+    transfer_date: "",
+  }),
+});
+
+export const producingMusicState = atom({
+  key: "producingMusicState",
+  default: {
+    title: null as string, //음악 제목
+    tags: null as string[],
+    decription: null as string, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
+    genre: null as number,
+    beat: null as number,
+    created_at: null as number,
+    //미디
+    music_source: null as string, //미디 원음 wav의 url
+
+    //리퓨전
+    mixed_music_request: null as string, //리퓨전에 쓰인 프롬프트
+    mixed_music_source: null as string, //리퓨전으로 합성된 wav의 url
+
+    //앨범
+    cover_request: null as string, //앨범 커버 얻을 때 쓴 키워드
+    cover_source: null as string, //앨범 커버 url
+  },
 });

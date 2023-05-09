@@ -22,3 +22,28 @@ export const GenreMap = {
 };
 
 export const GenreMapEntries = Object.entries(GenreMap);
+
+export const TagMap = {
+  Happy: "행복한",
+  Sad: "슬픈",
+  Energetic: "활기찬",
+  Calm: "차분한",
+  Romantic: "로맨틱한",
+  Melancholic: "멜랑콜리한",
+  Uplifting: "격려하는",
+  Mysterious: "신비로운",
+  Exciting: "흥분된",
+  Peaceful: "평화로운",
+  Dreamy: "몽환적인",
+  Sentimental: "감성적인",
+  Powerful: "강력한",
+  Joyful: "기쁜",
+  Reflective: "반성하는",
+  Playful: "장난스러운",
+  Nostalgic: "향수를 자아내는",
+  Intense: "강렬한",
+  Serene: "고요한",
+  Inspiring: "영감을 주는",
+};
+
+export const TagMapEntries = Object.entries(TagMap);

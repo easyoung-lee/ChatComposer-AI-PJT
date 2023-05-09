@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { tracksState } from "../store/atoms";
-import NewTracks from "../components/produce/newTracks";
+import NewTracks from "../../components/produce/newTracks";
 
 function Produce() {
-  const [tracks, setTracks] = useRecoilState(tracksState);
+  const [trackIds, setTrackIds] = useState([] as number[]);
 
-  if (!tracks.length) return <NewTracks />;
+  if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
   return <div>Produce</div>;
 }
 
 export default Produce;
+
 //음악 제작 페이지 비즈니스 로직
 
 /*
@@ -25,3 +25,19 @@ export default Produce;
 
 
 */
+
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  // id를 이용하여 데이터를 가져오거나 API 호출 등의 로직을 수행할 수 있습니다.
+  // 예를 들어, `/music/${id}`에 대한 데이터를 가져오는 경우:
+
+  // const res = await fetch(`https://api.example.com/music/${id}`);
+  // const data = await res.json();
+
+  // 가져온 데이터를 props로 전달합니다.
+  return {
+    props: {
+      // id,
+    },
+  };
+}
