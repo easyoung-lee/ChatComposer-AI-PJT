@@ -13,11 +13,11 @@ function Produce() {
 
   //components\sequencers\chat.tsx에서 변경되는 클래스명 상태입니다.
   const CoverGenHeight = useRecoilValue(CoverGenHeightState);
-  // const [heightClassName, setHeightClassName] = useState("h-0 opacity-0");
-  // useEffect(() => {
-  //   if (!firstTrack.request_description) return;
-  //   setHeightClassName("h-72 opacity-100");
-  // }, [firstTrack.request_description]);
+  const [heightClassName, setHeightClassName] = useState("h-0 opacity-0");
+  useEffect(() => {
+    if (!firstTrack.request_description) return;
+    setHeightClassName("h-72 opacity-100");
+  }, [firstTrack.request_description]);
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
   // if (!firstTrack.request_description) {
@@ -33,7 +33,11 @@ function Produce() {
         <CoverGens />
       </div>
       <Sequencers trackIds={trackIds} />
-      <TrackAdder />
+      <div
+        className={`${heightClassName}  animate-bounce transition-all duration-1000`}
+      >
+        <TrackAdder />
+      </div>
     </div>
   );
 }
