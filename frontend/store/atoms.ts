@@ -1,6 +1,7 @@
 import { AtomEffect, atom, atomFamily, useSetRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { Todo } from "../types/todos";
+import { InstrumentType, TagType } from "../types/musics";
 
 //Next.js에서 persistAtom을 쓰기 위한 구성
 //https://stackoverflow.com/questions/68110629/nextjs-react-recoil-persist-values-in-local-storage-initial-page-load-in-wrong
@@ -42,7 +43,7 @@ export const trackAtomFamily = atomFamily({
   default: (id) => ({
     id,
     midi_description: "",
-    musical_instrument: "",
+    musical_instrument: null as number,
     request_description: "",
     response_description: "",
     transfer_date: "",
@@ -53,7 +54,7 @@ export const producingMusicState = atom({
   key: "producingMusicState",
   default: {
     title: null as string, //음악 제목
-    tags: null as string[],
+    tags: null as TagType[],
     decription: null as string, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
     genre: null as number,
     beat: null as number,

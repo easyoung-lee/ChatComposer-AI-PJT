@@ -1,3 +1,5 @@
+import { InstrumentType } from "../types/musics";
+
 export const InstrumentsMap = {
   "bass-electric": "베이스",
   cello: "첼로",
@@ -6,7 +8,10 @@ export const InstrumentsMap = {
   piano: "피아노",
 };
 
-export const InstrumentsMapEntries = Object.entries(InstrumentsMap);
+export const InstrumentsMapEntries = Object.entries(InstrumentsMap) as [
+  InstrumentType,
+  string,
+][];
 
 export const InstrumentsUrl = {
   "bass-electric": {

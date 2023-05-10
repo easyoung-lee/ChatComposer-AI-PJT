@@ -1,3 +1,6 @@
+import { TagType } from "./../types/musics.d";
+import { GenreType } from "../types/musics";
+
 export const GenreMap = {
   POP: "팝",
   HIP_HOP: "힙합",
@@ -21,7 +24,10 @@ export const GenreMap = {
   INDEPENDENT: "인디 음악",
 };
 
-export const GenreMapEntries = Object.entries(GenreMap);
+export const GenreMapEntries = Object.entries(GenreMap) as [
+  GenreType,
+  string,
+][];
 
 export const TagMap = {
   Happy: "행복한",
@@ -46,4 +52,4 @@ export const TagMap = {
   Inspiring: "영감을 주는",
 };
 
-export const TagMapEntries = Object.entries(TagMap);
+export const TagMapEntries = Object.entries(TagMap) as [TagType, string][];

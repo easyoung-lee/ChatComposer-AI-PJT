@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { GenreMapEntries, TagMapEntries } from "../../utils/GenreMap";
 import { producingMusicState } from "../../store/atoms";
+import { TagType } from "../../types/musics";
 
 function NewTracks({ setTrackIds }) {
   const [genre, setGenre] = useState(null as number);
-  const [tags, setTags] = useState([] as string[]);
+  const [tags, setTags] = useState([] as TagType[]);
   const [opacityClassName, setOpacityClassName] = useState("opacity-100");
   const setProducingMusic = useSetRecoilState(producingMusicState);
 
@@ -14,7 +15,7 @@ function NewTracks({ setTrackIds }) {
     setGenre(e.target.value);
   };
 
-  const onTagChange = (event, tag) => {
+  const onTagChange = (event, tag: TagType) => {
     if (event.target.checked && tags.length < 3) {
       setTags((prev) => [...prev, tag]);
     } else {
@@ -54,8 +55,9 @@ function NewTracks({ setTrackIds }) {
               id="genre"
               className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
               onChange={onGenreChange}
+              defaultValue={"default"}
             >
-              <option selected disabled className="hidden">
+              <option value="default" disabled className="hidden">
                 장르를 선택하세요
               </option>
               {GenreMapEntries.map((element, index) => {

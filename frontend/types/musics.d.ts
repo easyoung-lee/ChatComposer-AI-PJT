@@ -1,3 +1,6 @@
+import { GenreMap, TagMap } from "../utils/GenreMap";
+import { InstrumentsMap } from "../utils/InstrumentsMap";
+
 export interface AlbumCoverType {
   member: {
     member_id: number;
@@ -12,5 +15,9 @@ export interface AlbumCoverType {
   create_at: number;
   cover_source: string;
 }
+
+export type GenreType = keyof typeof GenreMap;
+export type InstrumentType = keyof typeof InstrumentsMap;
+export type TagType = keyof typeof TagMap;
 
 declare module ".*mp3";

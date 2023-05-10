@@ -1,15 +1,20 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
+import { GenreType, InstrumentType, TagType } from "../../types/musics";
+import {
+  ChatGPTApiRequestBodyType,
+  ChatGPTApiResponseBodyType,
+  ChatGPTPromptType,
+} from "../../types/chatgpt";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse<ChatGPTApiResponseBodyType>,
 ) {
   //post 요청에서만 수행되는 API입니다.
   const method = req.method;
   if (method !== "POST") return;
-
   // /* 오프라인 테스트용 코드 */
   // const message = {
   //   role: "assistant",
@@ -87,15 +92,16 @@ export default async function handler(
   const messages: ChatCompletionRequestMessage[] = [
     { role: "system", content: systemPrompt },
   ];
-
+  const body = req.body as ChatGPTApiRequestBodyType;
   //만일 유저가 이전 데이터를 보낸다면 이전 데이터 메시지에 담습니다.
-  const prevData = req.body.prevData;
-  if (prevData) {
+  const prevData = body.prevData;
+  if (prevData && prevData.length) {
     messages.push(...prevData);
   }
 
   //현재 데이터를 메시지에 담습니다.
-  let userPrompt = req.body.message;
+
+  let userPrompt = body.message;
 
   //만일 현재 데이터에 한국어가 포함되어 있다면, 파파고를 호출하여 영어로 번역합니다 결과를 반환합니다.
   if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(userPrompt)) {
@@ -151,8 +157,6 @@ export default async function handler(
     noteInfo,
   });
 }
-
-export type ChatGPTPromptType = { role: string; content: string }[];
 
 //파이썬으로 이용하기 https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/chatgpt?pivots=programming-language-chat-completions
 //next.js chatgptui https://github.com/nemoteric/GPT-4-Chat-UI

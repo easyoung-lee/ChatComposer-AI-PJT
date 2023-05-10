@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
 import NewTracks from "../../components/produce/newTracks";
+import Sequencers from "../../components/sequencers";
+import TrackAdder from "../../components/produce/trackAdder";
+import CoverGens from "../../components/coverGens";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { trackAtomFamily } from "../../store/atoms";
+import NewChat from "../../components/produce/newChat";
 
 function Produce() {
   const [trackIds, setTrackIds] = useState([] as number[]);
+  const track = useRecoilValue(trackAtomFamily(0));
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
-  return <div>Produce</div>;
+  // if (!track.request_description) return <NewChat />;
+
+  //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생
+  return (
+    <div>
+      <CoverGens />
+      <Sequencers trackIds={trackIds} />
+      <TrackAdder />
+    </div>
+  );
 }
 
 export default Produce;
