@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
 import { useSetRecoilState } from "recoil";
 import { trackAtomFamily } from "../../store/atoms";
 
 function InstrumentDropbox({ trackId }) {
   const setTrack = useSetRecoilState(trackAtomFamily(trackId));
+
+  const defaultValue = useMemo(() => {
+    if (trackId === 0) {
+      setTrack((prev) => {
+        return { ...prev, musical_instrument: 4 };
+      });
+      return 4;
+    } else {
+      return "default";
+    }
+  }, [trackId]);
+
   const onChangeHandler = (e) => {
     setTrack((prev) => {
       return { ...prev, musical_instrument: e.target.value };
@@ -22,7 +34,7 @@ function InstrumentDropbox({ trackId }) {
       <select
         id="genre"
         className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
-        defaultValue={"default"}
+        defaultValue={defaultValue}
         onChange={onChangeHandler}
       >
         <option value="default" disabled className="hidden">

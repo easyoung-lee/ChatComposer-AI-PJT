@@ -11,7 +11,6 @@ function NewTracks({ setTrackIds }) {
   const setProducingMusic = useSetRecoilState(producingMusicState);
 
   const onGenreChange = (e) => {
-    console.log(e.target.value);
     setGenre(e.target.value);
   };
 

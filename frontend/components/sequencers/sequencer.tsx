@@ -1,15 +1,13 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { trackAtomFamily } from "../../store/atoms";
 import Chat from "./chat";
 import InstrumentDropbox from "./instrumentDropbox";
 import dynamic from "next/dynamic";
 
 function Sequencer({ trackId }: { trackId: number }) {
-  const track = useRecoilState(trackAtomFamily(trackId));
   const Transporter = dynamic(() => import("./transporter"), {
     ssr: false,
   });
+
   return (
     <div className="text-white">
       <div className="flex">
@@ -20,9 +18,9 @@ function Sequencer({ trackId }: { trackId: number }) {
           <Chat trackId={trackId} />
         </div>
       </div>
-      {/* <div className="border border-white">
-        <Transporter />
-      </div> */}
+      <div className="border border-white h-28">
+        <Transporter trackId={trackId} />
+      </div>
     </div>
   );
 }

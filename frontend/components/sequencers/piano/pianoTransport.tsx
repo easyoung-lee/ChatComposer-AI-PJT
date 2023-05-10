@@ -143,10 +143,7 @@ function PianoTransport({ notes }) {
     baseUrl: "/samples/piano/",
     onload: () => {
       setLoaded(true);
-      console.log("하이");
       piano.toDestination();
-
-      // piano.triggerAttack("A3");
     },
   });
   // }, []);

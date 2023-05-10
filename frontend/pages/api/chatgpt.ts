@@ -15,6 +15,7 @@ export default async function handler(
   //post 요청에서만 수행되는 API입니다.
   const method = req.method;
   if (method !== "POST") return;
+  const body = req.body as ChatGPTApiRequestBodyType;
   // /* 오프라인 테스트용 코드 */
   // const message = {
   //   role: "assistant",
@@ -77,6 +78,9 @@ export default async function handler(
   //시스템 프롬프트와 유저 프롬프트 넣기
   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
   you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
+  Here's music infomation - [Genre : ${body.genre}, Moods: ${body.tags.join(
+    " ",
+  )}]
   Plan out the structure beforehand. Notation looks like this using quaver and keep the form:
   (Note-duration-time in beats)
   C4-2/8-0, Eb4-1/8-2.5, D4-2/8-3, F4-2/8-3 etc.`;
@@ -92,7 +96,7 @@ export default async function handler(
   const messages: ChatCompletionRequestMessage[] = [
     { role: "system", content: systemPrompt },
   ];
-  const body = req.body as ChatGPTApiRequestBodyType;
+
   //만일 유저가 이전 데이터를 보낸다면 이전 데이터 메시지에 담습니다.
   const prevData = body.prevData;
   if (prevData && prevData.length) {
@@ -119,8 +123,15 @@ export default async function handler(
       .then((res) => res.data.message.result.translatedText)
       .catch((err) => console.log(JSON.stringify(err)));
   }
+
+  userPrompt = `[instruement: ${body.instrument}]` + userPrompt;
+  if (prevData) userPrompt = "with previous response / " + userPrompt;
+
   //유저 프롬프트를 메시지 내역에 추가
-  messages.push({ role: "user", content: userPrompt });
+  messages.push({
+    role: "user",
+    content: userPrompt,
+  });
 
   //유처 프롬프트를 createChatCompletion에 넘겨서 결과를 받음.
   const response = await openai.createChatCompletion({

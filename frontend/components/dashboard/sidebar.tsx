@@ -21,8 +21,6 @@ function Sidebar() {
   ]);
   const { pathname } = useRouter();
   useEffect(() => {
-    console.log(pathname);
-    console.log(opacities);
     routes.forEach((route, index) => {
       if (pathname.startsWith(route)) {
         setOpacities([
