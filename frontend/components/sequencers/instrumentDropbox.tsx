@@ -1,40 +1,33 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
-import { useSetRecoilState } from "recoil";
 import { trackAtomFamily } from "../../store/atoms";
+import { useRecoilState } from "recoil";
 
 function InstrumentDropbox({ trackId }) {
-  const setTrack = useSetRecoilState(trackAtomFamily(trackId));
-
-  const defaultValue = useMemo(() => {
-    if (trackId === 0) {
-      setTrack((prev) => {
-        return { ...prev, musical_instrument: 4 };
-      });
-      return 4;
-    } else {
-      return "default";
-    }
-  }, [trackId]);
-
+  const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
   const onChangeHandler = (e) => {
     setTrack((prev) => {
       return { ...prev, musical_instrument: e.target.value };
     });
   };
+
+  useEffect(() => {
+    if (trackId === 0) {
+      //trackId가 0일 때 악기를 피아노로 고정
+
+      setTrack((prev) => {
+        return { ...prev, musical_instrument: 4 };
+      });
+    }
+  }, [trackId]);
+
   return (
     <div className="GenreDropboxContainer flex">
       {/* https://devdojo.com/zoltan/tailwind-css-select */}
-      {/* <label
-        htmlFor="genre"
-        className="w-12 py- block mb-2 text-sm font-medium text-gray-400"
-      >
-        악기
-      </label> */}
       <select
         id="genre"
         className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
-        defaultValue={defaultValue}
+        defaultValue={trackId === 0 ? 4 : "default"}
         onChange={onChangeHandler}
       >
         <option value="default" disabled className="hidden">

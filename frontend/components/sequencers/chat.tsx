@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { producingMusicState, trackAtomFamily } from "../../store/atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  CoverGenHeightState,
+  producingMusicState,
+  trackAtomFamily,
+} from "../../store/atoms";
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
 import { GenreMapEntries } from "../../utils/GenreMap";
 
@@ -24,11 +28,15 @@ function Chat({ trackId }) {
     return axiosApi.post("/chatgpt", data);
   };
 
+  const setCoverGenHeightClass = useSetRecoilState(CoverGenHeightState);
   const onSubmitHandler = (e) => {
     const instruementName = InstrumentsMapEntries[track.musical_instrument][0];
     const genreName = GenreMapEntries[genre][0];
     const date = Date.now();
     setIsLoading(true);
+    if (trackId === 0) {
+      setCoverGenHeightClass("h-72 opacity-100");
+    }
     retrieveChatgpt({
       genre: genreName,
       tags,

@@ -71,3 +71,8 @@ export const producingMusicState = atom({
     cover_source: null as string, //앨범 커버 url
   },
 });
+
+export const CoverGenHeightState = atom({
+  key: "CoverGenHeightState",
+  default: "h-0 opacity-0",
+});

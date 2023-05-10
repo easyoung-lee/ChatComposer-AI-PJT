@@ -80,3 +80,18 @@ input[type="number"]::-webkit-outer-spin-button {
   animation-duration: 200;
   animation-fill-mode: forwards;
 }
+
+@keyframes taller {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100px;
+  }
+}
+
+.animate-taller {
+  animation-name: taller;
+  animation-duration: 200;
+  animation-fill-mode: forwards;
+}
