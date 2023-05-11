@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   CoverGenHeightState,
+  prevDataState,
   producingMusicState,
   trackAtomFamily,
 } from "../../store/atoms";
@@ -15,10 +16,11 @@ import {
 } from "../../types/chatgpt";
 import CssSpinner from "../cssSpinner";
 
-function Chat({ trackId, setTrackIds }) {
+function Chat({ trackId, setTrackIds, trackIds = [[]] }) {
   const [input, setInput] = useState("");
   const { genre, tags } = useRecoilValue(producingMusicState);
   const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
+  const [prevData, setPrevData] = useRecoilState(prevDataState);
   const [isLoading, setIsLoading] = useState(false);
   const onChangeHandler = (e) => {
     setInput(e.target.value);
@@ -37,24 +39,38 @@ function Chat({ trackId, setTrackIds }) {
     if (trackId === 0) {
       setCoverGenHeightClass("h-72 opacity-100");
     }
-    retrieveChatgpt({
+    const data = {
       genre: genreName,
       tags,
       instrument: instruementName,
       message: input,
-    }).then((res) => {
+    } as ChatGPTApiRequestBodyType;
+
+    if (trackId) {
+      if (prevData.length) {
+        data.prevData = prevData.slice(0, trackId * 2);
+      }
+    }
+    retrieveChatgpt(data).then((res) => {
       const data = res.data as ChatGPTApiResponseBodyType;
+      const userPrompt = data.prompt.at(-2);
+      const chatGPTPrompt = data.prompt.at(-1);
       setTrack((prev) => ({
         ...prev,
         musical_instrument: track.musical_instrument,
         midi_description: JSON.stringify(data.noteInfo),
-        request_description: JSON.stringify(data.prompt[0]),
-        response_description: JSON.stringify(data.prompt[1]),
+        request_description: JSON.stringify(userPrompt),
+        response_description: JSON.stringify(chatGPTPrompt),
         transfer_date: date.toFixed(),
       }));
       setTrackIds((prev) => {
         const newArray = JSON.parse(JSON.stringify(prev));
-        newArray[trackId] = [data.prompt[0], data.prompt[1]];
+        newArray[trackId] = [userPrompt, chatGPTPrompt];
+        setPrevData((prev) => {
+          const newArray = [...prev];
+          newArray.splice(trackId * 2, 2, userPrompt, chatGPTPrompt);
+          return newArray;
+        });
         return newArray;
       });
       setIsLoading(false);

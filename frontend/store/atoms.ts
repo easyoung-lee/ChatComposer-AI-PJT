@@ -76,3 +76,13 @@ export const CoverGenHeightState = atom({
   key: "CoverGenHeightState",
   default: "h-0 opacity-0",
 });
+
+export const sheduleArrayState = atom({
+  key: "SheduleArrayState",
+  default: [],
+});
+
+export const prevDataState = atom({
+  key: "PrevDataState",
+  default: [],
+});
