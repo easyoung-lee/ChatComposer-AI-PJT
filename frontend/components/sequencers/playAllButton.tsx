@@ -14,12 +14,16 @@ function PlayAllButton() {
     }
   }, [sheduleArray]);
   // if (!sheduleArray.length) return <></>;
-  const onPlay = () => {
+  const onPlay = async () => {
+    console.log("플레이버튼");
+    Tone.Transport.stop();
     Tone.Transport.cancel();
-    sheduleArray.forEach((schedule) => {
+
+    sheduleArray.forEach((schedule, i) => {
       schedule(Tone.Transport);
     });
-    Tone.start();
+
+    Tone.Transport.start();
   };
 
   return (

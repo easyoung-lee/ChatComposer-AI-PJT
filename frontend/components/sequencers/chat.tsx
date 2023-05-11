@@ -16,7 +16,7 @@ import {
 } from "../../types/chatgpt";
 import CssSpinner from "../cssSpinner";
 
-function Chat({ trackId, setTrackIds, trackIds = [[]] }) {
+function Chat({ trackId, setTrackIds }) {
   const [input, setInput] = useState("");
   const { genre, tags } = useRecoilValue(producingMusicState);
   const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
