@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SequencerControlBox from "./sequencerControlBox";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  blobAudioState,
   lastScheduleTimeState,
   sheduleArrayState,
   trackAtomFamily,
@@ -17,10 +18,23 @@ import { Transport } from "tone/build/esm/core/clock/Transport";
 function Transporter({ trackId }) {
   const track = useRecoilValue(trackAtomFamily(trackId));
   const setSheduleArrayAtom = useSetRecoilState(sheduleArrayState);
+  const setAudioState = useSetRecoilState(blobAudioState);
   const [lastScheduleTime, setLastScheduleTime] = useRecoilState(
     lastScheduleTimeState,
   );
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!track?.midi_description || trackId) return;
+    const notes = JSON.parse(track.midi_description);
+    notes
+      .sort((a, b) => a[2] - b[2])
+      .forEach((e, i) => {
+        if (i >= notes.length - 1) {
+          setLastScheduleTime(e[2]);
+        }
+      });
+  }, [track.midi_description]);
 
   if (!track.midi_description) {
     return <div></div>;
@@ -28,16 +42,8 @@ function Transporter({ trackId }) {
 
   const samplerOptions =
     InstrumentsUrl[InstrumentsMapEntries[track.musical_instrument][0]];
-  const notes = JSON.parse(track.midi_description);
-  notes
-    .sort((a, b) => a[2] - b[2])
-    .forEach((e, i) => {
-      if (i >= notes.length - 1) {
-        setLastScheduleTime(e[2]);
-      }
-    });
 
-  const onShedule = (transport: Transport) => {
+  const onShedule = (transport: Transport, recorder: Tone.Recorder) => {
     const notes = JSON.parse(track.midi_description);
     notes
       .sort((a, b) => a[2] - b[2])
@@ -57,6 +63,18 @@ function Transporter({ trackId }) {
           //노래를 정지하는 이벤트
           transport.schedule((time) => {
             transport.stop();
+            recorder.stop().then((blob) => {
+              console.log(blob);
+              setAudioState(blob);
+              // // blob을 Multipartfile로 변환
+              // const formData = new FormData();
+              // formData.append("audio", blob);
+              // // formData를 서버에 전송
+              // fetch("/upload", {
+              //   method: "POST",
+              //   body: formData,
+              // });
+            });
           }, e[2] + 2);
         }
       });

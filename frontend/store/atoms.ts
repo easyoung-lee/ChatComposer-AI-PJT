@@ -91,3 +91,8 @@ export const lastScheduleTimeState = atom({
   key: "LastScheduleTimeState",
   default: Number.MAX_SAFE_INTEGER,
 });
+
+export const blobAudioState = atom({
+  key: "BlobAudioState",
+  default: null as null | Blob,
+});
