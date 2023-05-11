@@ -1,7 +1,11 @@
 import React, { useMemo, useState } from "react";
 import SequencerControlBox from "./sequencerControlBox";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { sheduleArrayState, trackAtomFamily } from "../../store/atoms";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  lastScheduleTimeState,
+  sheduleArrayState,
+  trackAtomFamily,
+} from "../../store/atoms";
 import * as Tone from "tone";
 import {
   InstrumentsMapEntries,
@@ -13,7 +17,9 @@ import { Transport } from "tone/build/esm/core/clock/Transport";
 function Transporter({ trackId }) {
   const track = useRecoilValue(trackAtomFamily(trackId));
   const setSheduleArrayAtom = useSetRecoilState(sheduleArrayState);
-
+  const [lastScheduleTime, setLastScheduleTime] = useRecoilState(
+    lastScheduleTimeState,
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   if (!track.midi_description) {
@@ -22,6 +28,14 @@ function Transporter({ trackId }) {
 
   const samplerOptions =
     InstrumentsUrl[InstrumentsMapEntries[track.musical_instrument][0]];
+  const notes = JSON.parse(track.midi_description);
+  notes
+    .sort((a, b) => a[2] - b[2])
+    .forEach((e, i) => {
+      if (i >= notes.length - 1) {
+        setLastScheduleTime(e[2]);
+      }
+    });
 
   const onShedule = (transport: Transport) => {
     const notes = JSON.parse(track.midi_description);
@@ -29,10 +43,14 @@ function Transporter({ trackId }) {
       .sort((a, b) => a[2] - b[2])
       .forEach((e, i) => {
         // transport.schedule로 바꿈
-        transport.schedule((time) => {
-          // 콜백 함수에서 time을 인자로 받음
-          sampler.triggerAttackRelease(e[0], e[1], time);
-        }, e[2]); // 스케줄링할 시간은 e[2]
+
+        //피아노의 마지막 스케줄보다 빨리 시작하는 이벤트만 등록함.
+        if (e[2] <= lastScheduleTime) {
+          transport.schedule((time) => {
+            // 콜백 함수에서 time을 인자로 받음
+            sampler.triggerAttackRelease(e[0], e[1], time);
+          }, e[2]); // 스케줄링할 시간은 e[2]
+        }
 
         if (trackId === 0 && i === notes.length - 1) {
           //만약, 피아노이고 마지막 노트라면 2박자 후에 노래를 정지한다.

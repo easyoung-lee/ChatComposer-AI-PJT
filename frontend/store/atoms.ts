@@ -86,3 +86,8 @@ export const prevDataState = atom({
   key: "PrevDataState",
   default: [],
 });
+
+export const lastScheduleTimeState = atom({
+  key: "LastScheduleTimeState",
+  default: Number.MAX_SAFE_INTEGER,
+});
