@@ -7,7 +7,7 @@ function PlayAllButton() {
   const sheduleArray = useRecoilValue(sheduleArrayState);
   const [audioState, setAudioState] = useRecoilState(blobAudioState);
   const [className, setClassName] = useState("hidden opacity-0");
-  const audioRef = useRef();
+  // const audioRef = useRef();
   useEffect(() => {
     if (!sheduleArray.length) {
       setClassName("hidden opacity-0");
@@ -24,26 +24,26 @@ function PlayAllButton() {
 
     await Tone.start();
     console.log("톤 시작됨");
-    // const recorder = new Tone.Recorder();
-    // recorder.start();
-    // console.log("레코더 시작됨");
-    const recorder = null;
+    const recorder = new Tone.Recorder();
+
+    // const recorder = null;
     sheduleArray.forEach((schedule, i) => {
       schedule(Tone.Transport, recorder);
     });
-
+    console.log("레코더 시작됨");
+    recorder.start();
     Tone.Transport.start();
   };
 
   useEffect(() => {
     if (audioState) {
       console.log("아싸 저장됨");
-      console.log(audioState);
+      // console.log(audioState);
       // audioState가 있을 때만 재생
-      // const audioUrl = URL.createObjectURL(audioState);
+      const audioUrl = URL.createObjectURL(audioState);
       // audioUrl.play();
-      // const audioElement = new Audio(audioUrl);
-      // audioElement.play();
+      const audioElement = new Audio(audioUrl);
+      audioElement.play();
     }
   }, [audioState]);
 
@@ -55,9 +55,9 @@ function PlayAllButton() {
       >
         PlayAllButton
       </div>
-      <div>
+      {/* <div>
         <audio controls ref={audioRef}></audio>
-      </div>
+      </div> */}
       {/* {audioState? :<></>} */}
     </>
   );

@@ -45,6 +45,7 @@ function Transporter({ trackId }) {
 
   const onShedule = (transport: Transport, recorder: Tone.Recorder) => {
     const notes = JSON.parse(track.midi_description);
+    sampler.connect(recorder);
     notes
       .sort((a, b) => a[2] - b[2])
       .forEach((e, i) => {
