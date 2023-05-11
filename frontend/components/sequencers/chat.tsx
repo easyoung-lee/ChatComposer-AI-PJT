@@ -15,7 +15,7 @@ import {
 } from "../../types/chatgpt";
 import CssSpinner from "../cssSpinner";
 
-function Chat({ trackId }) {
+function Chat({ trackId, setTrackIds }) {
   const [input, setInput] = useState("");
   const { genre, tags } = useRecoilValue(producingMusicState);
   const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
@@ -52,6 +52,11 @@ function Chat({ trackId }) {
         response_description: JSON.stringify(data.prompt[1]),
         transfer_date: date.toFixed(),
       }));
+      setTrackIds((prev) => {
+        const newArray = JSON.parse(JSON.stringify(prev));
+        newArray[trackId] = [data.prompt[0], data.prompt[1]];
+        return newArray;
+      });
       setIsLoading(false);
     });
   };

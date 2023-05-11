@@ -8,16 +8,18 @@ import { CoverGenHeightState, trackAtomFamily } from "../../store/atoms";
 import NewChat from "../../components/produce/newChat";
 
 function Produce() {
-  const [trackIds, setTrackIds] = useState([] as number[]);
-  const firstTrack = useRecoilValue(trackAtomFamily(0));
+  const [trackIds, setTrackIds] = useState([] as object[][]);
+  // const firstTrack = useRecoilValue(trackAtomFamily(0));
 
   //components\sequencers\chat.tsx에서 변경되는 클래스명 상태입니다.
   const CoverGenHeight = useRecoilValue(CoverGenHeightState);
   const [heightClassName, setHeightClassName] = useState("h-0 opacity-0");
+
   useEffect(() => {
-    if (!firstTrack.request_description) return;
+    if (!trackIds.length) return;
+    if (!trackIds.at(-1).length) return setHeightClassName("h-0 opacity-0");
     setHeightClassName("h-72 opacity-100");
-  }, [firstTrack.request_description]);
+  }, [trackIds]);
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
   // if (!firstTrack.request_description) {
@@ -27,16 +29,12 @@ function Produce() {
   //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생
   return (
     <div>
-      <div
-        className={`${CoverGenHeight}  animate-bounce transition-all duration-1000`}
-      >
+      <div className={`${CoverGenHeight}  transition-all duration-1000`}>
         <CoverGens />
       </div>
-      <Sequencers trackIds={trackIds} />
-      <div
-        className={`${heightClassName}  animate-bounce transition-all duration-1000`}
-      >
-        <TrackAdder />
+      <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
+      <div className={`${heightClassName}  transition-all duration-1000`}>
+        <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
       </div>
     </div>
   );

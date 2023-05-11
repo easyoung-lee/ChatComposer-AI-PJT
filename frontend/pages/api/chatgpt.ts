@@ -16,6 +16,7 @@ export default async function handler(
   const method = req.method;
   if (method !== "POST") return;
   const body = req.body as ChatGPTApiRequestBodyType;
+
   // /* 오프라인 테스트용 코드 */
   function wait(ms) {
     return new Promise((resolve) => {

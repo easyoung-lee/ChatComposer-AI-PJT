@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 function PianoChat({ setNotes }) {
   const ChatApi = axios.create();
-
   const [message, setMessage] = useState("");
   const [input, setInput] = useState("");
 

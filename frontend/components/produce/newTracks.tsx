@@ -34,7 +34,7 @@ function NewTracks({ setTrackIds }) {
       return { ...prev, genre, tags };
     });
     setOpacityClassName("opacity-0");
-    setTimeout(() => setTrackIds([0]), 200);
+    setTimeout(() => setTrackIds([{}]), 200);
   };
   return (
     <div

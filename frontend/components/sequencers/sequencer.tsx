@@ -3,7 +3,13 @@ import Chat from "./chat";
 import InstrumentDropbox from "./instrumentDropbox";
 import dynamic from "next/dynamic";
 
-function Sequencer({ trackId }: { trackId: number }) {
+function Sequencer({
+  trackId,
+  setTrackIds,
+}: {
+  trackId: number;
+  setTrackIds: any;
+}) {
   const Transporter = dynamic(() => import("./transporter"), {
     ssr: false,
   });
@@ -15,7 +21,7 @@ function Sequencer({ trackId }: { trackId: number }) {
           <InstrumentDropbox trackId={trackId} />
         </div>
         <div className="w-5/6 border border-white">
-          <Chat trackId={trackId} />
+          <Chat trackId={trackId} setTrackIds={setTrackIds} />
         </div>
       </div>
       <div className="border border-white h-28">
@@ -25,4 +31,4 @@ function Sequencer({ trackId }: { trackId: number }) {
   );
 }
 
-export default Sequencer;
+export default React.memo(Sequencer);
