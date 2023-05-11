@@ -14,6 +14,9 @@ import {
 } from "../../utils/InstrumentsMap";
 import CssSpinner from "../cssSpinner";
 import { Transport } from "tone/build/esm/core/clock/Transport";
+// import WavRecorder from "webm-to-wav-converter/types/WavRecorder";
+// import getWaveBlob from "webm-to-wav-converter/types/wavBlobUtil";
+import { getWaveBlob } from "webm-to-wav-converter";
 
 function Transporter({ trackId }) {
   const track = useRecoilValue(trackAtomFamily(trackId));
@@ -64,9 +67,10 @@ function Transporter({ trackId }) {
           //노래를 정지하는 이벤트
           transport.schedule((time) => {
             transport.stop();
-            recorder.stop().then((blob) => {
-              console.log(blob);
-              setAudioState(blob);
+            recorder.stop().then(async (blob) => {
+              const wavBlog = await getWaveBlob(blob, false);
+              console.log(wavBlog);
+              setAudioState(wavBlog);
               // // blob을 Multipartfile로 변환
               // const formData = new FormData();
               // formData.append("audio", blob);
