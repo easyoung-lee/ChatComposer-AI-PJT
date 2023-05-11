@@ -149,7 +149,7 @@ function PianoTransport({ notes }) {
   // }, []);
 
   const onClickHandler = () => {
-    console.log("온클릭!!");
+    // console.log("온클릭!!");
     const now = Tone.now();
     Tone.Transport.bpm.value = 100;
     notes.forEach((e) => {

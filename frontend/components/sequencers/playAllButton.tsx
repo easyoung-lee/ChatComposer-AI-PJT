@@ -15,7 +15,6 @@ function PlayAllButton() {
   }, [sheduleArray]);
   // if (!sheduleArray.length) return <></>;
   const onPlay = async () => {
-    console.log("플레이버튼");
     Tone.Transport.stop();
     Tone.Transport.cancel();
 
@@ -23,6 +22,7 @@ function PlayAllButton() {
       schedule(Tone.Transport);
     });
 
+    await Tone.start();
     Tone.Transport.start();
   };
 

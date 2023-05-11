@@ -25,13 +25,23 @@ function Transporter({ trackId }) {
 
   const onShedule = (transport: Transport) => {
     const notes = JSON.parse(track.midi_description);
-    notes.forEach((e, i) => {
-      // transport.schedule로 바꿈
-      transport.schedule((time) => {
-        // 콜백 함수에서 time을 인자로 받음
-        sampler.triggerAttackRelease(e[0], e[1], time);
-      }, e[2]); // 스케줄링할 시간은 e[2]
-    });
+    notes
+      .sort((a, b) => a[2] - b[2])
+      .forEach((e, i) => {
+        // transport.schedule로 바꿈
+        transport.schedule((time) => {
+          // 콜백 함수에서 time을 인자로 받음
+          sampler.triggerAttackRelease(e[0], e[1], time);
+        }, e[2]); // 스케줄링할 시간은 e[2]
+
+        if (trackId === 0 && i === notes.length - 1) {
+          //만약, 피아노이고 마지막 노트라면 2박자 후에 노래를 정지한다.
+          //노래를 정지하는 이벤트
+          transport.schedule((time) => {
+            transport.stop();
+          }, e[2] + 2);
+        }
+      });
   };
 
   const sampler = new Tone.Sampler({
