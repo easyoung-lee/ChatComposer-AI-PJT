@@ -81,18 +81,15 @@ function PlayAllButton() {
   }, [audioState]);
 
   return (
-    <>
+    <div className="flex w-full">
       <div
-        className={`transition-opacity duration-200 bg-orange-200 ${className}`}
+        className={`transition-opacity duration-200 bg-orange-200 ${className} w-full`}
         onClick={onPlay}
       >
         PlayAllButton
       </div>
-      {/* <div>
-        <audio controls ref={audioRef}></audio>
-      </div> */}
-      {/* {audioState? :<></>} */}
-    </>
+      {audioState ? <div className="bg-red-200 w-full">다운받기</div> : <></>}
+    </div>
   );
 }
 

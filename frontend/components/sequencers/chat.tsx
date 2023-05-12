@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   CoverGenHeightState,
+  blobAudioState,
   prevDataState,
   producingMusicState,
   trackAtomFamily,
@@ -21,6 +22,7 @@ function Chat({ trackId, setTrackIds }) {
   const { genre, tags } = useRecoilValue(producingMusicState);
   const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
   const [prevData, setPrevData] = useRecoilState(prevDataState);
+  const setAudioState = useSetRecoilState(blobAudioState);
   const [isLoading, setIsLoading] = useState(false);
   const onChangeHandler = (e) => {
     setInput(e.target.value);
@@ -52,6 +54,7 @@ function Chat({ trackId, setTrackIds }) {
       }
     }
     retrieveChatgpt(data).then((res) => {
+      setAudioState(null);
       const data = res.data as ChatGPTApiResponseBodyType;
       const userPrompt = data.prompt.at(-2);
       const chatGPTPrompt = data.prompt.at(-1);
