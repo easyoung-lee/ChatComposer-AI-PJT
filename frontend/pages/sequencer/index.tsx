@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Suspense } from "react";
+import Chat from "../chat";
+// import AudioTest from "../../components/AudioTest";
 const Machine = dynamic(
   () => import("../../src/components/machine/MachineView"),
   {
@@ -13,9 +15,14 @@ const NotesView = dynamic(
     ssr: false,
   },
 );
+const AudioTest = dynamic(() => import("../../components/AudioTest"), {
+  ssr: false,
+});
 const Sequencer = () => {
   return (
     <div className="">
+      <AudioTest />
+      <Chat />
       <Suspense>
         <Machine />
         <NotesView />

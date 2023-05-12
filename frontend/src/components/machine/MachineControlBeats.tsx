@@ -1,6 +1,6 @@
 import machineBeatsCount from "../../lib/store/machineBeatsCount";
 import { useRecoilState } from "recoil";
-import { CircleMinus, CirclePlus } from "tabler-icons-react";
+import { IconCircleMinus, IconCirclePlus } from "@tabler/icons-react";
 const MachineControlBeats = () => {
   const [machineBeatsCountState, setMachineBeatsCountState] =
     useRecoilState(machineBeatsCount);
@@ -11,11 +11,11 @@ const MachineControlBeats = () => {
       </label>
       <div className="flex items-center ">
         <button className="">
-          <CircleMinus
+          <IconCircleMinus
             className="bg-emerald rounded-full"
             size={28}
             color="purple"
-            onClick={() => setMachineBeatsCountState((state) => (state -= 4))}
+            onClick={() => setMachineBeatsCountState((state) => (state -= 1))}
           />
         </button>
         <input
@@ -28,11 +28,11 @@ const MachineControlBeats = () => {
           className="w-8 items-center mx-2 border-b-2 border-violetdark text-center bg-violetlight text-emerald"
         />
         <button>
-          <CirclePlus
+          <IconCirclePlus
             size={28}
             color="purple"
             className="bg-emerald rounded-full"
-            onClick={() => setMachineBeatsCountState((state) => (state += 4))}
+            onClick={() => setMachineBeatsCountState((state) => (state += 1))}
           />
         </button>
       </div>

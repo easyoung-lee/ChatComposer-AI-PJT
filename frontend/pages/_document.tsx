@@ -6,6 +6,7 @@ import Document, {
   Head,
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
+//테일윈드, 스타일드컴포넌트 설정 : https://www.mridul.tech/blogs/how-to-use-both-tailwind-and-styled-components-in-next-js
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

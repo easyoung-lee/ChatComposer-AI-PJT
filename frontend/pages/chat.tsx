@@ -6,7 +6,7 @@ import Link from "next/link";
 import notesAtom from "../src/lib/store/notesAtom";
 import machineBeatsCount from "../src/lib/store/machineBeatsCount";
 
-const chat = () => {
+const Chat = () => {
   const ChatApi = axios.create();
 
   const [message, setMessage] = useState("");
@@ -92,4 +92,4 @@ const chat = () => {
   );
 };
 
-export default chat;
+export default Chat;

@@ -1,54 +1,60 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
+import { GenreType, InstrumentType, TagType } from "../../types/musics";
+import {
+  ChatGPTApiRequestBodyType,
+  ChatGPTApiResponseBodyType,
+  ChatGPTPromptType,
+} from "../../types/chatgpt";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse<ChatGPTApiResponseBodyType>,
 ) {
   //post 요청에서만 수행되는 API입니다.
   const method = req.method;
   if (method !== "POST") return;
+  const body = req.body as ChatGPTApiRequestBodyType;
 
   // /* 오프라인 테스트용 코드 */
-  // const message = {
-  //   role: "assistant",
-  //   content:
-  //     "F#4-1/4-0, G#4-1/8-0.5, F#4-1/8-1, G#4-1/8-1.5, F#4-1/8-2, G#4-1/8-2.5, F#4-1/8-3, G#4-1/8-3.5, F#4-1/8-4, G#4-1/8-4.5, F#4-1/8-5, G#4-1/8-5.5, F#4-1/8-6, G#4-1/8-6.5, F#4-1/4-7, G#4-1/8-7.5, F#4-1/8-8, G#4-1/8-8.5, A4-1/8-9, B4-1/8-9.5, C#5-1/4-10, C#5-1/4-10.5, B4-1/4-11, A4-1/4-11.5, G#4-1/2-12.",
-  // };
-  // const array = [
-  //   ["F#4", 4, 0],
-  //   ["G#4", 2, 4],
-  //   ["F#4", 2, 8],
-  //   ["G#4", 2, 12],
-  //   ["F#4", 2, 16],
-  //   ["G#4", 2, 20],
-  //   ["F#4", 2, 24],
-  //   ["G#4", 2, 28],
-  //   ["F#4", 2, 32],
-  //   ["G#4", 2, 36],
-  //   ["F#4", 2, 40],
-  //   ["G#4", 2, 44],
-  //   ["F#4", 2, 48],
-  //   ["G#4", 2, 52],
-  //   ["F#4", 4, 56],
-  //   ["G#4", 2, 60],
-  //   ["F#4", 2, 64],
-  //   ["G#4", 2, 68],
-  //   ["A4", 2, 72],
-  //   ["B4", 2, 76],
-  //   ["C#5", 4, 80],
-  //   ["C#5", 4, 84],
-  //   ["B4", 4, 88],
-  //   ["A4", 4, 92],
-  //   ["G#4", 8, 96],
-  // ];
-
-  // array.forEach((e) => {
-  //   const note = e[0] as string;
-  //   e[0] = sharpToFlat(note);
-  // });
-  // return res.status(200).json({ message, noteInfo: array });
+  function wait(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+  await wait(2000);
+  return res.status(200).json({
+    prompt: [
+      {
+        role: "user",
+        content: "[instruement: piano]A good song to listen to on a rainy day",
+      },
+      {
+        role: "assistant",
+        content:
+          "Here's a calming piano piece for a rainy day:\n\nG4-1/4-0, C5-1/8-1, D5-1/8-1.5, F5-1/4-2, G5-1/4-2.5, F5-1/4-3, D5-1/4-3.5, C5-1/2-4, G4-1/4-4.5, C5-1/4-5, D5-1/4-5.5, F5-1/4-6, G5-1/2-6.5, F5-1/4-7, D5-1/4-7.5, C5-1/2-8 ",
+      },
+    ],
+    noteInfo: [
+      ["G4", 0.5, 0],
+      ["C5", 0.25, 0.5],
+      ["D5", 0.25, 0.75],
+      ["F5", 0.5, 1],
+      ["G5", 0.5, 1.25],
+      ["F5", 0.5, 1.5],
+      ["D5", 0.5, 1.75],
+      ["C5", 1, 2],
+      ["G4", 0.5, 2.25],
+      ["C5", 0.5, 2.5],
+      ["D5", 0.5, 2.75],
+      ["F5", 0.5, 3],
+      ["G5", 1, 3.25],
+      ["F5", 0.5, 3.5],
+      ["D5", 0.5, 3.75],
+      ["C5", 1, 4],
+    ],
+  });
   // /* 오프라인 테스트용 코드 종료 */
 
   //gpt 실행하기
@@ -59,16 +65,21 @@ export default async function handler(
   const openai = new OpenAIApi(configuration);
 
   //시스템 프롬프트와 유저 프롬프트 넣기
-  //   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
-  // you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
-  // Notation looks like this using quaver and keep the form:
-  // (Note-duration-time in beats)
-  // C4-2/8-0, Eb4-1/8-2.5, D4-2/8-3, F4-2/8-3 etc.`;\
   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
-you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
-Notation looks like and keep the form.:
-(Note-duration-time in beats)
-C4-1/4-0, Eb4-1/4-2.5, D4-1/2-3, F4-1/2-3 etc.`;
+  you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
+  Here's music infomation - [Genre : ${body.genre}, Moods: ${body.tags.join(
+    " ",
+  )}]
+  Plan out the structure beforehand. Notation looks like this using quaver and keep the form:
+  (Note-duration-time in beats)
+  C4-2/8-0, Eb4-1/8-2.5, D4-2/8-3, F4-2/8-3 etc.`;
+  //   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
+  // you return them a song showing the notes, durations, and times that they occur. Respond with just the music. Music has three instruments - guitar, bass, piano
+  // Notation looks like and keep the form. Use quarter note only!:
+  // (Note-duration-time in beats)
+  // TRACKNUMBER1 guitar : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc
+  // TRACKNUMBER2 bass : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc
+  // TRACKNUMBER3 piano : C4-1/4-0, Eb4-1/4-2.5, D4-2/4-3, F4-2/4-3 etc.`;
 
   //시스템 프롬프트의 기본값입니다
   const messages: ChatCompletionRequestMessage[] = [
@@ -76,13 +87,14 @@ C4-1/4-0, Eb4-1/4-2.5, D4-1/2-3, F4-1/2-3 etc.`;
   ];
 
   //만일 유저가 이전 데이터를 보낸다면 이전 데이터 메시지에 담습니다.
-  const prevData = req.body.prevData;
-  if (prevData) {
+  const prevData = body.prevData;
+  if (prevData && prevData.length) {
     messages.push(...prevData);
   }
 
   //현재 데이터를 메시지에 담습니다.
-  let userPrompt = req.body.message;
+
+  let userPrompt = body.message;
 
   //만일 현재 데이터에 한국어가 포함되어 있다면, 파파고를 호출하여 영어로 번역합니다 결과를 반환합니다.
   if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(userPrompt)) {
@@ -100,8 +112,15 @@ C4-1/4-0, Eb4-1/4-2.5, D4-1/2-3, F4-1/2-3 etc.`;
       .then((res) => res.data.message.result.translatedText)
       .catch((err) => console.log(JSON.stringify(err)));
   }
+
+  userPrompt = `[instruement: ${body.instrument}]` + userPrompt;
+  if (prevData) userPrompt = "with previous response / " + userPrompt;
+
   //유저 프롬프트를 메시지 내역에 추가
-  messages.push({ role: "user", content: userPrompt });
+  messages.push({
+    role: "user",
+    content: userPrompt,
+  });
 
   //유처 프롬프트를 createChatCompletion에 넘겨서 결과를 받음.
   const response = await openai.createChatCompletion({
@@ -115,8 +134,34 @@ C4-1/4-0, Eb4-1/4-2.5, D4-1/2-3, F4-1/2-3 etc.`;
 
   //응답 결과의 쌍으로 '{role, content}'의 형태임
   const responseMessage = response.data.choices[0].message;
-  const noteInfo = floatToInt(textToMid(responseMessage));
-  res.status(200).json({ message: response.data.choices[0].message, noteInfo });
+  // const noteInfo = floatToInt(textToMid(responseMessage));
+  const noteInfo = textToMid(responseMessage);
+  // console.log(response.data.choices[0].message);
+  // console.log(JSON.stringify({ message: responseMessage, noteInfo }));
+  // console.log(
+  //   JSON.stringify({
+  //     prev: [{ role: "user", content: userPrompt }, { ...responseMessage }],
+  //     noteInfo,
+  //   }),
+  // );
+  // res.status(200).json({ message: responseMessage, noteInfo });
+
+  const prompt: ChatGPTPromptType = [
+    { role: "user", content: userPrompt },
+    { ...responseMessage },
+  ];
+  if (prevData) prompt.unshift(...prevData);
+  // console.log(JSON.stringify(res));
+  console.log(
+    JSON.stringify({
+      prompt,
+      noteInfo,
+    }),
+  );
+  res.status(200).json({
+    prompt,
+    noteInfo,
+  });
 }
 
 //파이썬으로 이용하기 https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/chatgpt?pivots=programming-language-chat-completions
@@ -142,20 +187,37 @@ const monsters = [
 ];
 
 function sharpToFlat(note: string) {
-  if (note.includes("#")) {
+  // if (note.includes("#")) {
+  //   const scale = note.slice(0, 2);
+  //   const octav = note.slice(2, 3);
+  //   switch (scale) {
+  //     case "C#":
+  //       return "Db" + octav;
+  //     case "D#":
+  //       return "Eb" + octav;
+  //     case "F#":
+  //       return "Gb" + octav;
+  //     case "G#":
+  //       return "Ab" + (~~octav + 1).toString();
+  //     case "A#":
+  //       return "Bb" + octav;
+  //   }
+  // }
+  //플랫일때 샾으로 바꾸도록 변경
+  if (note.includes("b")) {
     const scale = note.slice(0, 2);
     const octav = note.slice(2, 3);
     switch (scale) {
-      case "C#":
-        return "Db" + octav;
-      case "D#":
-        return "Eb" + octav;
-      case "F#":
-        return "Gb" + octav;
-      case "G#":
-        return "Ab" + (~~octav + 1).toString();
-      case "A#":
-        return "Bb" + octav;
+      case "Db":
+        return "C#" + octav;
+      case "Eb":
+        return "D#" + octav;
+      case "Gb":
+        return "F#" + octav;
+      case "Ab":
+        return "G#" + (~~octav - 1).toString();
+      case "Bb":
+        return "A#" + octav;
     }
   }
   return note;
@@ -190,10 +252,15 @@ function textToMid(responseMessage) {
       //   parseFloat(n[2]) * 8,
       // ]);
       //4분음표를 쓰도록 수정
+      // noteInfo.push([
+      //   sharpToFlat(n[0]),
+      //   fraction(n[1]) * 2,
+      //   parseFloat(n[2]) * 2,
+      // ]);
       noteInfo.push([
         sharpToFlat(n[0]),
         fraction(n[1]) * 2,
-        parseFloat(n[2]) * 2,
+        parseFloat(n[2]) / 2,
       ]);
     } else {
       // noteInfo.push([sharpToFlat(n[0]), fraction(n[1])]) * 16; // note, duration

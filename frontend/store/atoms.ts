@@ -1,6 +1,7 @@
-import { AtomEffect, atom, useSetRecoilState } from "recoil";
+import { AtomEffect, atom, atomFamily, useSetRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { Todo } from "../types/todos";
+import { InstrumentType, TagType } from "../types/musics";
 
 //Next.js에서 persistAtom을 쓰기 위한 구성
 //https://stackoverflow.com/questions/68110629/nextjs-react-recoil-persist-values-in-local-storage-initial-page-load-in-wrong
@@ -32,7 +33,66 @@ export const todoListState = atom({
 });
 
 export const loginState = atom<boolean>({
-  key: 'loginState',
+  key: "loginState",
   default: false,
   effects_UNSTABLE: [persistAtom],
-})
+});
+
+export const trackAtomFamily = atomFamily({
+  key: "trackAtomFamily",
+  default: (id) => ({
+    id,
+    midi_description: "",
+    musical_instrument: null as number,
+    request_description: "",
+    response_description: "",
+    transfer_date: "",
+  }),
+});
+
+export const producingMusicState = atom({
+  key: "producingMusicState",
+  default: {
+    title: null as string, //음악 제목
+    tags: null as TagType[],
+    decription: null as string, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
+    genre: null as number,
+    beat: null as number,
+    created_at: null as number,
+    //미디
+    music_source: null as string, //미디 원음 wav의 url
+
+    //리퓨전
+    mixed_music_request: null as string, //리퓨전에 쓰인 프롬프트
+    mixed_music_source: null as string, //리퓨전으로 합성된 wav의 url
+
+    //앨범
+    cover_request: null as string, //앨범 커버 얻을 때 쓴 키워드
+    cover_source: null as string, //앨범 커버 url
+  },
+});
+
+export const CoverGenHeightState = atom({
+  key: "CoverGenHeightState",
+  default: "h-0 opacity-0",
+});
+
+export const sheduleArrayState = atom({
+  key: "SheduleArrayState",
+  default: [],
+});
+
+export const prevDataState = atom({
+  key: "PrevDataState",
+  default: [],
+});
+
+export const lastScheduleTimeState = atom({
+  key: "LastScheduleTimeState",
+  default: Number.MAX_SAFE_INTEGER,
+});
+
+export const blobAudioState = atom({
+  key: "BlobAudioState",
+  default: null as null | Blob,
+});

@@ -6,7 +6,7 @@ import Favorite from "./favorite";
 
 function Library() {
   return (
-    <div className="mp_library relative w-[850px] h-full left-[100px] top-0">
+    <div className="mp_library relative w-[850px] h-full top-0">
       <LibraryUpper />
       <Albums />
       <Trending />
