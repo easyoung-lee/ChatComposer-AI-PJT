@@ -15,12 +15,18 @@ function Sequencer({
   const Transporter = dynamic(() => import("./transporter"), {
     ssr: false,
   });
-
+  const DrumDropbox = dynamic(() => import("./drumDropbox"), {
+    ssr: false,
+  });
   return (
     <div className="text-gray-400">
       <div className="flex">
         <div className="w-1/6 border border-white">
-          <InstrumentDropbox trackId={trackId} />
+          {trackId === 3 ? (
+            <DrumDropbox />
+          ) : (
+            <InstrumentDropbox trackId={trackId} />
+          )}
         </div>
         <div className="w-5/6 border border-white">
           <Chat

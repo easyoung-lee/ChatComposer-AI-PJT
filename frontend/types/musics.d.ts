@@ -19,5 +19,15 @@ export interface AlbumCoverType {
 export type GenreType = keyof typeof GenreMap;
 export type InstrumentType = keyof typeof InstrumentsMap;
 export type TagType = keyof typeof TagMap;
+export type DrumKitType =
+  | "OpenHats"
+  | "ClosedHats"
+  | "PedalHats"
+  | "Crash"
+  | "Clap"
+  | "Toms"
+  | "Snare"
+  | "Kick"
+  | "SubKick";
 
 declare module ".*mp3";

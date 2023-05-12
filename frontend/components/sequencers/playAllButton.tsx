@@ -31,6 +31,7 @@ function PlayAllButton() {
     // const recorder = new WavRecorder();
 
     // const recorder = null;
+    console.log(sheduleArray);
     sheduleArray.forEach((schedule, i) => {
       schedule(Tone.Transport, recorder);
     });

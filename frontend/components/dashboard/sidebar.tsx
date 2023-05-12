@@ -44,12 +44,12 @@ function Sidebar() {
       <Tab.Group vertical>
         <Tab.List className="sidebar_menu flex flex-col gap-[30px] flex-[1]">
           <Tab>
-            <Link href="/" prefetch={true} className={opacities[0]}>
+            <Link href="/" className={opacities[0]}>
               <IconPlaylist className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125 text-white" />
             </Link>
           </Tab>
           <Tab>
-            <Link href="/sequencer" prefetch={true} className={opacities[1]}>
+            <Link href="/sequencer" className={opacities[1]}>
               <IconMusic className="sidebar_menu_image w-5 transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-125 text-white" />
             </Link>
           </Tab>
