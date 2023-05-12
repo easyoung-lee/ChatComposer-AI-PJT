@@ -7,6 +7,7 @@ function TodoItemCreator() {
   //useSetRecoilState로 상태를 수정할 수 있다.
   const setTodoList = useSetRecoilState(todoListState);
   const addItem = () => {
+    // @ts-ignore
     setTodoList((prev) => [
       ...prev,
       { id: getId(), text: inputValue, isComplete: false },

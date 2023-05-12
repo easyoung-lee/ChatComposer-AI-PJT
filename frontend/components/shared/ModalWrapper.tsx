@@ -1,25 +1,26 @@
-import React, { useEffect, useRef } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { useEffect, useRef } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+// @ts-ignore
 const ModalWrapper: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const cancelButtonRef = useRef(null);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onClose();
       }
     }
 
-    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [onClose]);
 
