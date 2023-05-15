@@ -74,12 +74,22 @@ function Produce() {
     // console.log(audioBlob);
     // console.log(selectedImgURL);
     // return;
-    const formData = new FormData();
+    let formData = new FormData();
+    const file = new File([audioBlob], "audio.wav", { type: "audio/wave" });
+    formData.append("file", file);
+    const music_source = await serverApi
+      .post("/produce/musics/original", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => res.data.source)
+      .catch((err) => "/dummy/riffusion/dummy.mp3");
+
+    formData = new FormData();
     const imageFile = await getImageBlob();
     formData.append("file", imageFile);
 
     await serverApi
-      .post("/produce/musics/cover", formData, {
+      .post("/produce/cover", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
@@ -88,8 +98,6 @@ function Produce() {
             ...prev,
             cover_source: res.data.source,
             cover_request: selectedImgPrompt,
-            beat: 100,
-            created_at: Date.now(),
           };
         });
       })
@@ -104,10 +112,18 @@ function Produce() {
           });
         }
       });
-
+    setProducingMusic((prev) => {
+      return {
+        ...prev,
+        beat: 100,
+        created_at: Date.now(),
+        music_source: music_source,
+      };
+    });
+    // title, decription, mixed_music_request, mixed_music_source
     //다음 페이지로 이동시키기
-    // setProducingOpacity("opacity-0");
-    // setTimeout(() => setIsRiffusion(true), 300);
+    setProducingOpacity("opacity-0");
+    setTimeout(() => setIsRiffusion(true), 300);
   };
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
