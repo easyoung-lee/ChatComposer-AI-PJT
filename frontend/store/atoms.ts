@@ -122,6 +122,11 @@ export const tracksInfoState = atom({
   default: [] as object[],
 });
 
+export const musicalInstrumentsState = atom({
+  key: "MusicalInstrumentsState",
+  default: [] as string[],
+});
+
 export const canPostMusicState = atom({
   key: "CanPostMusicState",
   default: false,

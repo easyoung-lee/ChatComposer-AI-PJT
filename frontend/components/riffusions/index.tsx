@@ -3,12 +3,14 @@ import { GenreMapEntries } from "../../utils/GenreMap";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   canPostMusicState,
+  musicalInstrumentsState,
   producingMusicState,
   trackAtomFamily,
   tracksInfoState,
 } from "../../store/atoms";
 import serverApi from "../../services/serverApi";
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
+import { toastAlert } from "../../utils/toastAlert";
 
 function Riffusions() {
   // let [producingMusic, setProducingMusic] = useState({
@@ -32,7 +34,9 @@ function Riffusions() {
   const setCanPost = useSetRecoilState(canPostMusicState);
 
   const [riffPrompt, setRiffPrompt] = useState("");
-  const [instruementsArray, setInstruementsArray] = useState([]);
+  const [instruementsArray, setInstruementsArray] = useRecoilState(
+    musicalInstrumentsState,
+  );
   const [tracksInfoArray, setTracksInfoArray] = useRecoilState(tracksInfoState);
   const [musicPrompt, setMusicPrompt] = useState("");
   const [mixedString, setMixedString] = useState("");
@@ -73,7 +77,7 @@ function Riffusions() {
     }
   }, [track0]);
 
-  const onMixing = () => {
+  const onMixing = async () => {
     const data = {
       music_source: producingMusic.music_source,
       genre: GenreMapEntries[producingMusic.genre][0],
@@ -83,7 +87,7 @@ function Riffusions() {
       riffusion_prompt: riffPrompt,
     };
     console.log(data);
-    serverApi
+    await serverApi
       .post("/produce/musics/riffusion", data)
       .then((res) => {
         setMixedString(res.data.mixed_music_wav);
@@ -102,6 +106,7 @@ function Riffusions() {
         };
         // };
       });
+    toastAlert(`음악 생성 완료!`);
     /*
 {
 	music_source : "www.naver.com",
@@ -142,6 +147,7 @@ function Riffusions() {
       });
 
     setCanPost(true);
+    toastAlert(`음악 저장 완료!`);
     //   .post("/produce/cover", formData, {
     //     headers: { "Content-Type": "multipart/form-data" },
     //   })
