@@ -21,13 +21,14 @@ function CoverGens() {
 
   const retrieveCovers = async (coverRequest: string) => {
     const coverImageUrl = await serverApi
-      .get(`/produce/musics/cover?cover-request=${coverRequest}`)
+      .get(`/produce/cover?cover-request=${coverRequest}`)
       .then((res) => {
         const byteArray = new Uint8Array(res.data.cover);
         const blob = new Blob([byteArray], { type: "image/png" });
         const imageURL = URL.createObjectURL(blob);
         // const image = new Image();
         // image.src = imageURL;
+        return Promise.reject("");
         return imageURL;
       })
       .catch((err) => {
