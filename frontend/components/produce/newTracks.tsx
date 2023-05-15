@@ -3,6 +3,7 @@ import { useSetRecoilState } from "recoil";
 import { GenreMapEntries, TagMapEntries } from "../../utils/GenreMap";
 import { producingMusicState } from "../../store/atoms";
 import { TagType } from "../../types/musics";
+import { toastAlert } from "../../utils/toastAlert";
 
 function NewTracks({ setTrackIds }) {
   const [genre, setGenre] = useState(null as number);
@@ -34,6 +35,7 @@ function NewTracks({ setTrackIds }) {
       return { ...prev, genre, tags };
     });
     setOpacityClassName("opacity-0");
+    toastAlert(`장르 선택 완료!`);
     setTimeout(() => setTrackIds([{}]), 200);
   };
   return (

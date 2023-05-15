@@ -9,6 +9,7 @@ import {
 } from "../../store/atoms";
 import serverApi from "../../services/serverApi";
 import axios from "axios";
+import { toastAlert } from "../../utils/toastAlert";
 
 function CoverGens() {
   const [coversArray, setCoversArray] = useRecoilState(coversState);
@@ -56,6 +57,7 @@ function CoverGens() {
     setSelectedImgURL(coverImageUrl as string);
     setSelectedPrompt(coverRequest);
     setIsImageLoading(false);
+    toastAlert(`앨범 커버 생성 완료!`);
     return coverImageUrl;
   };
 
@@ -89,8 +91,6 @@ function CoverGens() {
       )}
 
       {coversArray.map(([url, prompt], index) => {
-        console.log(url);
-        console.log(prompt);
         return (
           <img
             key={index + url}

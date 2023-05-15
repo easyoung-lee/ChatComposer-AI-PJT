@@ -25,7 +25,7 @@ function Produce() {
   const [producingOpacity, setProducingOpacity] = useState("opacity-100");
   // const [trackIds, setTrackIds] = useState([] as object[][]);
   const [trackIds, setTrackIds] = useRecoilState(trackIdsState);
-  const canPost = useRecoilState(canPostMusicState);
+  const canPost = useRecoilValue(canPostMusicState);
   // const firstTrack = useRecoilValue(trackAtomFamily(0));
 
   //components\sequencers\chat.tsx에서 변경되는 클래스명 상태입니다.
@@ -176,7 +176,10 @@ function Produce() {
   };
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
-  if (canPost) return <PostMusic />;
+  if (canPost) {
+    console.log(canPost);
+    return <PostMusic />;
+  }
   if (isRiffusion) return <Riffusions />;
 
   //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생

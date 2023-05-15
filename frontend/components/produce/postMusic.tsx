@@ -1,35 +1,46 @@
 import React, { useState } from "react";
 import serverApi from "../../services/serverApi";
 import axios from "axios";
+import { toastAlert } from "../../utils/toastAlert";
+import { useRecoilValue } from "recoil";
+import {
+  musicalInstrumentsState,
+  producingMusicState,
+  trackIdsState,
+  tracksInfoState,
+} from "../../store/atoms";
 
 function PostMusic() {
-  const [producingMusic, setProducingMusic] = useState({
-    title: null,
-    tags: ["Happy", "Sad", "Energetic"],
-    decription: null,
-    genre: "2",
-    beat: 100,
-    created_at: 1684127895274,
-    music_source:
-      "https://chatcomposer.s3.ap-northeast-2.amazonaws.com/origin-music/703.7256216117561_2023-05-15audio.wav",
-    mixed_music_request:
-      '{"role":"user","content":"[instruement: piano]A good song to listen to on a rainy day"}',
-    mixed_music_source:
-      "https://chatcomposer.s3.ap-northeast-2.amazonaws.com/mixed-music/963.4884727691707_2023-05-15audio.mp3",
-    cover_request: "asdfsdfasdf",
-    cover_source:
-      "https://chatcomposer.s3.ap-northeast-2.amazonaws.com/album/710.1714783313225_2023-05-15image.png",
-  });
-
-  const trackIds = [["가", "나", "다"]];
-  const musicalInstruments = ["Piano"];
-  const tracksInfo = [
-    {
-      request_description: "호놀눌눌루 리퀘스트",
-      response_description: "호놀눌눌루 리퀘스트",
-      transfer_date: 234235,
-    },
-  ];
+  // const [producingMusic, setProducingMusic] = useState({
+  //   title: null,
+  //   tags: ["Happy", "Sad", "Energetic"],
+  //   decription: null,
+  //   genre: "2",
+  //   beat: 100,
+  //   created_at: 1684127895274,
+  //   music_source:
+  //     "https://chatcomposer.s3.ap-northeast-2.amazonaws.com/origin-music/703.7256216117561_2023-05-15audio.wav",
+  //   mixed_music_request:
+  //     '{"role":"user","content":"[instruement: piano]A good song to listen to on a rainy day"}',
+  //   mixed_music_source:
+  //     "https://chatcomposer.s3.ap-northeast-2.amazonaws.com/mixed-music/963.4884727691707_2023-05-15audio.mp3",
+  //   cover_request: "asdfsdfasdf",
+  //   cover_source:
+  //     "https://chatcomposer.s3.ap-northeast-2.amazonaws.com/album/710.1714783313225_2023-05-15image.png",
+  // });
+  const producingMusic = useRecoilValue(producingMusicState);
+  // const trackIds = [["가", "나", "다"]];
+  const trackIds = useRecoilValue(trackIdsState);
+  // const musicalInstruments = ["Piano"];
+  const musicalInstruments = useRecoilValue(musicalInstrumentsState);
+  // const tracksInfo = [
+  //   {
+  //     request_description: "호놀눌눌루 리퀘스트",
+  //     response_description: "호놀눌눌루 리퀘스트",
+  //     transfer_date: 234235,
+  //   },
+  // ];
+  const tracksInfo = useRecoilValue(tracksInfoState);
 
   const [title, setTitle] = useState("");
   const [decription, setDecription] = useState("");
@@ -55,7 +66,7 @@ function PostMusic() {
         .catch((err) => console.log(err)),
       axios.post("/api/fe/musics", data),
     ]);
-    console.log(resultArray);
+    toastAlert(`음악 등록 완료!`);
 
     /*
 {

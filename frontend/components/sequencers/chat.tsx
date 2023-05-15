@@ -16,6 +16,7 @@ import {
   ChatGPTApiResponseBodyType,
 } from "../../types/chatgpt";
 import CssSpinner from "../cssSpinner";
+import { toastAlert } from "../../utils/toastAlert";
 
 function Chat({ trackId, setTrackIds }) {
   const [input, setInput] = useState("");
@@ -77,6 +78,7 @@ function Chat({ trackId, setTrackIds }) {
         return newArray;
       });
       setIsLoading(false);
+      toastAlert(`음악 생성 완료!`);
     });
   };
 
