@@ -4,16 +4,32 @@ import Sequencers from "../../components/sequencers";
 import TrackAdder from "../../components/produce/trackAdder";
 import CoverGens from "../../components/coverGens";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
-import { CoverGenHeightState, trackAtomFamily } from "../../store/atoms";
+import {
+  CoverGenHeightState,
+  blobAudioState,
+  producingMusicState,
+  selectedCoverPromptState,
+  selectedCoverState,
+  trackAtomFamily,
+} from "../../store/atoms";
 import NewChat from "../../components/produce/newChat";
+import axios from "axios";
+import serverApi from "../../services/serverApi";
+import Riffusions from "../../components/riffusions";
 
 function Produce() {
+  const [isRiffusion, setIsRiffusion] = useState(false);
+  const [producingOpacity, setProducingOpacity] = useState("opacity-100");
   const [trackIds, setTrackIds] = useState([] as object[][]);
   // const firstTrack = useRecoilValue(trackAtomFamily(0));
 
   //components\sequencers\chat.tsx에서 변경되는 클래스명 상태입니다.
   const CoverGenHeight = useRecoilValue(CoverGenHeightState);
   const [heightClassName, setHeightClassName] = useState("h-0 opacity-0");
+  const [producingMusic, setProducingMusic] =
+    useRecoilState(producingMusicState);
+  const [canSubmit, setCanSubmit] = useState(false);
+  const [buttonMessage, setButtonMessage] = useState("");
 
   useEffect(() => {
     if (!trackIds.length) return;
@@ -21,19 +37,101 @@ function Produce() {
     setHeightClassName("h-72 opacity-100");
   }, [trackIds]);
 
-  if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
   // if (!firstTrack.request_description) {
   //   return <Sequencers trackIds={trackIds} />;
   // }
 
+  const audioBlob = useRecoilValue(blobAudioState);
+  const selectedImgURL = useRecoilValue(selectedCoverState);
+  const selectedImgPrompt = useRecoilValue(selectedCoverPromptState);
+
+  useEffect(() => {
+    if (!canSubmit) {
+      if (!audioBlob) {
+        setButtonMessage("음악을 녹음해주세요");
+      } else if (!selectedImgURL) {
+        setButtonMessage("앨범 커버를 선택해주세요");
+      }
+    }
+    if (!canSubmit && audioBlob && selectedImgURL) {
+      setCanSubmit(true);
+      setButtonMessage("다음으로");
+    } else if (canSubmit && (!audioBlob || !selectedImgURL)) {
+      setCanSubmit(false);
+    }
+  });
+
+  const getImageBlob = async () => {
+    // blob 객체 가져오기
+    const response = await axios.get(selectedImgURL, { responseType: "blob" });
+    const blob = response.data;
+    // 파일 객체 생성하기
+    const file = new File([blob], "image.png");
+    return file;
+  };
+
+  const handleSubmit = async () => {
+    // console.log(audioBlob);
+    // console.log(selectedImgURL);
+    // return;
+    const formData = new FormData();
+    const imageFile = await getImageBlob();
+    formData.append("file", imageFile);
+
+    await serverApi
+      .post("/produce/musics/cover", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        setProducingMusic((prev) => {
+          return {
+            ...prev,
+            cover_source: res.data.source,
+            cover_request: selectedImgPrompt,
+            beat: 100,
+            created_at: Date.now(),
+          };
+        });
+      })
+      .catch((err) => {
+        if (selectedImgURL.startsWith("/")) {
+          setProducingMusic((prev) => {
+            return {
+              ...prev,
+              cover_source: selectedImgURL,
+              cover_request: selectedImgPrompt,
+            };
+          });
+        }
+      });
+
+    //다음 페이지로 이동시키기
+    // setProducingOpacity("opacity-0");
+    // setTimeout(() => setIsRiffusion(true), 300);
+  };
+
+  if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
+  if (isRiffusion) return <Riffusions />;
+
   //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생
   return (
-    <div>
-      <div className={`${CoverGenHeight}  transition-all duration-1000`}>
+    <div className={`${producingOpacity} transition-all duration-300`}>
+      <div className="text-white">{JSON.stringify(producingMusic)}</div>
+      <button
+        type="button"
+        onClick={handleSubmit}
+        // disabled={!canSubmit}
+        className={`${
+          !canSubmit ? "opacity-25" : "opacity-95"
+        } bg-slate-700 text-white`}
+      >
+        {buttonMessage}
+      </button>
+      <div className={`${CoverGenHeight}`}>
         <CoverGens />
       </div>
       <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
-      <div className={`${heightClassName}  transition-all duration-1000`}>
+      <div className={`${heightClassName}`}>
         <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
       </div>
     </div>
