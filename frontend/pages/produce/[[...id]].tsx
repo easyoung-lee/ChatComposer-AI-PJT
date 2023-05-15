@@ -7,20 +7,25 @@ import { atom, useRecoilState, useRecoilValue } from "recoil";
 import {
   CoverGenHeightState,
   blobAudioState,
+  canPostMusicState,
   producingMusicState,
   selectedCoverPromptState,
   selectedCoverState,
   trackAtomFamily,
+  trackIdsState,
 } from "../../store/atoms";
 import NewChat from "../../components/produce/newChat";
 import axios from "axios";
 import serverApi from "../../services/serverApi";
 import Riffusions from "../../components/riffusions";
+import PostMusic from "../../components/produce/postMusic";
 
 function Produce() {
   const [isRiffusion, setIsRiffusion] = useState(false);
   const [producingOpacity, setProducingOpacity] = useState("opacity-100");
-  const [trackIds, setTrackIds] = useState([] as object[][]);
+  // const [trackIds, setTrackIds] = useState([] as object[][]);
+  const [trackIds, setTrackIds] = useRecoilState(trackIdsState);
+  const canPost = useRecoilState(canPostMusicState);
   // const firstTrack = useRecoilValue(trackAtomFamily(0));
 
   //components\sequencers\chat.tsx에서 변경되는 클래스명 상태입니다.
@@ -61,12 +66,56 @@ function Produce() {
     }
   });
 
+  // const getImageBlob = async () => {
+  // // blob 객체 가져오기
+  // const response = await axios.get(selectedImgURL, { responseType: "blob" });
+  // const blob = response.data;
+  // // 파일 객체 생성하기
+  // const file = new File([blob], "image.png");
+  // return file;
+
+  // const getImageBlob = async () => {
+  //   if (!selectedImgURL.startsWith("data")) {
+  //     // blob 객체 가져오기
+  //     const response = await axios.get(selectedImgURL, {
+  //       responseType: "blob",
+  //     });
+  //     const blob = response.data;
+  //     // 파일 객체 생성하기
+  //     const file = new File([blob], "image.png");
+  //     return file;
+  //   }
+  //   const base64String = selectedImgURL.replace("data:image/png;base64", "");
+  //   const byteCharacters = atob(base64String); // base64 문자열을 디코딩하여 바이너리 데이터 생성
+  //   const byteNumbers = new Array(byteCharacters.length);
+
+  //   for (let i = 0; i < byteCharacters.length; i++) {
+  //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //   }
+
+  //   const byteArray = new Uint8Array(byteNumbers);
+  //   const blob = new Blob([byteArray], { type: "image/png" }); // Blob 객체 생성
+  //   const file = new File([blob], "image.png", { type: "image/png" }); // File 객체 생성
+
+  //   return file;
+  // };
+
   const getImageBlob = async () => {
-    // blob 객체 가져오기
-    const response = await axios.get(selectedImgURL, { responseType: "blob" });
-    const blob = response.data;
-    // 파일 객체 생성하기
-    const file = new File([blob], "image.png");
+    if (!selectedImgURL.startsWith("data")) {
+      // blob 객체 가져오기
+      const response = await axios.get(selectedImgURL, {
+        responseType: "blob",
+      });
+      const blob = response.data;
+      // 파일 객체 생성하기
+      const file = new File([blob], "image.png");
+      return file;
+    }
+    const base64String = selectedImgURL.replace("data:image/png;base64", "");
+    const byteArray = Buffer.from(base64String, "base64");
+    const blob = new Blob([byteArray], { type: "image/png" }); // Blob 객체 생성
+    const file = new File([blob], "image.png", { type: "image/png" }); // File 객체 생성
+
     return file;
   };
 
@@ -127,6 +176,7 @@ function Produce() {
   };
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
+  if (canPost) return <PostMusic />;
   if (isRiffusion) return <Riffusions />;
 
   //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생

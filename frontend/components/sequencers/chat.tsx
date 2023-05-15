@@ -66,14 +66,14 @@ function Chat({ trackId, setTrackIds }) {
         response_description: JSON.stringify(chatGPTPrompt),
         transfer_date: date.toFixed(),
       }));
+      setPrevData((prev) => {
+        const newArray = [...prev];
+        newArray.splice(trackId * 2, 2, userPrompt, chatGPTPrompt);
+        return newArray;
+      });
       setTrackIds((prev) => {
         const newArray = JSON.parse(JSON.stringify(prev));
         newArray[trackId] = [userPrompt, chatGPTPrompt];
-        setPrevData((prev) => {
-          const newArray = [...prev];
-          newArray.splice(trackId * 2, 2, userPrompt, chatGPTPrompt);
-          return newArray;
-        });
         return newArray;
       });
       setIsLoading(false);

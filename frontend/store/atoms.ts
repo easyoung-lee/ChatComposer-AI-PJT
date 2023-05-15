@@ -111,3 +111,18 @@ export const selectedCoverPromptState = atom({
   key: "SelectedCoverPromptState",
   default: "",
 });
+
+export const trackIdsState = atom({
+  key: "TrackIdsState",
+  default: [] as object[][],
+});
+
+export const tracksInfoState = atom({
+  key: "TracksInfoState",
+  default: [] as object[],
+});
+
+export const canPostMusicState = atom({
+  key: "CanPostMusicState",
+  default: false,
+});
