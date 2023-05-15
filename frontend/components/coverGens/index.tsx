@@ -17,18 +17,21 @@ function CoverGens() {
   const [selectedImgPrompt, setSelectedPrompt] = useRecoilState(
     selectedCoverPromptState,
   );
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const setProducingMusic = useSetRecoilState(producingMusicState);
 
   const retrieveCovers = async (coverRequest: string) => {
+    setIsImageLoading(true);
     const coverImageUrl = await serverApi
       .get(`/produce/cover?cover-request=${coverRequest}`)
       .then((res) => {
-        const byteArray = new Uint8Array(res.data.cover);
-        const blob = new Blob([byteArray], { type: "image/png" });
-        const imageURL = URL.createObjectURL(blob);
+        const imageURL = `data:image/png;base64,${res.data.cover}`;
+        // const byteArray = new Uint8Array(res.data.cover);
+        // const blob = new Blob([byteArray], { type: "image/png" });
+        // const imageURL = URL.createObjectURL(blob);
         // const image = new Image();
         // image.src = imageURL;
-        return Promise.reject("");
+        // return Promise.reject("");
         return imageURL;
       })
       .catch((err) => {
@@ -52,6 +55,7 @@ function CoverGens() {
       });
     setSelectedImgURL(coverImageUrl as string);
     setSelectedPrompt(coverRequest);
+    setIsImageLoading(false);
     return coverImageUrl;
   };
 
@@ -78,7 +82,12 @@ function CoverGens() {
         value={coverRequest}
         onChange={(e) => setCoverRequest(e.target.value)}
       />
-      <button onClick={onRetrieveCovers}>앨범 커버 생성하기</button>
+      {isImageLoading ? (
+        <div>생성중</div>
+      ) : (
+        <button onClick={onRetrieveCovers}>앨범 커버 생성하기</button>
+      )}
+
       {coversArray.map(([url, prompt], index) => {
         console.log(url);
         console.log(prompt);
