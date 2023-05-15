@@ -69,10 +69,10 @@ export default async function handler(
   you return them a song showing the notes, durations, and times that they occur. Respond with just the music.
   Here's music infomation - [Genre : ${body.genre}, Moods: ${body.tags.join(
     " ",
-  )}]
+  )}],
   Plan out the structure beforehand. Notation looks like this using quaver and keep the form:
   (Note-duration-time in beats)
-  C4-2/8-0, Eb4-1/8-2.5, D4-2/8-3, F4-2/8-3 etc.`;
+  G3-1/4-0, C4-1/4-0.5, D4-1/8-1, F4-1/4-1.25, D4-1/8-1.75, C4-1/4-2, G3-1/4-2.5, G3-1/4-3, C4-1/4-3.5, E4-1/8-4, G4-1/4-4.25, E4-1/8-4.75, C4-1/4-5, G3-1/4-5.5, C4-1/4-6, E4-1/8-6.5, G4-1/4-6.75, E4-1/8-7.25, C4-1/4-7.5, G3-1/4-8, C4-1/4-8.5, E4-1/8-9, G4-1/4-9.25, E4-1/8-9.75, C4-1/4-10, G3-1/4-10.5, C4-1/4-11, E4-1/8-11.5, G4-1/4-11.75, E4-1/8-12.25, C4-1/4-12.5, G3-1/4-13, C4-1/4-13.5, E4-1/8-14, G4-1/4-14.25, F4-1/8-14.75, D4-1/4-15, C4-1/4-15.5, G3-1/4-16, G3-1/4-16.5, C4-1/4-17, E4-1/8-17.5, G4-1/4-17.75, E4-1/8-18.25, C4-1/4-18.5, G3-1/4-19, C4-1/4-19.5, E4-1/8-20, G4-1/4-20.25, E4-1/8-20.75, C4-1/4-21, G3-1/4-21.5, C4-1/4-22, E4-1/8-22.5, G4-1/4-22.75, E4-1/8-23.25, C4-1/4-23.5, G3-1/4-24, C4-1/4-24.5, E4-1/8-25, G4-1/4-25.25, E4-1/8-25.75, C4-1/4-26, G3-1/4-26.5, C4-1/4-27, G4-1/4-27.5, E4-1/8-28, C4-1/4-28.25, G3-1/4-28.75, C4-1/4-29.25, E4-1/8-29.75, G4-1/4-30, E4-1/8-30.5, C4-1/4-30.75, G3-1/4-31.25, C4-1/4-31.75, E4-1/8-32.25, G4-1/4-32.5, E4-1/8-33, C4-1/4-33.25, G3-1/4-33.75, C4-1/4-34.25, E4-1/8-34.75, G4-1/4-35, E4-1/8-35.5, C4-1/4-35.75, G3-1/4-36.25 etc.`;
   //   const systemPrompt = `You are MusicGPT, a music creation and completion chat bot that. When a user gives you a prompt,
   // you return them a song showing the notes, durations, and times that they occur. Respond with just the music. Music has three instruments - guitar, bass, piano
   // Notation looks like and keep the form. Use quarter note only!:
@@ -187,39 +187,39 @@ const monsters = [
 ];
 
 function sharpToFlat(note: string) {
-  // if (note.includes("#")) {
-  //   const scale = note.slice(0, 2);
-  //   const octav = note.slice(2, 3);
-  //   switch (scale) {
-  //     case "C#":
-  //       return "Db" + octav;
-  //     case "D#":
-  //       return "Eb" + octav;
-  //     case "F#":
-  //       return "Gb" + octav;
-  //     case "G#":
-  //       return "Ab" + (~~octav + 1).toString();
-  //     case "A#":
-  //       return "Bb" + octav;
-  //   }
-  // }
-  //플랫일때 샾으로 바꾸도록 변경
-  if (note.includes("b")) {
+  if (note.includes("#")) {
     const scale = note.slice(0, 2);
     const octav = note.slice(2, 3);
     switch (scale) {
-      case "Db":
-        return "C#" + octav;
-      case "Eb":
-        return "D#" + octav;
-      case "Gb":
-        return "F#" + octav;
-      case "Ab":
-        return "G#" + (~~octav - 1).toString();
-      case "Bb":
-        return "A#" + octav;
+      case "C#":
+        return "Db" + octav;
+      case "D#":
+        return "Eb" + octav;
+      case "F#":
+        return "Gb" + octav;
+      case "G#":
+        return "Ab" + (~~octav + 1).toString();
+      case "A#":
+        return "Bb" + octav;
     }
   }
+  //플랫일때 샾으로 바꾸도록 변경
+  // if (note.includes("b")) {
+  //   const scale = note.slice(0, 2);
+  //   const octav = note.slice(2, 3);
+  //   switch (scale) {
+  //     case "Db":
+  //       return "C#" + octav;
+  //     case "Eb":
+  //       return "D#" + octav;
+  //     case "Gb":
+  //       return "F#" + octav;
+  //     case "Ab":
+  //       return "G#" + (~~octav - 1).toString();
+  //     case "Bb":
+  //       return "A#" + octav;
+  //   }
+  // }
   return note;
 }
 

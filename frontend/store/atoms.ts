@@ -96,3 +96,18 @@ export const blobAudioState = atom({
   key: "BlobAudioState",
   default: null as null | Blob,
 });
+
+export const coversState = atom({
+  key: "CoversState",
+  default: [],
+});
+
+export const selectedCoverState = atom({
+  key: "SelectedCoverState",
+  default: "",
+});
+
+export const selectedCoverPromptState = atom({
+  key: "SelectedCoverPromptState",
+  default: "",
+});

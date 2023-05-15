@@ -9,6 +9,7 @@ import { WavRecorder } from "webm-to-wav-converter";
 function PlayAllButton() {
   const sheduleArray = useRecoilValue(sheduleArrayState);
   const [audioState, setAudioState] = useRecoilState(blobAudioState);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [className, setClassName] = useState("hidden opacity-0");
   // const audioRef = useRef();
   useEffect(() => {
@@ -27,10 +28,12 @@ function PlayAllButton() {
 
     await Tone.start();
     console.log("톤 시작됨");
+    setIsPlaying(true);
     const recorder = new Tone.Recorder();
     // const recorder = new WavRecorder();
 
     // const recorder = null;
+    console.log(sheduleArray);
     sheduleArray.forEach((schedule, i) => {
       schedule(Tone.Transport, recorder);
     });
@@ -39,16 +42,22 @@ function PlayAllButton() {
     Tone.Transport.start();
   };
 
+  const onRecordedPlay = () => {
+    const audioUrl = URL.createObjectURL(audioState);
+    const audioElement = new Audio(audioUrl);
+    audioElement.play();
+  };
   useEffect(() => {
     if (audioState) {
-      console.log("아싸 저장됨");
+      setIsPlaying(false);
+      // console.log("아싸 저장됨");
       // console.log(audioState);
       // audioState가 있을 때만 재생
 
-      const audioUrl = URL.createObjectURL(audioState);
+      // const audioUrl = URL.createObjectURL(audioState);
       // audioUrl.play();
-      const audioElement = new Audio(audioUrl);
-      audioElement.play();
+      // const audioElement = new Audio(audioUrl);
+      // audioElement.play();
 
       // audio/webm;codecs=opus 파일을 wav파일로 변환하는 함수
       // const convertWebmToWav = async (webmFile) => {
@@ -81,18 +90,26 @@ function PlayAllButton() {
   }, [audioState]);
 
   return (
-    <>
-      <div
-        className={`transition-opacity duration-200 bg-orange-200 ${className}`}
+    <div className="flex w-full">
+      <button
+        className={`transition-opacity duration-200 bg-orange-200 ${className} w-full`}
         onClick={onPlay}
+        disabled={isPlaying}
       >
-        PlayAllButton
-      </div>
-      {/* <div>
-        <audio controls ref={audioRef}></audio>
-      </div> */}
-      {/* {audioState? :<></>} */}
-    </>
+        {isPlaying ? "녹음중" : audioState ? "다시 녹음하기" : "녹음하기"}
+      </button>
+      {audioState ? (
+        <div
+          className="bg-red-200 w-full"
+          onClick={onRecordedPlay}
+          role="button"
+        >
+          재생하기
+        </div>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 }
 
