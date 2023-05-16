@@ -26,8 +26,8 @@ export default function Home() {
 
   useEffect(() => {
     if (isPrefetched) {
-      setOpacityClassname("opacity-0");
-      setTimeout(() => router.push("/main"), 300);
+      // setOpacityClassname("opacity-0");
+      // setTimeout(() => router.push("/main"), 300);
     }
   }, [isPrefetched]);
 
@@ -36,6 +36,12 @@ export default function Home() {
       className={`transition-all duration-200  ${opacityClassname} bg-red-400`}
     >
       <div>splash페이지입니다.</div>
+      <a
+        className="bg-red-400"
+        href="https://k8a504.p.ssafy.io/api/oauth2/authorization/google?redirect_uri=https://k8a504.p.ssafy.io/"
+      >
+        로그인링크
+      </a>
     </div>
   );
 }
