@@ -42,6 +42,13 @@ export default function Home() {
       >
         로그인링크
       </a>
+      <a
+        className="bg-red-400"
+        href="https://k8a504.p.ssafy.io:8080/api/oauth2/authorization/google?redirect_uri=https://k8a504.p.ssafy.io:3000/oauth/redirect
+        "
+      >
+        로그인링크
+      </a>
     </div>
   );
 }
