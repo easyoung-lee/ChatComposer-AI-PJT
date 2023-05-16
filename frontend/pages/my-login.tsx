@@ -26,7 +26,11 @@ function Login() {
       <div className="bg-slate-500" onClick={onClick} role="button">
         로그인하기
       </div>
-      <a className="bg-red-400" onClick={onClick} href={url}>
+      <a
+        className="bg-red-400"
+        onClick={onClick}
+        href="https://k8a504.p.ssafy.io/api/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect"
+      >
         로그인링크
       </a>
     </div>
