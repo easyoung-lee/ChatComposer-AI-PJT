@@ -3,6 +3,11 @@ import { SongsDummyData } from "../favorite/favoriteSong";
 import TrendingSong from "./trendingSong";
 
 function Trending() {
+  // const genreData = GenreMapEntries.map((e) => {
+  //   const [data] = listGenreMusicsQuery(e[0]);
+  //   return { genreName: e[0].replaceAll("_", " "), musicList: data };
+  // }).filter((e) => !!e && e.musicList.length);
+
   return (
     <>
       <h3 className="library_trending_title text-white text-[17px] mt-[30px] mb-2.5 pl-5">

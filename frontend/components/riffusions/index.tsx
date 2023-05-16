@@ -16,7 +16,7 @@ function Riffusions() {
   // let [producingMusic, setProducingMusic] = useState({
   //   title: null,
   //   tags: ["Happy", "Sad", "Energetic"],
-  //   decription: null,
+  //   description: null,
   //   genre: "2",
   //   beat: 100,
   //   created_at: 1684127895274,
