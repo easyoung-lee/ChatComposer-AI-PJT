@@ -7,7 +7,7 @@ import {
 import { AxiosResponse } from "axios";
 import { CustomQueryHookReturnType, UseQueryOptionsType } from "../types/query";
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
@@ -24,7 +24,18 @@ export const useQueryResult = (
   options?: UseQueryOptionsType,
 ): CustomQueryHookReturnType => {
   const query = useQuery(queryKey, queryFn, options);
+  console.log(query.data?.data);
   return [query.data?.data, query.refetch, query];
+};
+
+export const prefetchingQuery = async (
+  queryKey: QueryKey,
+  queryFn: (...args: any[]) => Promise<AxiosResponse<any, any>>,
+) => {
+  await queryClient.prefetchQuery({
+    queryKey,
+    queryFn,
+  });
 };
 
 export const useCustomMutate = (

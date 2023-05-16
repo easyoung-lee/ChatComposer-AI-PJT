@@ -14,7 +14,7 @@ function PostMusic() {
   // const [producingMusic, setProducingMusic] = useState({
   //   title: null,
   //   tags: ["Happy", "Sad", "Energetic"],
-  //   decription: null,
+  //   description: null,
   //   genre: "2",
   //   beat: 100,
   //   created_at: 1684127895274,
@@ -43,13 +43,13 @@ function PostMusic() {
   const tracksInfo = useRecoilValue(tracksInfoState);
 
   const [title, setTitle] = useState("");
-  const [decription, setDecription] = useState("");
+  const [description, setdescription] = useState("");
 
   const onSubmitHandler = async () => {
     const data = {
       ...producingMusic,
       title: title,
-      decription: decription,
+      description: description,
       tracks: trackIds.map((e, i) => {
         return {
           midi_description: e,
@@ -72,7 +72,7 @@ function PostMusic() {
 {
 	"title": String,   //음악 제목
 	"tags" : [String, ... ], // tag_name
-	"decription": String, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
+	"description": String, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
 	"genre" : Integer, //genre_id
 	"beat": String,
 
@@ -116,13 +116,13 @@ function PostMusic() {
         ></input>
         <textarea
           className="text-slate-600"
-          value={decription}
-          onChange={(e) => setDecription(e.target.value)}
+          value={description}
+          onChange={(e) => setdescription(e.target.value)}
           maxLength={160}
         ></textarea>
       </div>
 
-      {title && decription ? (
+      {title && description ? (
         <button type="button" onClick={onSubmitHandler}>
           음악 등록하기
         </button>

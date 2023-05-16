@@ -1,12 +1,11 @@
 import React from "react";
 import { AlbumCoverType } from "../../../../types/musics";
 
-function AlbumCover({ cover }) {
-  const { cover_source: coverSource, genre, title } = cover;
+function AlbumCover({ genreName, coverImgSrc, numOfSongs }) {
   return (
     <div className="library_album_covers relative w-[190px] h-[130px] flex flex-col flex-shrink-0 justify-end shadow-[0_0_5px_#000] transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer hover:scale-105">
       <img
-        src={coverSource}
+        src={coverImgSrc}
         alt=""
         className="album_cover absolute w-full h-full z-[-4] rounded-[10px] left-0 top-0"
       />
@@ -15,9 +14,11 @@ function AlbumCover({ cover }) {
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIie2TPQ7CMAxGHcTIlTgBVD0UQuqJuhVFQt04CSNlf1060BTF+etQqU/KZn8vih2RnZIAPX6ebo+JFKDVGGNmmYcYQQq7wGUx5GNKijtIH5t7ojABUAMW+AJvoAXORYxAo/xW9bP5wmstPFdgSwtm6wYMInJSm1Ze009MsSt4BfSE1PwHqAJGcEkWTJK7J/yWFf4juQIPYJhOl33zzTIC7lwSFRt0S08AAAAASUVORK5CYII="
       />
       <h5 className="library_album_covers_h5 text-white text-[15px] z-[2]">
-        {genre}
+        {genreName}
       </h5>
-      <p className="library_album_covers_p text-white text-xs z-[2]">{title}</p>
+      <p className="library_album_covers_p text-white text-xs z-[2]">
+        {numOfSongs}개의 음악이 있습니다.
+      </p>
       <span className="library_album_covers_span absolute w-full h-[60px] bg-[#00000029] backdrop-blur-[10px] rounded-[0_0_10px_10px] left-0 bottom-0" />
     </div>
   );

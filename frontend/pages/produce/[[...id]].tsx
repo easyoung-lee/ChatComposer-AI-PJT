@@ -169,7 +169,7 @@ function Produce() {
         music_source: music_source,
       };
     });
-    // title, decription, mixed_music_request, mixed_music_source
+    // title, description, mixed_music_request, mixed_music_source
     //다음 페이지로 이동시키기
     setProducingOpacity("opacity-0");
     setTimeout(() => setIsRiffusion(true), 300);

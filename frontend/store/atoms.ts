@@ -55,7 +55,7 @@ export const producingMusicState = atom({
   default: {
     title: null as string, //음악 제목
     tags: null as TagType[],
-    decription: null as string, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
+    description: null as string, //음악에 대한 설명(GPT가 만들수도 있음, 음악 이어하기 했을 때에는 강제로 출처가 표기되게)
     genre: null as number,
     beat: null as number,
     created_at: null as number,
