@@ -7,6 +7,7 @@ const serverApi = axios.create({
 serverApi.interceptors.request.use((config) => {
   if (config.method === "get" && config.url.startsWith("/musics"))
     return config;
+  if (config.url.startsWith("/oauth2")) return config;
   config.headers["Authorization"] =
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTU5MTIwNTUyMzc2MzgyNTI3MjIiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzAyMTk5NTQ2fQ.ieECpuP1paUeGsTD0YVMQFXf4eNAW79MVKohJaKELsk";
   return config;
