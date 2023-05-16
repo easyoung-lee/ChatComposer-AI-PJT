@@ -22,8 +22,13 @@ function Login() {
       });
   };
   return (
-    <div className="bg-slate-500" onClick={onClick} role="button">
-      로그인하기
+    <div>
+      <div className="bg-slate-500" onClick={onClick} role="button">
+        로그인하기
+      </div>
+      <a className="bg-red-400" onClick={onClick} href={url}>
+        로그인링크
+      </a>
     </div>
   );
 }
