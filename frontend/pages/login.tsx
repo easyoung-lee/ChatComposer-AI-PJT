@@ -10,10 +10,16 @@ function Login() {
 
   const onClick = () => {
     // axios.get(`/api/login?url=${url}`);
-    serverApi.get(url).then((res) => {
-      console.log(res);
-      return res;
-    });
+    serverApi
+      .get(url)
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((err) => {
+        console.log("로그인버튼에서나는에러");
+        console.log(err);
+      });
   };
   return (
     <div className="bg-slate-500" onClick={onClick} role="button">
