@@ -8,8 +8,24 @@ serverApi.interceptors.request.use((config) => {
   if (config.method === "get" && config.url.startsWith("/musics"))
     return config;
   if (config.url.startsWith("/oauth2")) return config;
-  config.headers["Authorization"] =
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTU5MTIwNTUyMzc2MzgyNTI3MjIiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzAyMTk5NTQ2fQ.ieECpuP1paUeGsTD0YVMQFXf4eNAW79MVKohJaKELsk";
+
+  console.log(
+    JSON.parse(localStorage.getItem("recoil-persist")).AuthTokenState,
+  );
+
+  const getToken = () => {
+    let token = "";
+    const recoilState = localStorage.getItem("recoil-persist");
+    if (recoilState) {
+      const newToken = JSON.parse(recoilState)?.AuthTokenState;
+      if (newToken) {
+        token = newToken;
+      }
+    }
+    return token;
+  };
+  console.log(`Bearer ${getToken()}`);
+  config.headers["Authorization"] = `Bearer ${getToken()}`;
   return config;
 });
 
