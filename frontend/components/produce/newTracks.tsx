@@ -40,21 +40,21 @@ function NewTracks({ setTrackIds }) {
   };
   return (
     <div
-      className={`Container text-white h-full w-full transition-opacity duration-200 ${opacityClassName} bg-slate-100`}
+      className={`Container text-gray-500 h-full w-full transition-opacity duration-200 ${opacityClassName} mt-12`}
     >
-      <div className="TracksContainer h-[90%] w-[90%]">
+      <div className="TracksContainer mx-auto">
         <form>
           <div className="GenreDropboxContainer">
             {/* https://devdojo.com/zoltan/tailwind-css-select */}
             <label
               htmlFor="genre"
-              className="block mb-2 text-sm font-medium text-gray-400"
+              className="libray_h3 text-2xl font-bold text-pink-500 text-[17px] mb-[15px] ml-6"
             >
               장르
             </label>
             <select
               id="genre"
-              className="bg-gray-700 border border-gray-600 text-pink-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+              className=" bg-pink-50/60 border border-pink-300 text-pink-500 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 placeholder-gray-400 my-2"
               onChange={onGenreChange}
               defaultValue={"default"}
             >
@@ -70,20 +70,21 @@ function NewTracks({ setTrackIds }) {
               })}
             </select>
           </div>
-          <div className="TagsCheckboxContainer">
+          <div className="TagsCheckboxContainer pt-4">
             {/* https://www.reddit.com/r/webdev/comments/rdyyys/i_built_a_library_of_components_with_dark_mode/ */}
             {/* https://flowbite.com/docs/components/dropdowns/ */}
-            <div className="block mb-2 text-sm font-medium text-gray-400">
+
+            <div className="libray_h3 text-2xl font-bold text-pink-500 text-[17px] ml-6">
               태그
             </div>
-            <div>태그는 3개까지 선택 가능합니다</div>
+            <div className="mb-[15px]">태그는 3개까지 선택 가능합니다</div>
             <div className="w-full grid grid-cols-5 gap-2">
               {TagMapEntries.map((element, index) => {
                 return (
                   // <div key={element[0] + index}>
                   <div
                     key={element[0] + index}
-                    className="flex items-center bg-[#00000029] backdrop-blur-[10px] border border-gray-200 rounded dark:border-gray-700 text-center px-4 w-full"
+                    className="flex items-center bg-pink-50/60 backdrop-blur-[10px] border border-pink-200 rounded text-center px-4 w-full"
                   >
                     <input
                       id={element[0] + index}
@@ -92,7 +93,7 @@ function NewTracks({ setTrackIds }) {
                       checked={tags.includes(element[0])}
                       onChange={(event) => onTagChange(event, element[0])}
                       name="bordered-checkbox"
-                      className="w-4 h-4 text-blue-600 bg-gray-700 rounded focus:ring-blue-600 ring-2 border-gray-600"
+                      className="w-4 h-4 text-pink-600 bg-pink-100 rounded ring-2 ring-pink-300 focus:ring-pink-600  border-pink-600"
                     />
                     <label
                       htmlFor={element[0] + index}
@@ -106,15 +107,26 @@ function NewTracks({ setTrackIds }) {
               })}
             </div>
           </div>
-          <button
-            type="button"
-            onClick={onSubmitHandler}
-            className={!(genre !== null && tags.length) ? "opacity-50" : ""}
-          >
-            다음으로
-          </button>
-          <div className={!(genre !== null && tags.length) ? "" : "invisible"}>
-            장르와 태그를 선택해주세요
+          <div className="flex flex-col w-full">
+            <div className="mt-4 mx-auto">
+              <button
+                type="button"
+                onClick={onSubmitHandler}
+                className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white mx-4 bg-pink-500 ${
+                  !(genre !== null && tags.length) ? "opacity-50" : ""
+                }`}
+                disabled={!(genre !== null && tags.length)}
+              >
+                다음으로
+              </button>
+            </div>
+            <div
+              className={`mx-auto mt-2 ${
+                !(genre !== null && tags.length) ? "" : "invisible"
+              }`}
+            >
+              장르와 태그를 선택해주세요
+            </div>
           </div>
         </form>
       </div>

@@ -26,7 +26,7 @@ function InstrumentDropbox({ trackId }) {
       {/* https://devdojo.com/zoltan/tailwind-css-select */}
       <select
         id="genre"
-        className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+        className="bg-pink-700 border border-pink-600 text-pink-50 text-sm focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 placeholder-pink-400"
         defaultValue={trackId === 0 ? 4 : "default"}
         disabled={trackId === 0}
         onChange={onChangeHandler}

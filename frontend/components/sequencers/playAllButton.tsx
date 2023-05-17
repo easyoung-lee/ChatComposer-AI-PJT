@@ -100,14 +100,14 @@ function PlayAllButton() {
       </button>
       {audioState ? (
         <div
-          className="bg-red-200 w-full"
+          className="bg-red-200 w-full h-9"
           onClick={onRecordedPlay}
           role="button"
         >
           재생하기
         </div>
       ) : (
-        <></>
+        <div className="w-full h-9"></div>
       )}
     </div>
   );

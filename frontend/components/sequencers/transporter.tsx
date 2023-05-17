@@ -17,9 +17,10 @@ import { Transport } from "tone/build/esm/core/clock/Transport";
 // import WavRecorder from "webm-to-wav-converter/types/WavRecorder";
 // import getWaveBlob from "webm-to-wav-converter/types/wavBlobUtil";
 import { getWaveBlob } from "webm-to-wav-converter";
+import { toastAlert } from "../../utils/toastAlert";
 
 function Transporter({ trackId }) {
-  const track = useRecoilValue(trackAtomFamily(trackId));
+  const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
   const setSheduleArrayAtom = useSetRecoilState(sheduleArrayState);
   const setAudioState = useSetRecoilState(blobAudioState);
   const [lastScheduleTime, setLastScheduleTime] = useRecoilState(
@@ -29,7 +30,11 @@ function Transporter({ trackId }) {
 
   useEffect(() => {
     if (!track?.midi_description || trackId) return;
-    const notes = JSON.parse(track.midi_description);
+    const notes = JSON.parse(track?.midi_description);
+    if (!notes.length) {
+      setTrack(() => null);
+      toastAlert("새로운 프롬프트로 다시 시도해주세요");
+    }
     notes
       .sort((a, b) => a[2] - b[2])
       .forEach((e, i) => {
@@ -37,9 +42,9 @@ function Transporter({ trackId }) {
           setLastScheduleTime(e[2]);
         }
       });
-  }, [track.midi_description]);
+  }, [track?.midi_description]);
 
-  if (!track.midi_description) {
+  if (!track?.midi_description) {
     return <div></div>;
   }
 
@@ -47,7 +52,7 @@ function Transporter({ trackId }) {
     InstrumentsUrl[InstrumentsMapEntries[track.musical_instrument][0]];
 
   const onShedule = (transport: Transport, recorder: Tone.Recorder) => {
-    const notes = JSON.parse(track.midi_description);
+    const notes = JSON.parse(track?.midi_description);
     sampler.connect(recorder);
     notes
       .sort((a, b) => a[2] - b[2])
@@ -101,7 +106,7 @@ function Transporter({ trackId }) {
   });
 
   const onPlay = () => {
-    const notes = JSON.parse(track.midi_description);
+    const notes = JSON.parse(track?.midi_description);
 
     const now = Tone.now();
     Tone.Transport.bpm.value = 100;
@@ -112,11 +117,12 @@ function Transporter({ trackId }) {
   };
 
   return (
-    <div>
-      {track.midi_description}
-      {isLoading ? <CssSpinner /> : <SequencerControlBox onPlay={onPlay} />}
+    <div className="w-full flex border border-2 border-pink-500">
+      <div className="mx-auto my-auto">
+        {isLoading ? <CssSpinner /> : <SequencerControlBox onPlay={onPlay} />}
+      </div>
     </div>
   );
 }
 
-export default Transporter;
+export default React.memo(Transporter);

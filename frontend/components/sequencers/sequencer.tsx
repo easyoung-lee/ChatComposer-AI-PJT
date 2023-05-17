@@ -36,9 +36,9 @@ function Sequencer({
           />
         </div>
       </div>
-      <div className="border border-white h-28">
+      {/* <div className="border border-white h-28">
         <Transporter trackId={trackId} />
-      </div>
+      </div> */}
     </div>
   );
 }

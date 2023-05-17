@@ -77,24 +77,28 @@ function Albums() {
           <SwiperSlide>
             <div className="" onClick={() => setSelectedGenre(null)}>
               <AlbumCover
-                coverImgSrc={allMusicData.at(-1).cover_source}
-                numOfSongs={allMusicData.length}
+                coverImgSrc={allMusicData?.at(-1).cover_source}
+                numOfSongs={allMusicData?.length}
               />
             </div>
           </SwiperSlide>
-          {genreData.map(({ genreName, musicList }, index) => {
-            return (
-              <SwiperSlide key={`${genreName}_${index}`}>
-                <div className="" onClick={() => setSelectedGenre(genreName)}>
-                  <AlbumCover
-                    genreName={genreName.replaceAll("_", " ")}
-                    coverImgSrc={musicList.at(-1).cover_source}
-                    numOfSongs={musicList.length}
-                  />
-                </div>
-              </SwiperSlide>
-            );
-          })}
+          {allMusicData ? (
+            genreData.map(({ genreName, musicList }, index) => {
+              return (
+                <SwiperSlide key={`${genreName}_${index}`}>
+                  <div className="" onClick={() => setSelectedGenre(genreName)}>
+                    <AlbumCover
+                      genreName={genreName.replaceAll("_", " ")}
+                      coverImgSrc={musicList?.at(-1).cover_source}
+                      numOfSongs={musicList?.length}
+                    />
+                  </div>
+                </SwiperSlide>
+              );
+            })
+          ) : (
+            <></>
+          )}
 
           <div className="swiper-button-prev pr-8"></div>
           <div className="swiper-button-next pl-8"></div>
