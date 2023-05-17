@@ -13,7 +13,7 @@ function FavoriteSong({ song }: { song: MusicType }) {
 
   const setSelectedMusic = useSetRecoilState(selectedMusicState);
   return (
-    <div className="favorite_song transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer flex-shrink-0 border border-pink-500/60 relative w-[130px] h-[135px] mb-2 bg-pink-50/20">
+    <div className="favorite_song transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer flex-shrink-0 border border-pink-500/60 relative w-[130px] h-[135px] mb-2 bg-pink-50/20 mx-auto">
       <div
         className="bg-black absolute rounded top-0 left-0 z-[6] w-[130px] h-[135px] opacity-0 hover:opacity-30"
         onClick={() => {
