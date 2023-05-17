@@ -21,11 +21,11 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (window.location.host.startsWith("localhost")) {
-      setOauthUrl(
-        "http://localhost:3000/oauth/redirect?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDgwNDE3NTg0ODczNzA3MzkwNjkiLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg0MjQzNTM4fQ.bSvre-LYNtmeLQVuXXOy56DVCxEqdhoULDAuHiA5uDU",
-      );
-    }
+    // if (window.location.host.startsWith("localhost")) {
+    //   setOauthUrl(
+    //     "https://k8a504.p.ssafy.io/api/oauth2/authorization/google?redirect_uri=https://k8a504.p.ssafy.io/oauth/redirect",
+    //   );
+    // }
     //데이터를 프리페치하여 메인 페이지의 로딩 시간을 줄입니다.
     Promise.allSettled([
       ...GenreMapEntries.map((e) => prefetchListGenreMusicsQuery(e[0])),
