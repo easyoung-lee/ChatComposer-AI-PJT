@@ -13,7 +13,7 @@ function FavoriteSong({ song }: { song: MusicType }) {
 
   const setSelectedMusic = useSetRecoilState(selectedMusicState);
   return (
-    <div className="favorite_song transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer flex-shrink-0 border relative w-[130px] h-[135px] mb-2 bg-pink-50/20">
+    <div className="favorite_song transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer flex-shrink-0 border border-pink-500/60 relative w-[130px] h-[135px] mb-2 bg-pink-50/20">
       <div
         className="bg-black absolute rounded top-0 left-0 z-[6] w-[130px] h-[135px] opacity-0 hover:opacity-30"
         onClick={() => {
@@ -30,12 +30,12 @@ function FavoriteSong({ song }: { song: MusicType }) {
       <img
         src={coverSource}
         alt=""
-        className="favorite_song_img w-[110px] h-[75px] bg-[#00000029] bg-cover shadow-[0_0_5px_rgba(0,0,0,0.498)] rounded-[10px]"
+        className="object-cover favorite_song_img w-[110px] h-[75px] bg-[#00000029] bg-cover shadow-[0_0_5px_rgba(0,0,0,0.498)] rounded-[10px]"
       />
       <h4 className="favorite_song_h4 text-[15px] text-pink-500 truncate">
         {title}
       </h4>
-      <p className="favorite_song_p text-xs text-[rgb(152,152,152)] truncate">
+      <p className="favorite_song_p text-xs text-[rgb(122,122,122)] truncate">
         {nickname}
       </p>
     </div>

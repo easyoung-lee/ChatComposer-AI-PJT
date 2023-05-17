@@ -6,7 +6,7 @@ function AlbumCover({ genreName, coverImgSrc, numOfSongs }) {
   const onAddPlaylist = () => {};
   return (
     <div
-      className="library_album_covers relative w-[190px] h-[190px] border border-collapse flex flex-col mx-auto flex-shrink-0 justify-end transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer"
+      className="library_album_covers relative w-[190px] h-[190px] border border-pink-300 border-collapse flex flex-col mx-auto flex-shrink-0 justify-end transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer"
       onClick={onAddPlaylist}
     >
       <div className="bg-black absolute rounded top-0 left-0 w-[190px] h-[190px] z-[6] opacity-0 hover:opacity-60">
