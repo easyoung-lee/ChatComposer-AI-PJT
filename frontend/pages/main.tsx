@@ -4,8 +4,10 @@ import MusicPlayer from "../components/dashboard/musicPlayer";
 export default function Main() {
   return (
     <>
-      <Library />
-      {/* <MusicPlayer /> */}
+      <div className="">
+        <Library />
+        {/* <MusicPlayer /> */}
+      </div>
     </>
   );
 }

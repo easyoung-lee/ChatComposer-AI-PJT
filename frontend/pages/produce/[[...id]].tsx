@@ -165,7 +165,7 @@ function Produce() {
       return {
         ...prev,
         beat: 100,
-        created_at: Date.now(),
+        created_at: String(Date.now()),
         music_source: music_source,
       };
     });

@@ -47,7 +47,7 @@ function Chat({ trackId, setTrackIds }) {
   const onSubmitHandler = (e) => {
     const instruementName = InstrumentsMapEntries[track.musical_instrument][0];
     const genreName = GenreMapEntries[genre][0];
-    const date = Date.now();
+    const date = String(Date.now());
     setIsLoading(true);
     if (trackId === 0) {
       setCoverGenHeightClass("h-72 opacity-100");
