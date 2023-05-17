@@ -30,7 +30,7 @@ function Transporter({ trackId }) {
 
   useEffect(() => {
     if (!track?.midi_description || trackId) return;
-    const notes = JSON.parse(track.midi_description);
+    const notes = JSON.parse(track?.midi_description);
     if (!notes.length) {
       setTrack(() => null);
       toastAlert("새로운 프롬프트로 다시 시도해주세요");
@@ -42,9 +42,9 @@ function Transporter({ trackId }) {
           setLastScheduleTime(e[2]);
         }
       });
-  }, [track.midi_description]);
+  }, [track?.midi_description]);
 
-  if (!track.midi_description) {
+  if (!track?.midi_description) {
     return <div></div>;
   }
 
@@ -52,7 +52,7 @@ function Transporter({ trackId }) {
     InstrumentsUrl[InstrumentsMapEntries[track.musical_instrument][0]];
 
   const onShedule = (transport: Transport, recorder: Tone.Recorder) => {
-    const notes = JSON.parse(track.midi_description);
+    const notes = JSON.parse(track?.midi_description);
     sampler.connect(recorder);
     notes
       .sort((a, b) => a[2] - b[2])
@@ -106,7 +106,7 @@ function Transporter({ trackId }) {
   });
 
   const onPlay = () => {
-    const notes = JSON.parse(track.midi_description);
+    const notes = JSON.parse(track?.midi_description);
 
     const now = Tone.now();
     Tone.Transport.bpm.value = 100;
