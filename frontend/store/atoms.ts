@@ -1,7 +1,7 @@
 import { AtomEffect, atom, atomFamily, useSetRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { Todo } from "../types/todos";
-import { InstrumentType, MusicType, TagType } from "../types/musics";
+import { GenreType, InstrumentType, MusicType, TagType } from "../types/musics";
 
 //Next.js에서 persistAtom을 쓰기 위한 구성
 //https://stackoverflow.com/questions/68110629/nextjs-react-recoil-persist-values-in-local-storage-initial-page-load-in-wrong
@@ -146,4 +146,9 @@ export const selectedMusicState = atom({
 export const genreDataState = atom({
   key: "genreDataState",
   default: [],
+});
+
+export const selectedGenreState = atom({
+  key: "selectedGenreState",
+  default: null as GenreType,
 });

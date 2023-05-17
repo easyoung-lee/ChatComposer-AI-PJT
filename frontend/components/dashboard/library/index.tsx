@@ -4,12 +4,13 @@ import Albums from "./albums";
 import Trending from "./trending";
 import Favorite from "./favorite";
 import { useRecoilValue } from "recoil";
-import { genreDataState } from "../../../store/atoms";
+import { genreDataState, selectedGenreState } from "../../../store/atoms";
 import { IconMusic } from "@tabler/icons-react";
 import Link from "next/link";
 
 function Library() {
   const genreSet = useRecoilValue(genreDataState);
+  const selectedGenre = useRecoilValue(selectedGenreState);
   // useEffect(() => {
   //   console.log(genreSet);
   // }, [genreSet]);
@@ -38,7 +39,7 @@ function Library() {
         <img src="banner.png" className="max-w-sm mx-auto" />
       </div>
       <Albums />
-      <Trending />
+      <Trending genre={selectedGenre} />
       <Favorite />
       {genreSet.map((e, index) => {
         return <Favorite genre={e} key={e + index} />;
