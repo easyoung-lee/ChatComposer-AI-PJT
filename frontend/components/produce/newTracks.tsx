@@ -32,7 +32,7 @@ function NewTracks({ setTrackIds }) {
     }
     //장르를 Atom에 반영하고, 투명해지면서 다음으로 넘어갑니다.
     setProducingMusic((prev) => {
-      return { ...prev, genre, tags };
+      return { ...prev, genre: Number(genre), tags };
     });
     setOpacityClassName("opacity-0");
     toastAlert(`장르 선택 완료!`);
