@@ -142,3 +142,8 @@ export const selectedMusicState = atom({
   key: "selectedMusicState",
   default: null as MusicType,
 });
+
+export const genreDataState = atom({
+  key: "genreDataState",
+  default: [],
+});

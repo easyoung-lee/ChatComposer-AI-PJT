@@ -14,7 +14,7 @@ import { GenreType, MusicListType, TagType } from "../../types/musics";
 import serverApi from "../serverApi";
 import { GenreMapEntries } from "../../utils/GenreMap";
 
-export const listMusicsQuery: CustomQueryHookType<null, MusicListType> = (
+export const listMusicsQuery: CustomQueryHookType<any, MusicListType> = (
   _,
   options = {},
 ) => {

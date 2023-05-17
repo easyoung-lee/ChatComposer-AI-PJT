@@ -60,7 +60,7 @@ const Mp3Player = () => {
       </button> */}
       {/* {isDone && <p>음악이 종료되었습니다.</p>} */}
       <audio ref={audioRef} src={mp3Url} onEnded={handleAudioEnded} />
-      <div className="mp_playlist_player absolute h-60 w-[160] shadow-[0_0_20px_rgb(0,0,0)] transition-[0.2s] duration-[ease-in-out] rounded-[10px] left-[50%] translate-x-[-50%] bottom-5 bg-black/20 hover:cursor-pointer">
+      <div className="mp_playlist_player absolute h-60 w-[160] shadow-[0_0_20px_rgb(0,0,0)] transition-[0.2s] duration-[ease-in-out] rounded-[10px] left-[50%] translate-x-[-50%] bottom-5 bg-black/20 hover:cursor-pointer z-10">
         <img
           src={selectedMusic.cover_source}
           alt=""
