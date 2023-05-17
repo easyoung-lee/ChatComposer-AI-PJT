@@ -18,8 +18,14 @@ import {
 import CssSpinner from "../cssSpinner";
 import { toastAlert } from "../../utils/toastAlert";
 import axios from "axios";
+import Transporter from "./transporter";
+import dynamic from "next/dynamic";
 
 function Chat({ trackId, setTrackIds }) {
+  const Transporter = dynamic(() => import("./transporter"), {
+    ssr: false,
+  });
+
   const [input, setInput] = useState("");
   const { genre, tags } = useRecoilValue(producingMusicState);
   const [track, setTrack] = useRecoilState(trackAtomFamily(trackId));
@@ -95,13 +101,14 @@ function Chat({ trackId, setTrackIds }) {
   return (
     <div className="w-full h-full flex">
       <input
-        className="w-4/5 bg-gray-700 placeholder-gray-300 px-4"
+        className="w-4/5 bg-gray-700 placeholder-gray-300 px-4 text-white"
         value={input}
         onChange={onChangeHandler}
         placeholder="만들고 싶은 음악을 묘사해보세요!"
+        autoFocus={true}
       ></input>
 
-      <button
+      {/* <button
         type="button"
         onClick={onSubmitHandler}
         className={`w-1/5 ${
@@ -118,7 +125,32 @@ function Chat({ trackId, setTrackIds }) {
         ) : (
           <>음악 생성하기2</>
         )}
-      </button>
+      </button> */}
+      <div className="w-full max-w-[220px] flex">
+        <button
+          type="button"
+          onClick={onSubmitHandler}
+          className={`inline-block text-sm px-4 py-2 w-full max-w-[220px]  leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white mx-1 bg-pink-500 ${
+            !isLoading && track.musical_instrument !== null && input
+              ? ""
+              : "opacity-50"
+          }`}
+          disabled={!(!isLoading && track.musical_instrument !== null && input)}
+        >
+          {isLoading ? (
+            <div className="flex justify-center">
+              <CssSpinner />
+            </div>
+          ) : (
+            <>
+              {!(!isLoading && track.musical_instrument !== null && input)
+                ? "입력하세요"
+                : "음악 작곡하기"}
+            </>
+          )}
+        </button>
+        <Transporter trackId={trackId} />
+      </div>
     </div>
   );
 }

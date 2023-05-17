@@ -5,8 +5,9 @@ import PlayAllButton from "./playAllButton";
 function Sequencers({ setTrackIds, trackIds }) {
   return (
     <div>
-      시퀀서스
-      <PlayAllButton />
+      <h3 className="w-full text-center libray_h3 text-2xl font-bold text-pink-500 text-2xl mb-[15px] mt-2">
+        작곡하기
+      </h3>
       {trackIds.map((e, i) => {
         return (
           <Sequencer
@@ -17,6 +18,7 @@ function Sequencers({ setTrackIds, trackIds }) {
           />
         );
       })}
+      <PlayAllButton />
     </div>
   );
 }
