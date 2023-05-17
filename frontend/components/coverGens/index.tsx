@@ -28,10 +28,10 @@ function CoverGens() {
       .catch((err) => coverRequest);
     console.log(requestMessage);
     setIsImageLoading(true);
-    // const coverImageUrl = await serverApi
-    //   .get(`/produce/cover?cover-request=${requestMessage}`)
-    const coverImageUrl = await axios
-      .get(`/api/produce/cover?cover-request=${requestMessage}`)
+    const coverImageUrl = await serverApi
+      .get(`/produce/cover?cover-request=${requestMessage}`)
+      // const coverImageUrl = await axios
+      //   .get(`/api/produce/cover?cover-request=${requestMessage}`)
       .then((res) => {
         const imageURL = `data:image/png;base64,${res.data.cover}`;
         // const byteArray = new Uint8Array(res.data.cover);
