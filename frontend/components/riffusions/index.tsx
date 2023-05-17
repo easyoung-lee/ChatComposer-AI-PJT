@@ -119,14 +119,26 @@ function Riffusions() {
 }
     */
   };
+  function base64DecodeUnicode(str) {
+    // Convert Base64 encoded bytes to percent-encoding, and then get the original string.
+    const percentEncodedStr = atob(str)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("");
+    console.log(percentEncodedStr);
+    return decodeURIComponent(percentEncodedStr);
+  }
 
   const onSubmitHandler = async () => {
     const getAudioBlob = async () => {
       // const base64String = mixedString;
       // console.log(base64String);
       // console.log(mixedString);
-      // const base64String = Buffer.from(mixedString, "base64");
-      const byteArray = Buffer.from(mixedString, "base64");
+      const base64String = base64DecodeUnicode(mixedString);
+      // const decoded = atob(mixedString)
+      const byteArray = Buffer.from(base64String, "base64");
       const blob = new Blob([byteArray], { type: "audio/mpeg" }); // Blob 객체 생성
       const file = new File([blob], "audio.mp3", { type: "audio/mpeg" }); // File 객체 생성
 
