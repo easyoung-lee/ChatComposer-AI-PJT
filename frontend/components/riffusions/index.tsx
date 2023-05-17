@@ -11,6 +11,7 @@ import {
 import serverApi from "../../services/serverApi";
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
 import { toastAlert } from "../../utils/toastAlert";
+import axios from "axios";
 
 function Riffusions() {
   // let [producingMusic, setProducingMusic] = useState({
@@ -78,13 +79,18 @@ function Riffusions() {
   }, [track0]);
 
   const onMixing = async () => {
+    const riffusionPrompt = await axios
+      .post("/api/papago", { message: riffPrompt })
+      .then((res) => res.data.message)
+      .catch((err) => riffPrompt);
+
     const data = {
       musicSource: producingMusic.music_source,
       genre: producingMusic.genre,
       moods: producingMusic.tags,
       instruements: instruementsArray,
       musicPrompt: musicPrompt,
-      riffusionPrompt: riffPrompt,
+      riffusionPrompt,
     };
     console.log(data);
     await serverApi

@@ -22,9 +22,14 @@ function CoverGens() {
   const setProducingMusic = useSetRecoilState(producingMusicState);
 
   const retrieveCovers = async (coverRequest: string) => {
+    const requestMessage = await axios
+      .post("/api/papago", { message: coverRequest })
+      .then((res) => res.data.message)
+      .catch((err) => coverRequest);
+
     setIsImageLoading(true);
     const coverImageUrl = await serverApi
-      .get(`/produce/cover?cover-request=${coverRequest}`)
+      .get(`/produce/cover?cover-request=${requestMessage}`)
       .then((res) => {
         const imageURL = `data:image/png;base64,${res.data.cover}`;
         // const byteArray = new Uint8Array(res.data.cover);

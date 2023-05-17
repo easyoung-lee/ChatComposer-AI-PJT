@@ -9,6 +9,7 @@ import {
   trackIdsState,
   tracksInfoState,
 } from "../../store/atoms";
+import { PromptType, TrackType } from "../../types/musics";
 
 function PostMusic() {
   // const [producingMusic, setProducingMusic] = useState({
@@ -52,12 +53,14 @@ function PostMusic() {
       description: description,
       tracks: trackIds.map((e, i) => {
         return {
-          midi_description: e,
+          midi_description: JSON.stringify(e),
           musical_instrument: musicalInstruments[i],
         };
       }),
       prompts: [...tracksInfo],
     };
+
+    data.genre = Number(data.genre);
 
     const resultArray = await Promise.allSettled([
       serverApi
