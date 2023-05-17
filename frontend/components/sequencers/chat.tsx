@@ -67,8 +67,8 @@ function Chat({ trackId, setTrackIds }) {
     retrieveChatgpt(data).then((res) => {
       setAudioState(null);
       const data = res.data as ChatGPTApiResponseBodyType;
-      const userPrompt = data.prompt.at(-2);
-      const chatGPTPrompt = data.prompt.at(-1);
+      const userPrompt = data.prompt?.at(-2);
+      const chatGPTPrompt = data.prompt?.at(-1);
       setTrack((prev) => ({
         ...prev,
         musical_instrument: track.musical_instrument,

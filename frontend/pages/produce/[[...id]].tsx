@@ -38,7 +38,7 @@ function Produce() {
 
   useEffect(() => {
     if (!trackIds.length) return;
-    if (!trackIds.at(-1).length) return setHeightClassName("h-0 opacity-0");
+    if (!trackIds?.at(-1).length) return setHeightClassName("h-0 opacity-0");
     setHeightClassName("h-72 opacity-100");
   }, [trackIds]);
 

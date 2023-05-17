@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AlbumCoverType, MusicType } from "../../../../types/musics";
+import { AlbumCoverType, GenreType, MusicType } from "../../../../types/musics";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import serverApi from "../../../../services/serverApi";
 import { toastAlert } from "../../../../utils/toastAlert";
+import { useInvalidate } from "../../../../services";
+import QueryKeys from "../../../../services/QueryKeys";
 
 function TrendingSong({ song, index }: { song: MusicType; index: number }) {
   const {
@@ -65,6 +67,10 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
                 .delete(`/musics/${musicId}`)
                 .then((res) => {
                   toastAlert("좋아요를 취소하였습니다.");
+                  useInvalidate(QueryKeys.musics.list.all());
+                  useInvalidate(
+                    QueryKeys.musics.list.genre(genre as GenreType),
+                  );
                   setIsLiked(false);
                 })
                 .catch((err) => setIsLiked((prev) => !prev));
@@ -78,6 +84,10 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
                 .post(`/musics/${musicId}`)
                 .then((res) => {
                   toastAlert("좋아요를 등록하였습니다.");
+                  useInvalidate(QueryKeys.musics.list.all());
+                  useInvalidate(
+                    QueryKeys.musics.list.genre(genre as GenreType),
+                  );
                   setIsLiked(true);
                 })
                 .catch((err) => setIsLiked((prev) => !prev));
