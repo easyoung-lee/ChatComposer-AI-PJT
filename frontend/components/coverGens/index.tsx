@@ -26,7 +26,7 @@ function CoverGens() {
       .post("/api/papago", { message: coverRequest })
       .then((res) => res.data.message)
       .catch((err) => coverRequest);
-
+    console.log(requestMessage);
     setIsImageLoading(true);
     const coverImageUrl = await serverApi
       .get(`/produce/cover?cover-request=${requestMessage}`)
@@ -41,6 +41,7 @@ function CoverGens() {
         return imageURL;
       })
       .catch((err) => {
+        console.log(JSON.stringify(err));
         // const image = new Image();
         // image.src = `/dummy/covers/cover${
         //   Math.floor(Math.random() * 11) + 1
