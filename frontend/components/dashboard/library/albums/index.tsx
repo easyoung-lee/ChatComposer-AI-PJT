@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import AlbumCover, { DummyCoversData } from "./albumCover";
 import { GenreMapEntries } from "../../../../utils/GenreMap";
-import { listGenreMusicsQuery } from "../../../../services/musics";
+import {
+  listGenreMusicsQuery,
+  listMusicsQuery,
+} from "../../../../services/musics";
 import { MusicType } from "../../../../types/musics";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -10,7 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { genreDataState } from "../../../../store/atoms";
+import { genreDataState, selectedGenreState } from "../../../../store/atoms";
 import ContentContainer from "../contentContainer";
 
 function Albums() {
@@ -31,186 +34,9 @@ function Albums() {
       }
     }
   }, [genreData]);
-  /* 로컬 테스트용 코드 */
-  // genreData = [
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     genreName: "POP",
-  //     musicList: [
-  //       {
-  //         music_id: 1,
-  //         title: "string",
-  //         genre: "POP",
-  //         tags: ["string"],
-  //         favorite_count: 1,
-  //         created_at: "2023-05-17T02:07:26",
-  //         cover_source: "/dummy/covers/cover1.png",
-  //         is_my_favorite: "n",
-  //         member: { nickname: "노정환", memberId: 2 },
-  //       },
-  //     ],
-  //   },
-  // ];
 
+  const [allMusicData] = listMusicsQuery();
+  const setSelectedGenre = useSetRecoilState(selectedGenreState);
   if (!genreData || !genreData.length) return <></>;
 
   return (
@@ -248,13 +74,21 @@ function Albums() {
             },
           }}
         >
+          <SwiperSlide>
+            <div className="" onClick={() => setSelectedGenre(null)}>
+              <AlbumCover
+                coverImgSrc={allMusicData.at(-1).cover_source}
+                numOfSongs={allMusicData.length}
+              />
+            </div>
+          </SwiperSlide>
           {genreData.map(({ genreName, musicList }, index) => {
             return (
               <SwiperSlide key={`${genreName}_${index}`}>
-                <div className="">
+                <div className="" onClick={() => setSelectedGenre(genreName)}>
                   <AlbumCover
                     genreName={genreName.replaceAll("_", " ")}
-                    coverImgSrc={musicList[0].cover_source}
+                    coverImgSrc={musicList.at(-1).cover_source}
                     numOfSongs={musicList.length}
                   />
                 </div>
