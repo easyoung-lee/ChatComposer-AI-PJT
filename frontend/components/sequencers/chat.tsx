@@ -30,7 +30,7 @@ function Chat({ trackId, setTrackIds }) {
     setInput(e.target.value);
   };
 
-  const [baseUrl, setBaseUrl] = useState("https://k8a504.p.ssafy.io:3000");
+  const [baseUrl, setBaseUrl] = useState("https://k8a504.p.ssafy.io");
 
   useEffect(() => {
     if (window.location.host.startsWith("localhost")) {
@@ -116,7 +116,7 @@ function Chat({ trackId, setTrackIds }) {
             <CssSpinner />
           </div>
         ) : (
-          <>음악 생성하기</>
+          <>음악 생성하기2</>
         )}
       </button>
     </div>
