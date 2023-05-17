@@ -30,7 +30,7 @@ function Chat({ trackId, setTrackIds }) {
     setInput(e.target.value);
   };
 
-  const [baseUrl, setBaseUrl] = useState("https://k8a504.p.ssafy.io");
+  const [baseUrl, setBaseUrl] = useState("https://k8a504.p.ssafy.io:3000");
 
   useEffect(() => {
     if (window.location.host.startsWith("localhost")) {
