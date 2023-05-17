@@ -40,9 +40,9 @@ function NewTracks({ setTrackIds }) {
   };
   return (
     <div
-      className={`Container text-white h-full w-full transition-opacity duration-200 ${opacityClassName}`}
+      className={`Container text-white h-full w-full transition-opacity duration-200 ${opacityClassName} bg-slate-100`}
     >
-      <div className="TracksContainer h-[90%] w-[90%] relative top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
+      <div className="TracksContainer h-[90%] w-[90%]">
         <form>
           <div className="GenreDropboxContainer">
             {/* https://devdojo.com/zoltan/tailwind-css-select */}
@@ -54,7 +54,7 @@ function NewTracks({ setTrackIds }) {
             </label>
             <select
               id="genre"
-              className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+              className="bg-gray-700 border border-gray-600 text-pink-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
               onChange={onGenreChange}
               defaultValue={"default"}
             >
@@ -96,7 +96,7 @@ function NewTracks({ setTrackIds }) {
                     />
                     <label
                       htmlFor={element[0] + index}
-                      className="w-full py-4 ml-2 text-sm font-medium text-gray-300"
+                      className="w-full py-4 ml-2 text-sm font-medium text-pink-500"
                     >
                       {element[1]}
                     </label>

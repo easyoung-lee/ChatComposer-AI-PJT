@@ -185,14 +185,14 @@ function Produce() {
   //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생
   return (
     <div className={`${producingOpacity} transition-all duration-300`}>
-      <div className="text-white">{JSON.stringify(producingMusic)}</div>
+      <div className="text-pink-500">{JSON.stringify(producingMusic)}</div>
       <button
         type="button"
         onClick={handleSubmit}
         // disabled={!canSubmit}
         className={`${
           !canSubmit ? "opacity-25" : "opacity-95"
-        } bg-slate-700 text-white`}
+        } bg-slate-700 text-pink-500`}
       >
         {buttonMessage}
       </button>

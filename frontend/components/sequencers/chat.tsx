@@ -75,7 +75,7 @@ function Chat({ trackId, setTrackIds }) {
         midi_description: JSON.stringify(data.noteInfo),
         request_description: JSON.stringify(userPrompt),
         response_description: JSON.stringify(chatGPTPrompt),
-        transfer_date: date.toFixed(),
+        transfer_date: String(date),
       }));
       setPrevData((prev) => {
         const newArray = [...prev];

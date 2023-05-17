@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 function Navbar() {
@@ -23,12 +24,12 @@ function Navbar() {
         </div>
         <div className="flex lg:hidden">
           <div>
-            <a
-              href="#"
+            <Link
+              href="/produce"
               className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white mx-4"
             >
               새 음악 만들기
-            </a>
+            </Link>
           </div>
           <button
             type="button"
@@ -72,12 +73,12 @@ function Navbar() {
             </a>
           </div>
           <div>
-            <a
-              href="#"
+            <Link
+              href="/produce"
               className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-white mt-4 lg:mt-0"
             >
               새 음악 만들기
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
