@@ -39,12 +39,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .dashboard_container {
-  width: 100vw;
-  height: 100vh;
-  /* background-image: url(https://images.unsplash.com/photo-1610713818311-4078be4c6936?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1562&q=80); */
-  background-image: url(https://townsquare.media/site/838/files/2018/10/nineinchnails-radiocitymusichall-04.jpg?w=980&q=75);
-  background-size: cover;
-  background-position: center;
+  background-color: #edf2f7;
 }
 
 .custom_scrollbar::-webkit-scrollbar {
@@ -94,4 +89,45 @@ input[type="number"]::-webkit-outer-spin-button {
   animation-name: taller;
   animation-duration: 200;
   animation-fill-mode: forwards;
+}
+
+.swiper-slide {
+  padding: 0 0.3vw 0.1vh 0.3vw;
+}
+.swiper-pagination-bullet {
+  background: gray !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: white !important;
+}
+
+.swiper-button-prev {
+  color: rgb(236, 72, 153) !important;
+  padding-bottom: 15px;
+}
+
+.swiper-button-next {
+  color: rgb(236, 72, 153) !important;
+  padding-bottom: 15px;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+}
+
+.swiper-button-next:hover {
+  transform: scale(1.1);
+}
+.swiper-button-prev:hover {
+  transform: scale(1.1);
+}
+@media screen and (max-width: 768px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
 }

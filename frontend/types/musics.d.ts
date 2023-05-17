@@ -3,7 +3,8 @@ import { InstrumentsMap } from "../utils/InstrumentsMap";
 
 export interface AlbumCoverType {
   member: {
-    member_id: number;
+    member_id?: number;
+    memberId?: number;
     nickname: string;
   };
   music_id: number;
@@ -12,7 +13,7 @@ export interface AlbumCoverType {
   tags: string[];
   favorite_count: number;
   is_my_favorite: "y" | "n";
-  create_at: number;
+  created_at: string;
   cover_source: string;
 }
 
@@ -34,7 +35,8 @@ declare module ".*mp3";
 
 export interface MusicType {
   member: {
-    member_id: number;
+    member_id?: number;
+    memberId?: number;
     nickname: string;
   };
   music_id: number;
@@ -42,7 +44,7 @@ export interface MusicType {
   genre: string;
   tags: string[];
   favorite_count: number;
-  create_at: number;
+  created_at: string;
   cover_source: string;
   is_my_favorite: string;
 }

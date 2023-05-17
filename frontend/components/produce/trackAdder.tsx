@@ -8,7 +8,7 @@ function TrackAdder({ setTrackIds, trackIds }) {
       }`}
     >
       <div
-        className="text-white"
+        className="text-pink-500"
         role="button"
         onClick={() => setTrackIds((prev) => [...prev, ""])}
       >

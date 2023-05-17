@@ -79,12 +79,12 @@ function Riffusions() {
 
   const onMixing = async () => {
     const data = {
-      music_source: producingMusic.music_source,
-      genre: GenreMapEntries[producingMusic.genre][0],
+      musicSource: producingMusic.music_source,
+      genre: producingMusic.genre,
       moods: producingMusic.tags,
       instruements: instruementsArray,
-      music_prompt: musicPrompt,
-      riffusion_prompt: riffPrompt,
+      musicPrompt: musicPrompt,
+      riffusionPrompt: riffPrompt,
     };
     console.log(data);
     await serverApi
@@ -93,6 +93,7 @@ function Riffusions() {
         setMixedString(res.data.mixed_music_wav);
       })
       .catch(async (err) => {
+        console.log(JSON.stringify(err));
         const audio = new Audio("/dummy/riffusion/dummy.mp3"); // audio 객체 생성하기
         const response = await fetch(audio.src); // fetch API로 audio 객체의 URL을 blob으로 가져오기
         const blob = await response.blob(); // blob() 메서드로 응답을 blob으로 변환하기
@@ -118,16 +119,37 @@ function Riffusions() {
 }
     */
   };
+  function base64DecodeUnicode(str) {
+    // Convert Base64 encoded bytes to percent-encoding, and then get the original string.
+    const percentEncodedStr = atob(str)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("");
+    console.log(percentEncodedStr);
+    return decodeURIComponent(percentEncodedStr);
+  }
 
-  const getAudioBlob = async () => {
-    const base64String = mixedString.replace("data:audio/mpeg;base64,", "");
-    const byteArray = Buffer.from(base64String, "base64");
-    const blob = new Blob([byteArray], { type: "audio/mpeg" }); // Blob 객체 생성
-    const file = new File([blob], "audio.mp3", { type: "audio/mpeg" }); // File 객체 생성
-
-    return file;
-  };
   const onSubmitHandler = async () => {
+    const getAudioBlob = async () => {
+      let base64String = mixedString.replace("data:audio/mpeg;base64,", "");
+
+      // const base64String = mixedString;
+      // console.log(base64String);
+      // console.log(mixedString);
+      if (!mixedString.startsWith("data")) {
+        base64String = base64DecodeUnicode(mixedString);
+      }
+
+      // const decoded = atob(mixedString)
+      const byteArray = Buffer.from(base64String, "base64");
+      const blob = new Blob([byteArray], { type: "audio/mpeg" }); // Blob 객체 생성
+      const file = new File([blob], "audio.mp3", { type: "audio/mpeg" }); // File 객체 생성
+
+      return file;
+    };
+
     const formData = new FormData();
 
     const audioFile = await getAudioBlob();
@@ -138,6 +160,7 @@ function Riffusions() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
+        console.log("S3음악저장완료");
         console.log(res.data.source);
         setProducingMusic((prev) => ({
           ...prev,
@@ -175,7 +198,7 @@ function Riffusions() {
     // const  mixed_music_source = await serverApi.post("/produce/musics/mixed", )
   };
   return (
-    <div className="text-white">
+    <div className="text-pink-500">
       {JSON.stringify(instruementsArray)}
       {JSON.stringify(musicPrompt)}
       {mixedString}

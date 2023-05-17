@@ -47,7 +47,7 @@ function Chat({ trackId, setTrackIds }) {
   const onSubmitHandler = (e) => {
     const instruementName = InstrumentsMapEntries[track.musical_instrument][0];
     const genreName = GenreMapEntries[genre][0];
-    const date = Date.now();
+    const date = String(Date.now());
     setIsLoading(true);
     if (trackId === 0) {
       setCoverGenHeightClass("h-72 opacity-100");
@@ -75,7 +75,7 @@ function Chat({ trackId, setTrackIds }) {
         midi_description: JSON.stringify(data.noteInfo),
         request_description: JSON.stringify(userPrompt),
         response_description: JSON.stringify(chatGPTPrompt),
-        transfer_date: date.toFixed(),
+        transfer_date: String(date),
       }));
       setPrevData((prev) => {
         const newArray = [...prev];

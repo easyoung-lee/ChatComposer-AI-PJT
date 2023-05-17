@@ -107,7 +107,7 @@ function PostMusic() {
 */
   };
   return (
-    <div className="text-white">
+    <div className="text-pink-500">
       <div>
         <input
           className="text-slate-600"

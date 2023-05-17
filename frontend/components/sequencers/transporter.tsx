@@ -68,7 +68,9 @@ function Transporter({ trackId }) {
           transport.schedule((time) => {
             transport.stop();
             recorder.stop().then(async (blob) => {
-              const wavBlog = await getWaveBlob(blob, false);
+              const wavBlog = await getWaveBlob(blob, false, {
+                sampleRate: 44100,
+              });
               console.log(wavBlog);
               setAudioState(wavBlog);
               // // blob을 Multipartfile로 변환

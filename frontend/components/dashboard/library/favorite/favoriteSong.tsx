@@ -29,7 +29,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 1, nickname: "AP Dhillon" },
     cover_source:
       "https://images.unsplash.com/photo-1446057032654-9d8885db76c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 3,
     genre: "Hip-Hop",
     music_id: 1,
@@ -41,7 +41,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 2, nickname: "Travis Scott" },
     cover_source:
       "https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1626&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 7,
     genre: "Electronic",
     music_id: 2,
@@ -53,7 +53,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 3, nickname: "Krewella" },
     cover_source:
       "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 2,
     genre: "Pop",
     music_id: 3,
@@ -65,7 +65,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 4, nickname: "N.O.R.E" },
     cover_source:
       "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 0,
     genre: "Rock",
     music_id: 4,
@@ -77,7 +77,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 5, nickname: "Drake" },
     cover_source:
       "https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 2325,
     genre: "R&B",
     music_id: 5,
@@ -89,7 +89,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 6, nickname: "Bad Bunny" },
     cover_source:
       "https://images.unsplash.com/photo-1421757350652-9f65a35effc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 23,
     genre: "R&B",
     music_id: 6,
@@ -101,7 +101,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 1, nickname: "AP Dhillon" },
     cover_source:
       "https://images.unsplash.com/photo-1446057032654-9d8885db76c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 3,
     genre: "Hip-Hop",
     music_id: 7,
@@ -113,7 +113,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 2, nickname: "Travis Scott" },
     cover_source:
       "https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1626&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 7,
     genre: "Electronic",
     music_id: 8,
@@ -125,7 +125,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 3, nickname: "Krewella" },
     cover_source:
       "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 2,
     genre: "Pop",
     music_id: 9,
@@ -137,7 +137,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 4, nickname: "N.O.R.E" },
     cover_source:
       "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 0,
     genre: "Rock",
     music_id: 10,
@@ -149,7 +149,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 5, nickname: "Drake" },
     cover_source:
       "https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1738&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 2325,
     genre: "R&B",
     music_id: 11,
@@ -161,7 +161,7 @@ export const SongsDummyData: AlbumCoverType[] = [
     member: { member_id: 6, nickname: "Bad Bunny" },
     cover_source:
       "https://images.unsplash.com/photo-1421757350652-9f65a35effc7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80",
-    create_at: Date.now(),
+    created_at: String(Date.now()),
     favorite_count: 23,
     genre: "R&B",
     music_id: 12,
