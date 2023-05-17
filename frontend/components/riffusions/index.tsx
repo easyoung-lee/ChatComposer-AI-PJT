@@ -83,7 +83,7 @@ function Riffusions() {
       .post("/api/papago", { message: riffPrompt })
       .then((res) => res.data.message)
       .catch((err) => riffPrompt);
-
+    console.log(riffusionPrompt);
     const data = {
       musicSource: producingMusic.music_source,
       genre: producingMusic.genre,
