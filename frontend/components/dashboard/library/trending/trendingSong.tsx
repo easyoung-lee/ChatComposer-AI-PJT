@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import { AlbumCoverType } from "../../../../types/musics";
 
-function TrendingSong({ song }: { song: AlbumCoverType }) {
+function TrendingSong({
+  song,
+  index,
+}: {
+  song: AlbumCoverType;
+  index: number;
+}) {
   const {
     music_id: musicId,
     cover_source: coverSource,
     member: { nickname },
     title,
     is_my_favorite,
+    favorite_count,
+    tags,
+    genre,
   } = song;
 
   //좋아요 표시
@@ -20,7 +29,7 @@ function TrendingSong({ song }: { song: AlbumCoverType }) {
     <tr className="library_trending_table_tr transition-[0.2s] duration-[ease-in-out] border-t-[none] border-solid border-y-[0.2px] border-x-0 border-[rgba(125,125,125,0.419)] hover:cursor-pointer hover:bg-[rgba(0,0,0,0.2)]">
       <td className="library_trending_table_tr_td p-2.5">
         <p className="library_trending_table_tr_td_p text-[13px]">
-          순위 {musicId}
+          순위 {index + 1}
         </p>
       </td>
       <td>
@@ -32,21 +41,21 @@ function TrendingSong({ song }: { song: AlbumCoverType }) {
       </td>
       <td className="song p-2.5 flex flex-col gap-[5px] ml-[-25%]">
         <h4 className="song_h4 text-[15px]">{title}</h4>
-        <p className="song_p text-[13px] text-[rgb(152,152,152)]">{nickname}</p>
+        <p className="song_p text-[13px] text-[rgb(184, 184, 184)]">
+          {nickname}
+        </p>
+      </td>
+      <td className="library_trending_table_tr_td p-2.5">
+        <p className="library_trending_table_tr_td_p text-[13px]">{genre}</p>
       </td>
       <td className="library_trending_table_tr_td p-2.5">
         <p className="library_trending_table_tr_td_p text-[13px]">
-          앨범명 {title}
+          좋아요 {favorite_count} 개
         </p>
       </td>
       <td className="library_trending_table_tr_td p-2.5">
         <p className="library_trending_table_tr_td_p text-[13px]">
-          재생수 149,976,180
-        </p>
-      </td>
-      <td className="library_trending_table_tr_td p-2.5">
-        <p className="library_trending_table_tr_td_p text-[13px]">
-          음악길이 3:40
+          {tags.join("  ")}
         </p>
       </td>
       <td className="library_trending_table_tr_td p-2.5">

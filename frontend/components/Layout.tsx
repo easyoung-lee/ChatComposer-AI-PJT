@@ -22,7 +22,7 @@ function Layout({ children }) {
       <div className="dashboard_container" style={{ background: "#edf2f7" }}>
         <div className="lg:w-10/12 mx-auto bg-white">
           <Navbar />
-          {children}
+          <div className="px-6">{children}</div>
         </div>
       </div>
     </>

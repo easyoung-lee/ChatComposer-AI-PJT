@@ -3,19 +3,31 @@ import { AlbumCoverType } from "../../../../types/musics";
 import { IconPlaylist, IconPlaylistAdd } from "@tabler/icons-react";
 
 function AlbumCover({ genreName, coverImgSrc, numOfSongs }) {
+  const onAddPlaylist = () => {};
   return (
-    <div className="library_album_covers relative w-[190px] h-[130px] flex flex-col flex-shrink-0 justify-end shadow-[0_0_5px_#000] transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer hover:scale-105">
+    <div
+      className="library_album_covers relative w-[190px] h-[190px] border border-collapse flex flex-col mx-auto flex-shrink-0 justify-end transition-[0.2s] duration-[ease-in-out] p-2.5 rounded-[10px] hover:cursor-pointer"
+      onClick={onAddPlaylist}
+    >
+      <div className="bg-black absolute rounded top-0 left-0 w-[190px] h-[190px] z-[6] opacity-0 hover:opacity-60">
+        <IconPlaylistAdd
+          className="library_album_covers_img absolute z-[4] w-[100px] top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] 가운데에넣기"
+          size={48}
+          strokeWidth={2}
+          color={"#ffffff"}
+        />
+      </div>
       <img
         src={coverImgSrc}
         alt=""
-        className="album_cover absolute w-full  rounded-[10px] left-0"
+        className="album_cover absolute w-[98%] rounded-[25px] left-0"
       />
       {/* <img
         className="library_album_covers_img absolute z-[4] w-[30px] right-2.5 bottom-2.5 bg-black"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAApElEQVRIie2TPQ7CMAxGHcTIlTgBVD0UQuqJuhVFQt04CSNlf1060BTF+etQqU/KZn8vih2RnZIAPX6ebo+JFKDVGGNmmYcYQQq7wGUx5GNKijtIH5t7ojABUAMW+AJvoAXORYxAo/xW9bP5wmstPFdgSwtm6wYMInJSm1Ze009MsSt4BfSE1PwHqAJGcEkWTJK7J/yWFf4juQIPYJhOl33zzTIC7lwSFRt0S08AAAAASUVORK5CYII="
       /> */}
       <IconPlaylistAdd
-        className="library_album_covers_img absolute z-[4] w-[30px] right-2.5 bottom-2.5 hover:w-[45px]"
+        className="library_album_covers_img absolute z-[4] w-[30px] right-2.5 bottom-2.5"
         size={48}
         strokeWidth={2}
         color={"#ffffff"}
