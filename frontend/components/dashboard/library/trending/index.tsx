@@ -21,7 +21,7 @@ function Trending() {
       <h3 className="libray_h3 text-2xl font-bold text-pink-500 text-[17px] mb-[15px] ml-6">
         인기 순위
       </h3>
-      <div className="library_trending custom_scrollbar w-full h-[300px] overflow-y-scroll scroll-smooth px-5 py-0 bg-black/30 border border-black/10 rounded-2xl">
+      <div className="library_trending custom_scrollbar w-[98%] mx-auto h-[300px] overflow-y-scroll scroll-smooth px-5 py-0 bg-black/30 border border-black/10 rounded-2xl">
         <table className="library_trending_table w-full text-white border-collapse">
           <tbody>
             {SongsDummyData.map((song, index) => {
