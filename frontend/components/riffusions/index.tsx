@@ -133,10 +133,15 @@ function Riffusions() {
 
   const onSubmitHandler = async () => {
     const getAudioBlob = async () => {
+      let base64String = mixedString.replace("data:audio/mpeg;base64,", "");
+
       // const base64String = mixedString;
       // console.log(base64String);
       // console.log(mixedString);
-      const base64String = base64DecodeUnicode(mixedString);
+      if (!mixedString.startsWith("data")) {
+        base64String = base64DecodeUnicode(mixedString);
+      }
+
       // const decoded = atob(mixedString)
       const byteArray = Buffer.from(base64String, "base64");
       const blob = new Blob([byteArray], { type: "audio/mpeg" }); // Blob 객체 생성
