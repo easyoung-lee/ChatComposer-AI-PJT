@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   CoverGenHeightState,
@@ -10,13 +10,14 @@ import {
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
 import { GenreMapEntries } from "../../utils/GenreMap";
 
-import axiosApi from "../../services/customApi";
+// import axiosApi from "../../services/customApi";
 import {
   ChatGPTApiRequestBodyType,
   ChatGPTApiResponseBodyType,
 } from "../../types/chatgpt";
 import CssSpinner from "../cssSpinner";
 import { toastAlert } from "../../utils/toastAlert";
+import axios from "axios";
 
 function Chat({ trackId, setTrackIds }) {
   const [input, setInput] = useState("");
@@ -29,8 +30,17 @@ function Chat({ trackId, setTrackIds }) {
     setInput(e.target.value);
   };
 
+  const [baseUrl, setBaseUrl] = useState("https://k8a504.p.ssafy.io");
+
+  useEffect(() => {
+    if (window.location.host.startsWith("localhost")) {
+      setBaseUrl("http://localhost:3000");
+    }
+  }, []);
+
   const retrieveChatgpt = (data: ChatGPTApiRequestBodyType) => {
-    return axiosApi.post("/chatgpt", data);
+    return axios.post(`${baseUrl}/api/chatgpt`, data);
+    // return axios.post("/chatgpt", data);
   };
 
   const setCoverGenHeightClass = useSetRecoilState(CoverGenHeightState);
