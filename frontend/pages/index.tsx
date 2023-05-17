@@ -97,7 +97,8 @@ export default function Home() {
               </div>
               <img
                 className="max-h-[50%] m-auto hidden lg:block"
-                src="https://user-images.githubusercontent.com/1884712/202186141-9f8a93e1-7743-459a-bc95-b1d826931624.png"
+                // src="https://user-images.githubusercontent.com/1884712/202186141-9f8a93e1-7743-459a-bc95-b1d826931624.png"
+                src="banner.png"
                 alt="대충 서비스 소개 이미지"
               />
             </div>

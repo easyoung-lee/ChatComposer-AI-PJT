@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function Navbar() {
   const [visibility, setVisibility] = useState("hidden");
-
+  const router = useRouter();
   return (
     <div className="w-full h-14 sticky top-0 z-20">
       {/* <div className="h-12 bg-slate-200 ">asdfasdf</div> */}
@@ -31,7 +32,7 @@ function Navbar() {
               새 음악 만들기
             </Link>
           </div>
-          <button
+          {/* <button
             type="button"
             onClick={() => {
               if (visibility === "hidden") setVisibility("block");
@@ -47,10 +48,10 @@ function Navbar() {
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
-          </button>
+          </button> */}
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-          <div
+          {/* <div
             className={`text-sm ${visibility} lg:flex lg:justify-end lg:mx-8 lg:flex-grow`}
           >
             <a
@@ -71,14 +72,24 @@ function Navbar() {
             >
               Blog
             </a>
-          </div>
-          <div>
+          </div> */}
+          <div className="ml-auto">
             <Link
               href="/produce"
               className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-white mt-4 lg:mt-0"
             >
               새 음악 만들기
             </Link>
+            <div
+              role="button"
+              className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-white mt-4 lg:mt-0 ml-3"
+              onClick={() => {
+                localStorage.clear();
+                setTimeout(() => router.push("/"), 10);
+              }}
+            >
+              로그아웃
+            </div>
           </div>
         </div>
       </nav>

@@ -1,3 +1,4 @@
+import { MusicDetailType } from "./../../types/musics.d";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import TodosApi from "../TodosApi";
 import { Todo } from "../../types/todos";
@@ -13,7 +14,7 @@ import { GenreType, MusicListType, TagType } from "../../types/musics";
 import serverApi from "../serverApi";
 import { GenreMapEntries } from "../../utils/GenreMap";
 
-export const listMusicsQuery: CustomQueryHookType<null, MusicListType> = (
+export const listMusicsQuery: CustomQueryHookType<any, MusicListType> = (
   _,
   options = {},
 ) => {
@@ -41,6 +42,15 @@ export const listTagMusicsQuery: CustomQueryHookType<TagType, MusicListType> = (
   const queryKey = QueryKeys.musics.list.tag(tag);
   const queryFn = () => serverApi.get(`/musics?tag=${tag}`);
 
+  return useQueryResult(queryKey, queryFn, options);
+};
+
+export const retrieveMusicQuery: CustomQueryHookType<
+  number,
+  MusicDetailType
+> = (musicId: number, options = {}) => {
+  const queryKey = QueryKeys.musics.retrieve(musicId);
+  const queryFn = () => serverApi.get(`/musics/${musicId}`);
   return useQueryResult(queryKey, queryFn, options);
 };
 
