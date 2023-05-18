@@ -13,12 +13,12 @@ function Login() {
     serverApi
       .get(url)
       .then((res) => {
-        console.log(res);
+        //주석 console.log(res);
         return res;
       })
       .catch((err) => {
-        console.log("로그인버튼에서나는에러");
-        console.log(err);
+        //주석 console.log("로그인버튼에서나는에러");
+        //주석 console.log(err);
       });
   };
   return (

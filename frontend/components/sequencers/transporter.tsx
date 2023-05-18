@@ -76,7 +76,7 @@ function Transporter({ trackId }) {
               const wavBlog = await getWaveBlob(blob, false, {
                 sampleRate: 44100,
               });
-              console.log(wavBlog);
+              //주석 console.log(wavBlog);
               setAudioState(wavBlog);
               // // blob을 Multipartfile로 변환
               // const formData = new FormData();

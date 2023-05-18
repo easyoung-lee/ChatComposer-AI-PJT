@@ -15,7 +15,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-export const useInvalidate = (queryKey: QueryKey, options = {}) =>
+export const customInvalidate = (queryKey: QueryKey, options = {}) =>
   queryClient.invalidateQueries(queryKey, options);
 
 export const useQueryResult = (
@@ -24,7 +24,7 @@ export const useQueryResult = (
   options?: UseQueryOptionsType,
 ): CustomQueryHookReturnType => {
   const query = useQuery(queryKey, queryFn, options);
-  console.log(query.data?.data);
+  //주석 console.log(query.data?.data);
   return [query.data?.data, query.refetch, query];
 };
 
@@ -44,7 +44,7 @@ export const useCustomMutate = (
 ) => {
   const mutation = useMutation(mutationFn, {
     onSuccess: () => {
-      useInvalidate(queryKey);
+      customInvalidate(queryKey);
     },
   });
   return mutation.mutate;

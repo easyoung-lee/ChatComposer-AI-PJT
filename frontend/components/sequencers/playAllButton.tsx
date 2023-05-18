@@ -28,17 +28,17 @@ function PlayAllButton() {
     }
 
     await Tone.start();
-    console.log("톤 시작됨");
+    //주석 console.log("톤 시작됨");
     setIsPlaying(true);
     const recorder = new Tone.Recorder();
     // const recorder = new WavRecorder();
 
     // const recorder = null;
-    console.log(sheduleArray);
+    //주석 console.log(sheduleArray);
     sheduleArray.forEach((schedule, i) => {
       schedule(Tone.Transport, recorder);
     });
-    console.log("레코더 시작됨");
+    //주석 console.log("레코더 시작됨");
     recorder.start();
     Tone.Transport.start();
   };
@@ -51,8 +51,8 @@ function PlayAllButton() {
   useEffect(() => {
     if (audioState) {
       setIsPlaying(false);
-      // console.log("아싸 저장됨");
-      // console.log(audioState);
+      // //주석 console.log("아싸 저장됨");
+      // //주석 console.log(audioState);
       // audioState가 있을 때만 재생
 
       // const audioUrl = URL.createObjectURL(audioState);
@@ -78,7 +78,7 @@ function PlayAllButton() {
       //   const outputData = ffmpeg.FS("readFile", outputName);
       //   // 출력 파일을 Blob 객체로 변환
       //   const outputBlob = new Blob([outputData.buffer], { type: "audio/wav" });
-      //   console.log("wav반환됨");
+      //   //주석 console.log("wav반환됨");
       //   const audioUrl = URL.createObjectURL(outputBlob);
       //   // audioUrl.play();
       //   const audioElement = new Audio(audioUrl);

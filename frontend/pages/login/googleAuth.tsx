@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import GoogleLogin from 'react-google-login';
+import React, { useState } from "react";
+import GoogleLogin from "react-google-login";
 
 const GoogleAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
 
   const responseGoogle = (response) => {
-    console.log(response);
+    //주석 console.log(response);
     setIsLoggedIn(true);
     setUserData(response.profileObj);
   };
@@ -32,7 +32,7 @@ const GoogleAuth = () => {
           buttonText="Login with Google"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
+          cookiePolicy={"single_host_origin"}
         />
       )}
     </div>

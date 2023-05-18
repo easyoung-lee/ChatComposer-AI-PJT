@@ -3,7 +3,7 @@ import { AlbumCoverType, GenreType, MusicType } from "../../../../types/musics";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import serverApi from "../../../../services/serverApi";
 import { toastAlert } from "../../../../utils/toastAlert";
-import { useInvalidate } from "../../../../services";
+import { customInvalidate } from "../../../../services";
 import QueryKeys from "../../../../services/QueryKeys";
 import { TagMap } from "../../../../utils/GenreMap";
 
@@ -22,7 +22,7 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
   const [isLiked, setIsLiked] = useState(is_my_favorite === "y");
 
   useEffect(() => {
-    console.log(is_my_favorite);
+    //주석 console.log(is_my_favorite);
     setIsLiked(is_my_favorite === "y");
   }, [is_my_favorite]);
   //좋아요 표시
@@ -71,8 +71,8 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
                 .delete(`/musics/${musicId}`)
                 .then((res) => {
                   toastAlert("좋아요를 취소하였습니다.");
-                  useInvalidate(QueryKeys.musics.list.all());
-                  useInvalidate(
+                  customInvalidate(QueryKeys.musics.list.all());
+                  customInvalidate(
                     QueryKeys.musics.list.genre(genre as GenreType),
                   );
                   setIsLiked(false);
@@ -88,8 +88,8 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
                 .post(`/musics/${musicId}`)
                 .then((res) => {
                   toastAlert("좋아요를 등록하였습니다.");
-                  useInvalidate(QueryKeys.musics.list.all());
-                  useInvalidate(
+                  customInvalidate(QueryKeys.musics.list.all());
+                  customInvalidate(
                     QueryKeys.musics.list.genre(genre as GenreType),
                   );
                   setIsLiked(true);

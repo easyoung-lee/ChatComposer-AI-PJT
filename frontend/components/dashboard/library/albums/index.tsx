@@ -19,7 +19,7 @@ import ContentContainer from "../contentContainer";
 function Albums() {
   let genreData = GenreMapEntries.map((e) => {
     const [data] = listGenreMusicsQuery(e[0]);
-    console.log(data);
+    //주석 console.log(data);
     return { genreName: e[0], musicList: data };
   }).filter((e) => !!e && e.musicList?.length);
 

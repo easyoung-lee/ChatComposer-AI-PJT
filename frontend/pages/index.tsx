@@ -31,7 +31,7 @@ export default function Home() {
   //       .get("/users")
   //       .then(() => {})
   //       .catch((err) => {
-  //         console.log(err.status);
+  //         //주석 console.log(err.status);
   //         setAuthToken(null);
   //         router.push("/");
   //       });
@@ -54,7 +54,7 @@ export default function Home() {
   //       .get("/users")
   //       .then(() => {})
   //       .catch((err) => {
-  //         console.log()
+  //         //주석 console.log()
   //         setAuthToken(null);
   //         router.push("/");
   //       });
