@@ -20,7 +20,7 @@ const Mp3Player = () => {
     }
   }, [selectedMusic]);
 
-  const [musicData] = retrieveMusicQuery(musicId);
+  const [musicData] = retrieveMusicQuery(musicId ? musicId : 4);
   useEffect(() => {
     if (musicData) {
       console.log(musicData);

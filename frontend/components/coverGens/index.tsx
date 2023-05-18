@@ -89,7 +89,7 @@ function CoverGens() {
         className={`h-8 align-top ${coversArray.length < 5 ? "" : "hidden"}`}
       >
         <input
-          className="h-full bg-gray-700 w-full max-w-[560px] placeholder-gray-300 px-4 text-white"
+          className="h-full bg-pink-50/60 w-full max-w-[560px] placeholder-gray-400 px-4 text-gray-700"
           placeholder="어떤 앨범 커버를 만들까요?"
           value={coverRequest}
           onChange={(e) => setCoverRequest(e.target.value)}
