@@ -34,7 +34,7 @@ function Sequencer({
         {trackId === 3 ? (
           <></>
         ) : (
-          <div className="w-5/6 border border-white">
+          <div className="w-full border border-white">
             <Chat
               trackId={trackId}
               setTrackIds={setTrackIds}

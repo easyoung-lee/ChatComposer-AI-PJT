@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
     // <SessionProvider session={pageProps.session}>
     <>
       <Head>
-        <title>Music Jam</title>
+        <title>ChatComposer</title>
       </Head>
       <QueryClientProvider client={queryClient}>
         <ToastContainer />

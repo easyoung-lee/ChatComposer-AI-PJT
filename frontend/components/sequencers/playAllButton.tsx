@@ -91,36 +91,38 @@ function PlayAllButton() {
   }, [audioState]);
 
   return (
-    <div className="w-full max-w-[220px] flex">
-      <button
-        className={`transition-opacity duration-200 text-sm px-4 py-2 w-full max-w-[220px] leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 bg-pink-500 ${className}`}
-        onClick={onPlay}
-        disabled={isPlaying}
-      >
-        {isPlaying ? "녹음중" : audioState ? "다시 녹음하기" : "녹음하기"}
-      </button>
-
-      {audioState ? (
-        // <div
-        //   className="bg-red-200 w-full h-9"
-        //   onClick={onRecordedPlay}
-        //   role="button"
-        // >
-        //   재생하기
-        // </div>
-
-        <div
-          className="w-full flex border-2 border-pink-500"
-          onClick={onRecordedPlay}
-          role="button"
+    <div className="w-full flex mt-2">
+      <div className="w-full max-w-[220px] mx-auto flex">
+        <button
+          className={`mx-auto h-30 transition-opacity duration-200 text-sm px-4 py-2 w-full max-w-[220px] leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 bg-pink-500 ${className}`}
+          onClick={onPlay}
+          disabled={isPlaying}
         >
-          <div className="mx-auto my-auto">
-            <SequencerControlBox onPlay={onPlay} />
+          {isPlaying ? "녹음중" : audioState ? "다시 녹음하기" : "녹음하기"}
+        </button>
+
+        {audioState ? (
+          // <div
+          //   className="bg-red-200 w-full h-9"
+          //   onClick={onRecordedPlay}
+          //   role="button"
+          // >
+          //   재생하기
+          // </div>
+
+          <div
+            className="w-full  flex border-2 border-pink-500"
+            onClick={onRecordedPlay}
+            role="button"
+          >
+            <div className="mx-auto my-auto">
+              <SequencerControlBox onPlay={onPlay} />
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className=""></div>
-      )}
+        ) : (
+          <div className=""></div>
+        )}
+      </div>
     </div>
   );
 }

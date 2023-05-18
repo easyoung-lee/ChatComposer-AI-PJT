@@ -35,7 +35,7 @@ function Library() {
           </div>
         </Link>
         {/* <div className="text-white absolute text-4xl top-[4vh] md:right-[2vw] xl:right-[9vw] bg-black/40 text-right p-5 hidden xl:block pb-[8%] pl-[10%] pt-[6%] pr-[3%]">
-          <b className="text-pink-100">이영준</b>이 선택한
+          <b className="text-pink-100">영준몬</b>이 선택한
           <div className="text-5xl mt-2">
             단 하나의 <span className="text-pink-200">작곡앱</span>
           </div>
@@ -43,7 +43,7 @@ function Library() {
             "저는 항상 ChatComposer를 통해 영감을 얻죠"
             <br />
             <span className="text-white">
-              - 음악의 신, <b>이영준</b>
+              - 음악의 신, <b>영준몬</b>
             </span>
           </div>
         </div>

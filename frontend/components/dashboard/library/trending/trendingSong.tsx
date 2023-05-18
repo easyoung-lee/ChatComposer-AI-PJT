@@ -5,6 +5,7 @@ import serverApi from "../../../../services/serverApi";
 import { toastAlert } from "../../../../utils/toastAlert";
 import { useInvalidate } from "../../../../services";
 import QueryKeys from "../../../../services/QueryKeys";
+import { TagMap } from "../../../../utils/GenreMap";
 
 function TrendingSong({ song, index }: { song: MusicType; index: number }) {
   const {
@@ -18,9 +19,12 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
     genre,
   } = song;
 
-  const [isLiked, setIsLiked] = useState(() => is_my_favorite === "y");
+  const [isLiked, setIsLiked] = useState(is_my_favorite === "y");
 
-  useEffect(() => setIsLiked(is_my_favorite === "y"), [is_my_favorite]);
+  useEffect(() => {
+    console.log(is_my_favorite);
+    setIsLiked(is_my_favorite === "y");
+  }, [is_my_favorite]);
   //좋아요 표시
 
   return (
@@ -53,7 +57,7 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
       </td>
       <td className="library_trending_table_tr_td p-2.5">
         <p className="library_trending_table_tr_td_p text-[13px]">
-          {tags.join("  ")}
+          {tags.length ? "#" + tags.map((e) => TagMap[e]).join(" #") : ""}
         </p>
       </td>
       <td className="library_trending_table_tr_td p-2.5">

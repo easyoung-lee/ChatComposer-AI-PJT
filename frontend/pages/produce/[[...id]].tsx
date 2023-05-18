@@ -213,9 +213,7 @@ function Produce() {
 
       <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
       {heightClassName ? (
-        <div className={` max-h-8 mt-7`}>
-          <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
-        </div>
+        <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
       ) : (
         <></>
       )}
@@ -230,20 +228,21 @@ function Produce() {
       >
         {buttonMessage}
       </button> */}
-
-      <div className="mt-4 mx-auto">
-        <button
-          type="button"
-          onClick={canSubmit ? handleSubmit : () => {}}
-          className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400  mx-4 bg-pink-500 ${
-            !canSubmit
-              ? "opacity-50"
-              : "hover:border-transparent hover:text-pink-500 hover:bg-pink-200"
-          }`}
-          disabled={!canSubmit}
-        >
-          {buttonMessage}
-        </button>
+      <div className="w-full flex mt-8">
+        <div className="mx-auto">
+          <button
+            type="button"
+            onClick={canSubmit ? handleSubmit : () => {}}
+            className={`inline-block text-sm px-4 py-3 leading-none border rounded text-white border-pink-400  mx-4 bg-pink-500 ${
+              !canSubmit
+                ? "opacity-50"
+                : "hover:border-transparent hover:text-pink-500 hover:bg-pink-200"
+            }`}
+            disabled={!canSubmit}
+          >
+            {buttonMessage}
+          </button>
+        </div>
       </div>
 
       {/* <div

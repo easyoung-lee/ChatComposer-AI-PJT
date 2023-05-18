@@ -5,13 +5,7 @@ const serverApi = axios.create({
 });
 
 serverApi.interceptors.request.use((config) => {
-  if (config.method === "get" && config.url.startsWith("/musics"))
-    return config;
   if (config.url.startsWith("/oauth2")) return config;
-
-  console.log(
-    JSON.parse(localStorage.getItem("recoil-persist")).AuthTokenState,
-  );
 
   const getToken = () => {
     let token = "";
@@ -24,7 +18,12 @@ serverApi.interceptors.request.use((config) => {
     }
     return token;
   };
-  console.log(`Bearer ${getToken()}`);
+
+  if (config.method === "get" && config.url.startsWith("/musics")) {
+    const authToken = getToken();
+    if (!authToken) return config;
+  }
+
   config.headers["Authorization"] = `Bearer ${getToken()}`;
   return config;
 });
