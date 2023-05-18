@@ -6,6 +6,7 @@ import CoverGens from "../../components/coverGens";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 import {
   CoverGenHeightState,
+  authTokenState,
   blobAudioState,
   canPostMusicState,
   producingMusicState,
@@ -19,6 +20,8 @@ import axios from "axios";
 import serverApi from "../../services/serverApi";
 import Riffusions from "../../components/riffusions";
 import PostMusic from "../../components/produce/postMusic";
+import { useRouter } from "next/router";
+import { toastAlert } from "../../utils/toastAlert";
 
 function Produce() {
   const [isRiffusion, setIsRiffusion] = useState(false);
@@ -41,6 +44,23 @@ function Produce() {
     if (!trackIds?.at(-1).length) return setHeightClassName(false);
     setHeightClassName(true);
   }, [trackIds]);
+
+  const [authToken, setAuthToken] = useRecoilState(authTokenState);
+  const router = useRouter();
+  useEffect(() => {
+    if (authToken) {
+      serverApi.get("/users").catch((err) => {
+        if (err.response.status === 401) {
+          toastAlert("다시 로그인해주세요.");
+          setAuthToken((prev) => {
+            localStorage.clear();
+            return null;
+          });
+          setTimeout(() => router.push("/"), 300);
+        }
+      });
+    }
+  }, [authToken]);
 
   // if (!firstTrack.request_description) {
   //   return <Sequencers trackIds={trackIds} />;
@@ -210,16 +230,34 @@ function Produce() {
       >
         {buttonMessage}
       </button> */}
-      <div
-        className={`w-full bg-pink-400 mt-2 flex ${
+
+      <div className="mt-4 mx-auto">
+        <button
+          type="button"
+          onClick={canSubmit ? handleSubmit : () => {}}
+          className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400  mx-4 bg-pink-500 ${
+            !canSubmit
+              ? "opacity-50"
+              : "hover:border-transparent hover:text-pink-500 hover:bg-pink-200"
+          }`}
+          disabled={!canSubmit}
+        >
+          {buttonMessage}
+        </button>
+      </div>
+
+      {/* <div
+        className={`w-full max-w-xl mx-auto bg-pink-600 mt-8 rounded-xl flex ${
           !canSubmit
             ? "bg-pink-200 text-gray-500 cursor-default"
             : "hover:bg-pink-500 text-white cursor-pointer"
         }`}
         onClick={canSubmit ? handleSubmit : () => {}}
       >
-        <div className=" flex text-center mx-auto">{buttonMessage}</div>
-      </div>
+        <div className="flex text-center font-bold mx-auto h-12">
+          <div className="my-auto">{buttonMessage}</div>
+        </div>
+      </div> */}
     </div>
   );
 }

@@ -10,6 +10,9 @@ import {
   tracksInfoState,
 } from "../../store/atoms";
 import { PromptType, TrackType } from "../../types/musics";
+import { useInvalidate } from "../../services";
+import QueryKeys from "../../services/QueryKeys";
+import { GenreMapEntries } from "../../utils/GenreMap";
 
 function PostMusic() {
   // const [producingMusic, setProducingMusic] = useState({
@@ -65,7 +68,13 @@ function PostMusic() {
     const resultArray = await Promise.allSettled([
       serverApi
         .post("/musics", data)
-        .then((res) => console.log(res))
+        .then((res) => {
+          console.log(res);
+          useInvalidate(QueryKeys.musics.list.all());
+          useInvalidate(
+            QueryKeys.musics.list.genre(GenreMapEntries[data.genre][0]),
+          );
+        })
         .catch((err) => console.log(err)),
       axios.post("/api/fe/musics", data),
     ]);
