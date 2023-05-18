@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import serverApi from "../services/serverApi";
 import { toastAlert } from "../utils/toastAlert";
+import Reset from "./reset";
 
 export default function Main() {
   const [authToken, setAuthToken] = useRecoilState(authTokenState);
@@ -31,6 +32,7 @@ export default function Main() {
         <Library />
         {/* <MusicPlayer /> */}
       </div>
+      <Reset />
     </>
   );
 }

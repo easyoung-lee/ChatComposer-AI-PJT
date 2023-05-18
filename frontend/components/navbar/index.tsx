@@ -10,7 +10,10 @@ function Navbar() {
     <div className="w-full h-14 sticky top-0 z-20">
       {/* <div className="h-12 bg-slate-200 ">asdfasdf</div> */}
       <nav className="flex items-center justify-between flex-wrap bg-pink-500 p-4 px-8">
-        <div className="flex items-center flex-shrink-0 text-white mr-6">
+        <Link
+          className="flex items-center flex-shrink-0 text-white mr-6"
+          href="/main"
+        >
           {/* <svg
             className="fill-current h-8 w-8 mr-2"
             width={54}
@@ -24,12 +27,14 @@ function Navbar() {
           <span className="font-semibold text-xl tracking-tight">
             ChatComposer
           </span>
-        </div>
+        </Link>
         <div className="flex lg:hidden">
           <div>
             <Link
               href="/produce"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-4"
+              className={`${
+                router.pathname.startsWith("/pro") ? "hidden" : "inline-block"
+              } text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-4`}
             >
               새 음악 만들기
             </Link>
@@ -78,7 +83,9 @@ function Navbar() {
           <div className="ml-auto">
             <Link
               href="/produce"
-              className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mt-4 lg:mt-0"
+              className={`hidden ${
+                router.pathname.startsWith("/pro") ? "" : "lg:inline-block"
+              }  text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mt-4 lg:mt-0`}
             >
               새 음악 만들기
             </Link>

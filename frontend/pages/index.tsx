@@ -11,6 +11,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authTokenState } from "../store/atoms";
 import Link from "next/link";
 import serverApi from "../services/serverApi";
+import Reset from "./reset";
 
 export default function Home() {
   const [isPrefetched, setIsPrefetched] = useState(false);
@@ -144,6 +145,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Reset />
     </div>
   );
 }

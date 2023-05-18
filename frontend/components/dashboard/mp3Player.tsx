@@ -48,7 +48,7 @@ const Mp3Player = () => {
 
   useEffect(() => {
     setIsPlaying(false);
-  }, [selectedMusic]);
+  }, [mp3Url]);
 
   const handleAudioEnded = () => {
     setIsPlaying(false);
