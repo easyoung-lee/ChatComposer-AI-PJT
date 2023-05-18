@@ -93,7 +93,7 @@ function PlayAllButton() {
   return (
     <div className="w-full max-w-[220px] flex">
       <button
-        className={`transition-opacity duration-200 text-sm px-4 py-2 w-full max-w-[220px] leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white bg-pink-500 ${className}`}
+        className={`transition-opacity duration-200 text-sm px-4 py-2 w-full max-w-[220px] leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 bg-pink-500 ${className}`}
         onClick={onPlay}
         disabled={isPlaying}
       >

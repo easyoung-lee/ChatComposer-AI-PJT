@@ -27,7 +27,7 @@ function Navbar() {
           <div>
             <Link
               href="/produce"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white mx-4"
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-4"
             >
               새 음악 만들기
             </Link>
@@ -76,13 +76,13 @@ function Navbar() {
           <div className="ml-auto">
             <Link
               href="/produce"
-              className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-white mt-4 lg:mt-0"
+              className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mt-4 lg:mt-0"
             >
               새 음악 만들기
             </Link>
             <div
               role="button"
-              className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-white mt-4 lg:mt-0 ml-3"
+              className="hidden lg:inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-pink-500 hover:bg-pink-100/50 mt-4 lg:mt-0 ml-3"
               onClick={() => {
                 localStorage.clear();
                 setTimeout(() => router.push("/"), 10);

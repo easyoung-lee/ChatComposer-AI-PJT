@@ -190,11 +190,12 @@ function Produce() {
       <div className={`${CoverGenHeight}`}>
         <CoverGens />
       </div>
+
       <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
-      <div className={`${heightClassName}`}>
+      <div className={`${heightClassName} max-h-8`}>
         <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
       </div>
-      <button
+      {/* <button
         type="button"
         onClick={handleSubmit}
         // disabled={!canSubmit}
@@ -203,7 +204,17 @@ function Produce() {
         } bg-slate-700 text-pink-500`}
       >
         {buttonMessage}
-      </button>
+      </button> */}
+      <div
+        className={`w-full bg-pink-400 mt-2 flex ${
+          !canSubmit
+            ? "bg-pink-200 text-gray-500 cursor-default"
+            : "hover:bg-pink-500 text-white cursor-pointer"
+        }`}
+        onClick={canSubmit ? handleSubmit : () => {}}
+      >
+        <div className=" flex text-center mx-auto">{buttonMessage}</div>
+      </div>
     </div>
   );
 }

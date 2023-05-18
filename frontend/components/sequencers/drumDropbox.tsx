@@ -10,6 +10,7 @@ import {
   sheduleArrayState,
 } from "../../store/atoms";
 import { getWaveBlob } from "webm-to-wav-converter";
+import { IconPlayerPlayFilled } from "@tabler/icons-react";
 
 function DrumDropbox() {
   const drumBeatsArray = [
@@ -75,7 +76,8 @@ function DrumDropbox() {
       {/* https://devdojo.com/zoltan/tailwind-css-select */}
       <select
         id="beats"
-        className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+        // className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+        className="bg-pink-700 border border-pink-600 text-pink-50 text-sm focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 placeholder-pink-400"
         defaultValue="default"
         onChange={onChangeHandler}
       >
@@ -90,15 +92,20 @@ function DrumDropbox() {
           );
         })}
       </select>
-      <div>
+      <div className="w-1/6 flex border border-pink-600">
         {isLoading ? (
-          <CssSpinner />
+          <div className="mx-auto my-auto ">
+            <CssSpinner />
+          </div>
         ) : (
           <div
+            role="button"
+            className={`mx-auto my-auto text-pink-500 ${
+              selectedBeats < 4 ? "" : "hidden"
+            }`}
             onClick={selectedBeats < 4 ? onPlay : () => {}}
-            className={`${selectedBeats < 4 ? "" : "hidden"}`}
           >
-            {drumBeatsArray[selectedBeats]} 시작하기
+            <IconPlayerPlayFilled strokeWidth={2} color={"pink"} />
           </div>
         )}
       </div>

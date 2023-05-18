@@ -51,7 +51,7 @@ function Chat({ trackId, setTrackIds }) {
 
   const setCoverGenHeightClass = useSetRecoilState(CoverGenHeightState);
   const onSubmitHandler = (e) => {
-    const instruementName = InstrumentsMapEntries[track.musical_instrument][0];
+    const instruementName = InstrumentsMapEntries[track?.musical_instrument][0];
     const genreName = GenreMapEntries[genre][0];
     const date = String(Date.now());
     setIsLoading(true);
@@ -77,7 +77,7 @@ function Chat({ trackId, setTrackIds }) {
       const chatGPTPrompt = data.prompt?.at(-1);
       setTrack((prev) => ({
         ...prev,
-        musical_instrument: track.musical_instrument,
+        musical_instrument: track?.musical_instrument,
         midi_description: JSON.stringify(data.noteInfo),
         request_description: JSON.stringify(userPrompt),
         response_description: JSON.stringify(chatGPTPrompt),
@@ -112,11 +112,11 @@ function Chat({ trackId, setTrackIds }) {
         type="button"
         onClick={onSubmitHandler}
         className={`w-1/5 ${
-          !isLoading && track.musical_instrument !== null && input
+          !isLoading && track?.musical_instrument !== null && input
             ? ""
             : "opacity-50"
         }`}
-        disabled={!(!isLoading && track.musical_instrument !== null && input)}
+        disabled={!(!isLoading && track?.musical_instrument !== null && input)}
       >
         {isLoading ? (
           <div className="flex justify-center">
@@ -130,12 +130,14 @@ function Chat({ trackId, setTrackIds }) {
         <button
           type="button"
           onClick={onSubmitHandler}
-          className={`inline-block text-sm px-4 py-2 w-full max-w-[220px]  leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white mx-1 bg-pink-500 ${
-            !isLoading && track.musical_instrument !== null && input
+          className={`inline-block text-sm px-4 py-2 w-full max-w-[220px]  leading-none border text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-1 bg-pink-500 ${
+            !isLoading && track?.musical_instrument !== null && input
               ? ""
               : "opacity-50"
           }`}
-          disabled={!(!isLoading && track.musical_instrument !== null && input)}
+          disabled={
+            !(!isLoading && track?.musical_instrument !== null && input)
+          }
         >
           {isLoading ? (
             <div className="flex justify-center">
@@ -143,7 +145,7 @@ function Chat({ trackId, setTrackIds }) {
             </div>
           ) : (
             <>
-              {!(!isLoading && track.musical_instrument !== null && input)
+              {!(!isLoading && track?.musical_instrument !== null && input)
                 ? "입력하세요"
                 : "음악 작곡하기"}
             </>

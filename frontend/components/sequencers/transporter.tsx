@@ -49,7 +49,7 @@ function Transporter({ trackId }) {
   }
 
   const samplerOptions =
-    InstrumentsUrl[InstrumentsMapEntries[track.musical_instrument][0]];
+    InstrumentsUrl[InstrumentsMapEntries[track?.musical_instrument][0]];
 
   const onShedule = (transport: Transport, recorder: Tone.Recorder) => {
     const notes = JSON.parse(track?.midi_description);

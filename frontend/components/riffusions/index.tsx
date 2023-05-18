@@ -49,11 +49,11 @@ function Riffusions() {
 
   useEffect(() => {
     [track0, track1, track2, track3].forEach((e, index) => {
-      if (e.musical_instrument) {
+      if (e?.musical_instrument) {
         setInstruementsArray((prev) => {
           if (!prev[index]) {
             const newArray = [...prev];
-            newArray[index] = InstrumentsMapEntries[e.musical_instrument][0];
+            newArray[index] = InstrumentsMapEntries[e?.musical_instrument][0];
             return newArray;
           } else return prev;
         });

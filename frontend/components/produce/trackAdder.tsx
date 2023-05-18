@@ -1,18 +1,18 @@
+import { IconPlus } from "@tabler/icons-react";
 import React from "react";
 
 function TrackAdder({ setTrackIds, trackIds }) {
   return (
     <div
-      className={`h-20 w-full bg-red-900/50 ${
+      className={`w-full bg-pink-400 hover:bg-pink-500 mt-2 flex ${
         trackIds.length >= 4 ? "hidden" : ""
       }`}
+      role="button"
+      onClick={() => setTrackIds((prev) => [...prev, ""])}
     >
-      <div
-        className="text-pink-500"
-        role="button"
-        onClick={() => setTrackIds((prev) => [...prev, ""])}
-      >
-        새로운 트랙 추가하기
+      <div className="text-white flex text-center mx-auto">
+        <IconPlus></IconPlus>
+        트랙 추가
       </div>
     </div>
   );
