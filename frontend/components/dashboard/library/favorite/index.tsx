@@ -36,12 +36,12 @@ function Favorite({ genre = null }: { genre?: GenreType }) {
         // pagination={{ clickable: false }}
         breakpoints={{
           1378: {
-            slidesPerView: 6,
-            slidesPerGroup: 6,
+            slidesPerView: 8,
+            slidesPerGroup: 8,
           },
           998: {
-            slidesPerView: 5,
-            slidesPerGroup: 5,
+            slidesPerView: 6,
+            slidesPerGroup: 6,
           },
           625: {
             slidesPerView: 3,
