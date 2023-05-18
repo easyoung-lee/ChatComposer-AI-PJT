@@ -9,7 +9,7 @@ function Navbar() {
   return (
     <div className="w-full h-14 sticky top-0 z-20">
       {/* <div className="h-12 bg-slate-200 ">asdfasdf</div> */}
-      <nav className="flex items-center justify-between flex-wrap bg-pink-500 p-6">
+      <nav className="flex items-center justify-between flex-wrap bg-pink-500 p-4">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           {/* <svg
             className="fill-current h-8 w-8 mr-2"
