@@ -13,8 +13,10 @@ import { PromptType, TrackType } from "../../types/musics";
 import { useInvalidate } from "../../services";
 import QueryKeys from "../../services/QueryKeys";
 import { GenreMapEntries } from "../../utils/GenreMap";
+import ContentContainer from "../dashboard/library/contentContainer";
+import { useRouter } from "next/router";
 
-function PostMusic() {
+function PostMusic({ canPost }: { canPost: boolean }) {
   // const [producingMusic, setProducingMusic] = useState({
   //   title: null,
   //   tags: ["Happy", "Sad", "Energetic"],
@@ -48,6 +50,7 @@ function PostMusic() {
 
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
+  const router = useRouter();
 
   const onSubmitHandler = async () => {
     const data = {
@@ -79,6 +82,7 @@ function PostMusic() {
       axios.post("/api/fe/musics", data),
     ]);
     toastAlert(`음악 등록 완료!`);
+    setTimeout(() => router.push("/main"), 100);
 
     /*
 {
@@ -119,28 +123,55 @@ function PostMusic() {
 */
   };
   return (
-    <div className="text-pink-500">
-      <div>
-        <input
-          className="text-slate-600"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        ></input>
-        <textarea
-          className="text-slate-600"
-          value={description}
-          onChange={(e) => setdescription(e.target.value)}
-          maxLength={160}
-        ></textarea>
+    <div className="w-full flex">
+      <div className="mx-auto w-full lg:max-w-[50%]">
+        <h3 className="w-full text-center libray_h3 font-bold text-pink-500 text-2xl mb-[15px] mt-2">
+          음악 정보 입력
+        </h3>
+        <ContentContainer>
+          <div>
+            <div className="w-full h-full flex">
+              <div className="w-full text-center my-2">
+                <input
+                  id="title-input"
+                  className="w-full bg-white-50 border-2 border-pink-200 placeholder-pink-400 px-4 text-pink-700 rounded-md text-center"
+                  placeholder="음악 제목"
+                  maxLength={16}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                ></input>
+              </div>
+            </div>
+            <div className="w-full h-full flex">
+              <div className="w-full text-center">
+                <textarea
+                  className="w-full bg-white-50 border-2 border-pink-200 placeholder-pink-400 px-4 text-pink-700 rounded-md text-center"
+                  placeholder="음악을 설명해보세요"
+                  value={description}
+                  onChange={(e) => setdescription(e.target.value)}
+                  maxLength={160}
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </ContentContainer>
+        <div className="w-full flex">
+          <div className="mt-8 mx-auto">
+            <button
+              type="button"
+              onClick={onSubmitHandler}
+              className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-4 bg-pink-500 ${
+                !(title && description && canPost) ? "opacity-50" : ""
+              }`}
+              disabled={!(title && description && canPost)}
+            >
+              {title && description && canPost
+                ? "다음으로"
+                : "모든 정보를 입력해주세요"}
+            </button>
+          </div>
+        </div>
       </div>
-
-      {title && description ? (
-        <button type="button" onClick={onSubmitHandler}>
-          음악 등록하기
-        </button>
-      ) : (
-        <div>음악 등록하기</div>
-      )}
     </div>
   );
 }
