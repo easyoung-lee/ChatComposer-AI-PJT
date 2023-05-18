@@ -57,7 +57,7 @@ function PostMusic({ canPost }: { canPost: boolean }) {
       ...producingMusic,
       title: title,
       description: description,
-      tracks: trackIds.map((e, i) => {
+      tracks: trackIds.slice(0, 3).map((e, i) => {
         return {
           midi_description: JSON.stringify(e),
           musical_instrument: musicalInstruments[i],
