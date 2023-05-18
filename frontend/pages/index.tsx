@@ -25,17 +25,18 @@ export default function Home() {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  const checkAuth = () => {
-    if (authToken) {
-      serverApi
-        .get("/users")
-        .then(() => {})
-        .catch((err) => {
-          setAuthToken(null);
-          router.push("/");
-        });
-    }
-  };
+  // const checkAuth = () => {
+  //   if (authToken) {
+  //     serverApi
+  //       .get("/users")
+  //       .then(() => {})
+  //       .catch((err) => {
+  //         console.log(err.status);
+  //         setAuthToken(null);
+  //         router.push("/");
+  //       });
+  //   }
+  // };
   useEffect(() => {
     //데이터를 프리페치하여 메인 페이지의 로딩 시간을 줄입니다.
     Promise.allSettled([
@@ -47,17 +48,18 @@ export default function Home() {
     });
   }, []);
 
-  useEffect(() => {
-    if (authToken) {
-      serverApi
-        .get("/users")
-        .then(() => {})
-        .catch((err) => {
-          setAuthToken(null);
-          router.push("/");
-        });
-    }
-  }, [isPrefetched]);
+  // useEffect(() => {
+  //   if (authToken) {
+  //     serverApi
+  //       .get("/users")
+  //       .then(() => {})
+  //       .catch((err) => {
+  //         console.log()
+  //         setAuthToken(null);
+  //         router.push("/");
+  //       });
+  //   }
+  // }, [isPrefetched]);
 
   useEffect(() => {
     if (isPrefetched && authToken) {
@@ -68,11 +70,13 @@ export default function Home() {
           setTimeout(() => router.push("/main"), 300);
         })
         .catch((err) => {
-          setAuthToken((prev) => {
-            localStorage.clear();
-            return null;
-          });
-          setTimeout(() => router.push("/"), 300);
+          if (err.response.status === 401) {
+            setAuthToken((prev) => {
+              localStorage.clear();
+              return null;
+            });
+            setTimeout(() => router.push("/"), 300);
+          }
         });
     }
   }, [isPrefetched, authToken]);

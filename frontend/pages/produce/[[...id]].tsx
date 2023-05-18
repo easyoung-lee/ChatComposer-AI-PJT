@@ -6,6 +6,7 @@ import CoverGens from "../../components/coverGens";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 import {
   CoverGenHeightState,
+  authTokenState,
   blobAudioState,
   canPostMusicState,
   producingMusicState,
@@ -19,6 +20,8 @@ import axios from "axios";
 import serverApi from "../../services/serverApi";
 import Riffusions from "../../components/riffusions";
 import PostMusic from "../../components/produce/postMusic";
+import { useRouter } from "next/router";
+import { toastAlert } from "../../utils/toastAlert";
 
 function Produce() {
   const [isRiffusion, setIsRiffusion] = useState(false);
@@ -41,6 +44,23 @@ function Produce() {
     if (!trackIds?.at(-1).length) return setHeightClassName(false);
     setHeightClassName(true);
   }, [trackIds]);
+
+  const [authToken, setAuthToken] = useRecoilState(authTokenState);
+  const router = useRouter();
+  useEffect(() => {
+    if (authToken) {
+      serverApi.get("/users").catch((err) => {
+        if (err.response.status === 401) {
+          toastAlert("다시 로그인해주세요.");
+          setAuthToken((prev) => {
+            localStorage.clear();
+            return null;
+          });
+          setTimeout(() => router.push("/"), 300);
+        }
+      });
+    }
+  }, [authToken]);
 
   // if (!firstTrack.request_description) {
   //   return <Sequencers trackIds={trackIds} />;
