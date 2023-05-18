@@ -8,8 +8,8 @@ export default async function handler(
   const body = req.body;
 
   let englishMessage = body.message;
-  console.log("파파고번역");
-  console.log(englishMessage);
+  //주석 console.log("파파고번역");
+  //주석 console.log(englishMessage);
   //만일 현재 데이터에 한국어가 포함되어 있다면, 파파고를 호출하여 영어로 번역합니다 결과를 반환합니다.
   if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(englishMessage)) {
     //파파고 api 호출
@@ -23,11 +23,11 @@ export default async function handler(
     //파파고 한-영 번역을 거친 결과를 englishMessage로 저장
     englishMessage = await papagoApi
       .post("", { source: "ko", target: "en", text: englishMessage })
-      .then((res) => res.data.message.result.translatedText)
-      .catch((err) => console.log(JSON.stringify(err)));
+      .then((res) => res.data.message.result.translatedText);
+    // .catch((err) => //주석 console.log(JSON.stringify(err)));
   }
 
-  console.log(englishMessage);
+  //주석 console.log(englishMessage);
   res.status(200).json({
     message: englishMessage,
   });

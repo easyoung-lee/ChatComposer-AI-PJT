@@ -49,8 +49,8 @@ for (let i = 0; i < 120; i++) {
 
   time += 0.5;
 }
-console.log("4비트 South HipHop");
-console.log(JSON.stringify(arr));
+//주석 console.log("4비트 South HipHop");
+//주석 console.log(JSON.stringify(arr));
 
 /*
 OpenHats: "OpenHH.mp3",

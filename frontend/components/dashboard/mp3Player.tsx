@@ -15,7 +15,7 @@ const Mp3Player = () => {
 
   useEffect(() => {
     if (selectedMusic) {
-      console.log(selectedMusic.music_id);
+      //주석 console.log(selectedMusic.music_id);
       setMusicId(selectedMusic.music_id);
     }
   }, [selectedMusic]);
@@ -23,7 +23,7 @@ const Mp3Player = () => {
   const [musicData] = retrieveMusicQuery(musicId ? musicId : 4);
   useEffect(() => {
     if (musicData) {
-      console.log(musicData);
+      //주석 console.log(musicData);
       setMp3Url(musicData.mixed_music_source);
     }
   }, [musicData]);

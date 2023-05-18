@@ -140,8 +140,8 @@ function Produce() {
   };
 
   const handleSubmit = async () => {
-    // console.log(audioBlob);
-    // console.log(selectedImgURL);
+    // //주석 console.log(audioBlob);
+    // //주석 console.log(selectedImgURL);
     // return;
     let formData = new FormData();
     const file = new File([audioBlob], "audio.wav", { type: "audio/wave" });
@@ -197,7 +197,7 @@ function Produce() {
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
   // if (canPost) {
-  //   console.log(canPost);
+  //   //주석 console.log(canPost);
   //   return <PostMusic />;
   // }
   if (isRiffusion)

@@ -10,7 +10,7 @@ import {
   tracksInfoState,
 } from "../../store/atoms";
 import { PromptType, TrackType } from "../../types/musics";
-import { useInvalidate } from "../../services";
+import { customInvalidate } from "../../services";
 import QueryKeys from "../../services/QueryKeys";
 import { GenreMapEntries } from "../../utils/GenreMap";
 import ContentContainer from "../dashboard/library/contentContainer";
@@ -69,17 +69,15 @@ function PostMusic({ canPost }: { canPost: boolean }) {
     data.genre = Number(data.genre);
 
     const resultArray = await Promise.allSettled([
-      serverApi
-        .post("/musics", data)
-        .then((res) => {
-          console.log(res);
-          useInvalidate(QueryKeys.musics.list.all());
-          useInvalidate(
-            QueryKeys.musics.list.genre(GenreMapEntries[data.genre][0]),
-          );
-        })
-        .catch((err) => console.log(err)),
-      axios.post("/api/fe/musics", data),
+      serverApi.post("/musics", data).then((res) => {
+        //주석 console.log(res);
+        customInvalidate(QueryKeys.musics.list.all());
+        customInvalidate(
+          QueryKeys.musics.list.genre(GenreMapEntries[data.genre][0]),
+        );
+      }),
+      // .catch((err) => //주석 console.log(err)),
+      // axios.post("/api/fe/musics", data),
     ]);
     toastAlert(`음악 등록 완료!`);
     setTimeout(() => router.push("/main"), 100);

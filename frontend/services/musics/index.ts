@@ -6,7 +6,7 @@ import { CustomQueryHookType } from "../../types/query";
 import {
   useCustomMutate,
   useQueryResult,
-  useInvalidate,
+  customInvalidate,
   prefetchingQuery,
 } from "..";
 import QueryKeys from "../QueryKeys";

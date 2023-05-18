@@ -88,7 +88,7 @@ function Riffusions() {
       .post("/api/papago", { message: riffPrompt })
       .then((res) => res.data.message)
       .catch((err) => riffPrompt);
-    console.log(riffusionPrompt);
+    //주석 console.log(riffusionPrompt);
     const data = {
       musicSource: producingMusic.music_source,
       genre: producingMusic.genre,
@@ -97,21 +97,21 @@ function Riffusions() {
       musicPrompt: musicPrompt,
       riffusionPrompt,
     };
-    console.log(data);
+    //주석 console.log(data);
     await serverApi
       .post("/produce/musics/riffusion", data)
       .then((res) => {
         setMixedString(res.data.mixed_music_wav);
       })
       .catch(async (err) => {
-        console.log(JSON.stringify(err));
+        //주석 console.log(JSON.stringify(err));
         const audio = new Audio("/dummy/riffusion/dummy.mp3"); // audio 객체 생성하기
         const response = await fetch(audio.src); // fetch API로 audio 객체의 URL을 blob으로 가져오기
         const blob = await response.blob(); // blob() 메서드로 응답을 blob으로 변환하기
         const reader = new FileReader(); // FileReader 객체 생성하기
         reader.readAsDataURL(blob); // blob을 base64로 읽기
         reader.onload = () => {
-          console.log(reader.result);
+          //주석 console.log(reader.result);
           setMixedString(reader.result as string); // base64 문자열 저장하기
           setMixedPrompt(musicPrompt);
           setMusicPrompt("");
@@ -140,7 +140,7 @@ function Riffusions() {
         return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
       })
       .join("");
-    console.log(percentEncodedStr);
+    //주석 console.log(percentEncodedStr);
     return decodeURIComponent(percentEncodedStr);
   }
 
@@ -149,8 +149,8 @@ function Riffusions() {
       let base64String = mixedString.replace("data:audio/mpeg;base64,", "");
 
       // const base64String = mixedString;
-      // console.log(base64String);
-      // console.log(mixedString);
+      // //주석 console.log(base64String);
+      // //주석 console.log(mixedString);
       if (!mixedString.startsWith("data")) {
         base64String = base64DecodeUnicode(mixedString);
       }
@@ -173,8 +173,8 @@ function Riffusions() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
-        console.log("S3음악저장완료");
-        console.log(res.data.source);
+        //주석 console.log("S3음악저장완료");
+        //주석 console.log(res.data.source);
         setMixedMusicUrl(res.data.source);
         setProducingMusic((prev) => ({
           ...prev,

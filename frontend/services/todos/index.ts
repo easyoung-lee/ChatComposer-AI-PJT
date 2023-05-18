@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import TodosApi from "../TodosApi";
 import { Todo } from "../../types/todos";
 import { CustomQueryHookType } from "../../types/query";
-import { useCustomMutate, useQueryResult, useInvalidate } from "..";
+import { useCustomMutate, useQueryResult, customInvalidate } from "..";
 import QueryKeys from "../QueryKeys";
 
 export const listTodoQuery: CustomQueryHookType<null, Array<Todo>> = (

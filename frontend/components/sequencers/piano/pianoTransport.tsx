@@ -149,7 +149,7 @@ function PianoTransport({ notes }) {
   // }, []);
 
   const onClickHandler = () => {
-    // console.log("온클릭!!");
+    // //주석 console.log("온클릭!!");
     const now = Tone.now();
     Tone.Transport.bpm.value = 100;
     notes.forEach((e) => {
@@ -172,11 +172,11 @@ function PianoTransport({ notes }) {
   // const notesEntries = Object.entries(map);
 
   // useEffect(() => {
-  //   console.log(pianoLoaded);
+  //   //주석 console.log(pianoLoaded);
   //   if (!pianoLoaded) return;
 
   //   testNotes.forEach((e) => {
-  //     // console.log(JSON.stringify(e));
+  //     // //주석 console.log(JSON.stringify(e));
   //     // piano.triggerAttackRelease(e[0], e[1], e[2]);
   //     // polySynth.triggerAttackRelease(e[0], e[1], e[2]);
   //   });
@@ -191,7 +191,7 @@ function PianoTransport({ notes }) {
         <div
           onClick={() => {
             // piano.triggerAttack("A3");
-            console.log(JSON.stringify(notes));
+            //주석 console.log(JSON.stringify(notes));
             onClickHandler();
           }}
         >

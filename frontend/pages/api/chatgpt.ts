@@ -112,8 +112,8 @@ export default async function handler(
     //파파고 한-영 번역을 거친 결과를 userPrompt로 저장
     userPrompt = await papagoApi
       .post("", { source: "ko", target: "en", text: userPrompt })
-      .then((res) => res.data.message.result.translatedText)
-      .catch((err) => console.log(JSON.stringify(err)));
+      .then((res) => res.data.message.result.translatedText);
+    // .catch((err) => //주석 console.log(JSON.stringify(err)));
   }
 
   userPrompt =
@@ -149,9 +149,9 @@ export default async function handler(
   const responseMessage = response.data.choices[0].message;
   // const noteInfo = floatToInt(textToMid(responseMessage));
   const noteInfo = textToMid(responseMessage);
-  // console.log(response.data.choices[0].message);
-  // console.log(JSON.stringify({ message: responseMessage, noteInfo }));
-  // console.log(
+  // //주석 console.log(response.data.choices[0].message);
+  // //주석 console.log(JSON.stringify({ message: responseMessage, noteInfo }));
+  // //주석 console.log(
   //   JSON.stringify({
   //     prev: [{ role: "user", content: userPrompt }, { ...responseMessage }],
   //     noteInfo,
@@ -164,13 +164,13 @@ export default async function handler(
     { ...responseMessage },
   ];
   if (prevData) prompt.unshift(...prevData);
-  // console.log(JSON.stringify(res));
-  console.log(
-    JSON.stringify({
-      prompt,
-      noteInfo,
-    }),
-  );
+  // //주석 console.log(JSON.stringify(res));
+  //주석 console.log(
+  //   JSON.stringify({
+  //     prompt,
+  //     noteInfo,
+  //   }),
+  // );
   res.status(200).json({
     prompt,
     noteInfo,

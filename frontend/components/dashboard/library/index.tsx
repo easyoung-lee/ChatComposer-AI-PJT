@@ -12,7 +12,7 @@ function Library() {
   const genreSet = useRecoilValue(genreDataState);
   const selectedGenre = useRecoilValue(selectedGenreState);
   // useEffect(() => {
-  //   console.log(genreSet);
+  //   //주석 console.log(genreSet);
   // }, [genreSet]);
   return (
     <div className="mp_library relative w-full h-full">
