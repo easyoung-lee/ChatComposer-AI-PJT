@@ -54,7 +54,7 @@ function NewTracks({ setTrackIds }) {
             </label>
             <select
               id="genre"
-              className=" bg-pink-50/60 border border-pink-300 text-pink-500 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 placeholder-gray-400 my-2"
+              className="bg-pink-50/60 border border-pink-300 text-pink-500 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 placeholder-gray-400 my-2"
               onChange={onGenreChange}
               defaultValue={"default"}
             >
@@ -112,7 +112,7 @@ function NewTracks({ setTrackIds }) {
               <button
                 type="button"
                 onClick={onSubmitHandler}
-                className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-white mx-4 bg-pink-500 ${
+                className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400 hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-4 bg-pink-500 ${
                   !(genre !== null && tags.length) ? "opacity-50" : ""
                 }`}
                 disabled={!(genre !== null && tags.length)}
