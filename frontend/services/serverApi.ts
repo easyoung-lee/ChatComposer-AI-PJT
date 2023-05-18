@@ -5,8 +5,8 @@ const serverApi = axios.create({
 });
 
 serverApi.interceptors.request.use((config) => {
-  if (config.method === "get" && config.url.startsWith("/musics"))
-    return config;
+  // if (config.method === "get" && config.url.startsWith("/musics"))
+  //   return config;
   if (config.url.startsWith("/oauth2")) return config;
 
   console.log(

@@ -11,6 +11,7 @@ import serverApi from "../../services/serverApi";
 import axios from "axios";
 import { toastAlert } from "../../utils/toastAlert";
 import CssSpinner from "../cssSpinner";
+import ContentContainer from "../dashboard/library/contentContainer";
 
 function CoverGens() {
   const [coversArray, setCoversArray] = useRecoilState(coversState);
@@ -84,68 +85,71 @@ function CoverGens() {
       <h3 className="w-full text-center libray_h3 font-bold text-pink-500 text-2xl mb-[15px] mt-2">
         앨범 커버 생성
       </h3>
-
-      <div
-        className={`h-8 align-top ${coversArray.length < 5 ? "" : "hidden"}`}
-      >
-        <input
-          className="h-full bg-pink-50/60 w-full max-w-[560px] placeholder-gray-400 px-4 text-gray-700"
-          placeholder="어떤 앨범 커버를 만들까요?"
-          value={coverRequest}
-          onChange={(e) => setCoverRequest(e.target.value)}
-        />
-        {isImageLoading ? (
-          <button
-            type="button"
-            className={`h-full inline-block px-4 w-full max-w-[130px]  leading-none text-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-1 bg-pink-500  opacity-50
+      <ContentContainer>
+        <div
+          className={`h-8 align-top ${
+            coversArray.length < 5 ? "" : "hidden"
+          } flex `}
+        >
+          <input
+            className="h-full bg-pink-50/60 w-full max-w-[560px] placeholder-gray-400 px-4 text-gray-700"
+            placeholder="어떤 앨범 커버를 만들까요?"
+            value={coverRequest}
+            onChange={(e) => setCoverRequest(e.target.value)}
+          />
+          {isImageLoading ? (
+            <button
+              type="button"
+              className={`h-full inline-block px-4 w-full max-w-[130px]  leading-none text-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 bg-pink-500 opacity-50
           }`}
-            disabled
-          >
-            <div className="flex justify-center">
-              <CssSpinner />
-            </div>
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={onRetrieveCovers}
-            className={`h-full inline-block px-4 w-full max-w-[130px]  leading-none text-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 mx-1 bg-pink-500 ${
-              coverRequest ? "" : "opacity-50"
-            }`}
-            disabled={!coverRequest}
-          >
-            {coverRequest ? "생성하기" : "입력해주세요"}
-          </button>
-        )}
-      </div>
-      <div className="flex">
-        {selectedImgURL ? (
-          <div className="text-center text-pink-700">
-            <img
-              className="max-w-[200px]  mx-auto aspect-square"
-              src={selectedImgURL}
-            />
-            선택된 이미지
-          </div>
-        ) : (
-          <></>
-        )}
-        <div className="flex">
-          {coversArray.map(([url, prompt], index) => {
-            return (
-              <img
-                key={index + url}
-                src={url}
-                className="max-w-[100px] max-h-[100px] aspect-square"
-                onClick={() => {
-                  setSelectedImgURL(url);
-                  setSelectedPrompt(prompt);
-                }}
-              />
-            );
-          })}
+              disabled
+            >
+              <div className="flex justify-center">
+                <CssSpinner />
+              </div>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onRetrieveCovers}
+              className={`h-full inline-block px-4 w-full max-w-[130px]  leading-none text-white hover:border-transparent hover:text-pink-500 hover:bg-pink-200 bg-pink-500 ${
+                coverRequest ? "" : "opacity-50"
+              }`}
+              disabled={!coverRequest}
+            >
+              {coverRequest ? "생성하기" : "입력해주세요"}
+            </button>
+          )}
         </div>
-      </div>
+        <div className="flex">
+          {selectedImgURL ? (
+            <div className="text-center text-pink-700">
+              <img
+                className="max-w-[200px]  mx-auto aspect-square"
+                src={selectedImgURL}
+              />
+              선택된 이미지
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="flex">
+            {coversArray.map(([url, prompt], index) => {
+              return (
+                <img
+                  key={index + url}
+                  src={url}
+                  className="max-w-[100px] max-h-[100px] aspect-square"
+                  onClick={() => {
+                    setSelectedImgURL(url);
+                    setSelectedPrompt(prompt);
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </ContentContainer>
     </div>
   );
 }
