@@ -30,7 +30,7 @@ function Produce() {
 
   //components\sequencers\chat.tsx에서 변경되는 클래스명 상태입니다.
   const CoverGenHeight = useRecoilValue(CoverGenHeightState);
-  const [heightClassName, setHeightClassName] = useState("h-0 opacity-0");
+  const [heightClassName, setHeightClassName] = useState(false);
   const [producingMusic, setProducingMusic] =
     useRecoilState(producingMusicState);
   const [canSubmit, setCanSubmit] = useState(false);
@@ -38,8 +38,8 @@ function Produce() {
 
   useEffect(() => {
     if (!trackIds.length) return;
-    if (!trackIds?.at(-1).length) return setHeightClassName("h-0 opacity-0");
-    setHeightClassName("h-72 opacity-100");
+    if (!trackIds?.at(-1).length) return setHeightClassName(false);
+    setHeightClassName(true);
   }, [trackIds]);
 
   // if (!firstTrack.request_description) {
@@ -192,9 +192,14 @@ function Produce() {
       </div>
 
       <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
-      <div className={`${heightClassName} max-h-8`}>
-        <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
-      </div>
+      {heightClassName ? (
+        <div className={` max-h-8 mt-7`}>
+          <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
+        </div>
+      ) : (
+        <></>
+      )}
+
       {/* <button
         type="button"
         onClick={handleSubmit}
