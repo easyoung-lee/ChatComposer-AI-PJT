@@ -21,20 +21,27 @@ function Sequencer({
   return (
     <div className="text-gray-400">
       <div className="flex">
-        <div className="w-1/6 border border-white">
-          {trackId === 3 ? (
+        {trackId === 3 ? (
+          <div className="w-full border border-white">
             <DrumDropbox />
-          ) : (
+          </div>
+        ) : (
+          <div className="w-1/6 border border-white">
             <InstrumentDropbox trackId={trackId} />
-          )}
-        </div>
-        <div className="w-5/6 border border-white">
-          <Chat
-            trackId={trackId}
-            setTrackIds={setTrackIds}
-            // trackIds={trackIds}
-          />
-        </div>
+          </div>
+        )}
+
+        {trackId === 3 ? (
+          <></>
+        ) : (
+          <div className="w-5/6 border border-white">
+            <Chat
+              trackId={trackId}
+              setTrackIds={setTrackIds}
+              // trackIds={trackIds}
+            />
+          </div>
+        )}
       </div>
       {/* <div className="border border-white h-28">
         <Transporter trackId={trackId} />

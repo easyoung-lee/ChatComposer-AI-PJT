@@ -17,45 +17,45 @@ export default async function handler(
   if (method !== "POST") return;
   const body = req.body as ChatGPTApiRequestBodyType;
 
-  // // // /* 오프라인 테스트용 코드 */
-  // function wait(ms) {
-  //   return new Promise((resolve) => {
-  //     setTimeout(resolve, ms);
-  //   });
-  // }
-  // await wait(2000);
-  // return res.status(200).json({
-  //   prompt: [
-  //     {
-  //       role: "user",
-  //       content: "[instruement: piano]A good song to listen to on a rainy day",
-  //     },
-  //     {
-  //       role: "assistant",
-  //       content:
-  //         "Here's a calming piano piece for a rainy day:\n\nG4-1/4-0, C5-1/8-1, D5-1/8-1.5, F5-1/4-2, G5-1/4-2.5, F5-1/4-3, D5-1/4-3.5, C5-1/2-4, G4-1/4-4.5, C5-1/4-5, D5-1/4-5.5, F5-1/4-6, G5-1/2-6.5, F5-1/4-7, D5-1/4-7.5, C5-1/2-8 ",
-  //     },
-  //   ],
-  //   noteInfo: [
-  //     ["G4", 0.5, 0],
-  //     ["C5", 0.25, 0.5],
-  //     ["D5", 0.25, 0.75],
-  //     ["F5", 0.5, 1],
-  //     ["G5", 0.5, 1.25],
-  //     ["F5", 0.5, 1.5],
-  //     ["D5", 0.5, 1.75],
-  //     ["C5", 1, 2],
-  //     ["G4", 0.5, 2.25],
-  //     ["C5", 0.5, 2.5],
-  //     ["D5", 0.5, 2.75],
-  //     ["F5", 0.5, 3],
-  //     ["G5", 1, 3.25],
-  //     ["F5", 0.5, 3.5],
-  //     ["D5", 0.5, 3.75],
-  //     ["C5", 1, 4],
-  //   ],
-  // });
-  // // /* 오프라인 테스트용 코드 종료 */
+  // // /* 오프라인 테스트용 코드 */
+  function wait(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
+  await wait(2000);
+  return res.status(200).json({
+    prompt: [
+      {
+        role: "user",
+        content: "[instruement: piano]A good song to listen to on a rainy day",
+      },
+      {
+        role: "assistant",
+        content:
+          "Here's a calming piano piece for a rainy day:\n\nG4-1/4-0, C5-1/8-1, D5-1/8-1.5, F5-1/4-2, G5-1/4-2.5, F5-1/4-3, D5-1/4-3.5, C5-1/2-4, G4-1/4-4.5, C5-1/4-5, D5-1/4-5.5, F5-1/4-6, G5-1/2-6.5, F5-1/4-7, D5-1/4-7.5, C5-1/2-8 ",
+      },
+    ],
+    noteInfo: [
+      ["G4", 0.5, 0],
+      ["C5", 0.25, 0.5],
+      ["D5", 0.25, 0.75],
+      ["F5", 0.5, 1],
+      ["G5", 0.5, 1.25],
+      ["F5", 0.5, 1.5],
+      ["D5", 0.5, 1.75],
+      ["C5", 1, 2],
+      ["G4", 0.5, 2.25],
+      ["C5", 0.5, 2.5],
+      ["D5", 0.5, 2.75],
+      ["F5", 0.5, 3],
+      ["G5", 1, 3.25],
+      ["F5", 0.5, 3.5],
+      ["D5", 0.5, 3.75],
+      ["C5", 1, 4],
+    ],
+  });
+  // /* 오프라인 테스트용 코드 종료 */
 
   //gpt 실행하기
   const configuration = new Configuration({
