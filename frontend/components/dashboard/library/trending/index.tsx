@@ -29,15 +29,17 @@ function Trending({ genre = null }: { genre?: GenreType }) {
       <div className="library_trending custom_scrollbar w-full mx-auto h-[300px] overflow-y-scroll scroll-smooth px-5 py-0 bg-pink-50/30 border-pink-500/60 border rounded-2xl">
         <table className="library_trending_table w-full text-[rgb(122, 122, 122)] border-collapse">
           <tbody>
-            {musics?.map((song, index) => {
-              return (
-                <TrendingSong
-                  key={`trending_song_${song.music_id}`}
-                  index={index}
-                  song={song}
-                />
-              );
-            })}
+            {musics
+              ?.sort((a, b) => b.favorite_count - a.favorite_count)
+              .map((song, index) => {
+                return (
+                  <TrendingSong
+                    key={`trending_song_${song.music_id}`}
+                    index={index}
+                    song={song}
+                  />
+                );
+              })}
           </tbody>
         </table>
       </div>
