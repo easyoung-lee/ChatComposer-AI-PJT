@@ -210,16 +210,34 @@ function Produce() {
       >
         {buttonMessage}
       </button> */}
-      <div
-        className={`w-full bg-pink-400 mt-2 flex ${
+
+      <div className="mt-4 mx-auto">
+        <button
+          type="button"
+          onClick={canSubmit ? handleSubmit : () => {}}
+          className={`inline-block text-sm px-4 py-2 leading-none border rounded text-white border-pink-400  mx-4 bg-pink-500 ${
+            !canSubmit
+              ? "opacity-50"
+              : "hover:border-transparent hover:text-pink-500 hover:bg-pink-200"
+          }`}
+          disabled={!canSubmit}
+        >
+          {buttonMessage}
+        </button>
+      </div>
+
+      {/* <div
+        className={`w-full max-w-xl mx-auto bg-pink-600 mt-8 rounded-xl flex ${
           !canSubmit
             ? "bg-pink-200 text-gray-500 cursor-default"
             : "hover:bg-pink-500 text-white cursor-pointer"
         }`}
         onClick={canSubmit ? handleSubmit : () => {}}
       >
-        <div className=" flex text-center mx-auto">{buttonMessage}</div>
-      </div>
+        <div className="flex text-center font-bold mx-auto h-12">
+          <div className="my-auto">{buttonMessage}</div>
+        </div>
+      </div> */}
     </div>
   );
 }

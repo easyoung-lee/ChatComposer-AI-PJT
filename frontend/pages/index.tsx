@@ -30,7 +30,10 @@ export default function Home() {
       serverApi
         .get("/users")
         .then(() => {})
-        .catch((err) => setAuthToken(null));
+        .catch((err) => {
+          setAuthToken(null);
+          router.push("/");
+        });
     }
   };
   useEffect(() => {
@@ -38,7 +41,6 @@ export default function Home() {
     Promise.allSettled([
       ...GenreMapEntries.map((e) => prefetchListGenreMusicsQuery(e[0])),
       ...TagMapEntries.map((e) => prefetchListTagMusicsQuery(e[0])),
-      checkAuth(),
     ]).then(() => {
       //prefetch가 끝났으면 1초 후 isPrefetched는 true입니다.
       setTimeout(() => setIsPrefetched(true), 1000);
@@ -46,9 +48,32 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (authToken) {
+      serverApi
+        .get("/users")
+        .then(() => {})
+        .catch((err) => {
+          setAuthToken(null);
+          router.push("/");
+        });
+    }
+  }, [isPrefetched]);
+
+  useEffect(() => {
     if (isPrefetched && authToken) {
-      setOpacityClassname("opacity-0");
-      setTimeout(() => router.push("/main"), 300);
+      serverApi
+        .get("/users")
+        .then(() => {
+          setOpacityClassname("opacity-0");
+          setTimeout(() => router.push("/main"), 300);
+        })
+        .catch((err) => {
+          setAuthToken((prev) => {
+            localStorage.clear();
+            return null;
+          });
+          setTimeout(() => router.push("/"), 300);
+        });
     }
   }, [isPrefetched, authToken]);
 
