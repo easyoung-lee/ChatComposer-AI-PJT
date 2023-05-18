@@ -190,8 +190,9 @@ function Produce() {
       <div className={`${CoverGenHeight}`}>
         <CoverGens />
       </div>
+
       <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
-      <div className={`${heightClassName}`}>
+      <div className={`${heightClassName} max-h-8`}>
         <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
       </div>
       <button
