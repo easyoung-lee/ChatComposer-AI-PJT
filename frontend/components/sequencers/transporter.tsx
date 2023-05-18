@@ -117,7 +117,7 @@ function Transporter({ trackId }) {
   };
 
   return (
-    <div className="w-full flex border border-2 border-pink-500">
+    <div className="w-full flex border-2 border-pink-500">
       <div className="mx-auto my-auto">
         {isLoading ? <CssSpinner /> : <SequencerControlBox onPlay={onPlay} />}
       </div>
