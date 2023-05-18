@@ -18,9 +18,12 @@ function TrendingSong({ song, index }: { song: MusicType; index: number }) {
     genre,
   } = song;
 
-  const [isLiked, setIsLiked] = useState(() => is_my_favorite === "y");
+  const [isLiked, setIsLiked] = useState(is_my_favorite === "y");
 
-  useEffect(() => setIsLiked(is_my_favorite === "y"), [is_my_favorite]);
+  useEffect(() => {
+    console.log(is_my_favorite);
+    setIsLiked(is_my_favorite === "y");
+  }, [is_my_favorite]);
   //좋아요 표시
 
   return (
