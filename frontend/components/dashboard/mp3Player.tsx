@@ -46,6 +46,10 @@ const Mp3Player = () => {
     }
   };
 
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [selectedMusic]);
+
   const handleAudioEnded = () => {
     setIsPlaying(false);
     setIsDone(true);
@@ -71,7 +75,7 @@ const Mp3Player = () => {
             role="button"
             className="mp_playlist_control_img absolute bottom-2 left-5 w-[30px] transition-[0.2s] duration-[ease-in-out] hover:cursor-pointer hover:scale-105 text-white"
             onClick={() => {
-              setSelectedMusic(null);
+              setSelectedMusic(() => null);
             }}
           >
             <IconArrowBackUpDouble
