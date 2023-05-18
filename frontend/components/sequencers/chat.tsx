@@ -101,7 +101,7 @@ function Chat({ trackId, setTrackIds }) {
   return (
     <div className="w-full h-full flex">
       <input
-        className="w-4/5 bg-gray-700 placeholder-gray-300 px-4 text-white"
+        className="w-4/5 bg-pink-50/50 placeholder-gray-400 px-4 text-gray-700"
         value={input}
         onChange={onChangeHandler}
         placeholder="만들고 싶은 음악을 묘사해보세요!"

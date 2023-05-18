@@ -186,6 +186,14 @@ function Produce() {
   return (
     <div className={`${producingOpacity} transition-all duration-300`}>
       {/* <div className="text-pink-500">{JSON.stringify(producingMusic)}</div> */}
+      <div className="py-6"></div>
+      <div className={`${CoverGenHeight}`}>
+        <CoverGens />
+      </div>
+      <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
+      <div className={`${heightClassName}`}>
+        <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
+      </div>
       <button
         type="button"
         onClick={handleSubmit}
@@ -196,13 +204,6 @@ function Produce() {
       >
         {buttonMessage}
       </button>
-      <div className={`${CoverGenHeight}`}>
-        <CoverGens />
-      </div>
-      <Sequencers trackIds={trackIds} setTrackIds={setTrackIds} />
-      <div className={`${heightClassName}`}>
-        <TrackAdder setTrackIds={setTrackIds} trackIds={trackIds} />
-      </div>
     </div>
   );
 }
