@@ -12,6 +12,9 @@ import serverApi from "../../services/serverApi";
 import { InstrumentsMapEntries } from "../../utils/InstrumentsMap";
 import { toastAlert } from "../../utils/toastAlert";
 import axios from "axios";
+import ContentContainer from "../dashboard/library/contentContainer";
+import CssSpinner from "../cssSpinner";
+import MusicPlayer from "../dashboard/musicPlayer";
 
 function Riffusions() {
   // let [producingMusic, setProducingMusic] = useState({
@@ -31,13 +34,14 @@ function Riffusions() {
   // });
   const [producingMusic, setProducingMusic] =
     useRecoilState(producingMusicState);
-
+  const [isLoading, setIsLoading] = useState(false);
   const setCanPost = useSetRecoilState(canPostMusicState);
 
   const [riffPrompt, setRiffPrompt] = useState("");
   const [instruementsArray, setInstruementsArray] = useRecoilState(
     musicalInstrumentsState,
   );
+  const [mixedMusicUrl, setMixedMusicUrl] = useState("");
   const [tracksInfoArray, setTracksInfoArray] = useRecoilState(tracksInfoState);
   const [musicPrompt, setMusicPrompt] = useState("");
   const [mixedString, setMixedString] = useState("");
@@ -79,6 +83,7 @@ function Riffusions() {
   }, [track0]);
 
   const onMixing = async () => {
+    setIsLoading(true);
     const riffusionPrompt = await axios
       .post("/api/papago", { message: riffPrompt })
       .then((res) => res.data.message)
@@ -113,7 +118,9 @@ function Riffusions() {
         };
         // };
       });
-    toastAlert(`음악 생성 완료!`);
+    setIsLoading(false);
+    // setTimeout(()=>onSubmitHandler(), 100)
+    // toastAlert(`음악 생성 완료!`);
     /*
 {
 	music_source : "www.naver.com",
@@ -168,6 +175,7 @@ function Riffusions() {
       .then((res) => {
         console.log("S3음악저장완료");
         console.log(res.data.source);
+        setMixedMusicUrl(res.data.source);
         setProducingMusic((prev) => ({
           ...prev,
           mixed_music_source: res.data.source,
@@ -203,32 +211,89 @@ function Riffusions() {
 
     // const  mixed_music_source = await serverApi.post("/produce/musics/mixed", )
   };
+  useEffect(() => {
+    if (mixedString) onSubmitHandler();
+  }, [mixedString]);
   return (
-    <div className="text-pink-500">
-      {JSON.stringify(instruementsArray)}
-      {JSON.stringify(musicPrompt)}
-      {mixedString}
-      <div>
-        <input
-          className="text-slate-700"
-          value={riffPrompt}
-          onChange={(e) => setRiffPrompt(e.target.value)}
-        />
-        <button type="button" disabled={!riffPrompt} onClick={onMixing}>
-          믹싱하기
-        </button>
+    // <div className="text-pink-500">
+    //   {JSON.stringify(instruementsArray)}
+    //   {JSON.stringify(musicPrompt)}
+    //   {mixedString}
+    //   <div>
+
+    //   </div>
+    //   {mixedString ? (
+    //     <>
+    //       <audio src={mixedString} controls />
+    //       <button onClick={onSubmitHandler}>저장하기</button>
+    //     </>
+    //   ) : (
+    //     <></>
+    //   )}
+    //   {JSON.stringify(producingMusic)}
+    //   <div>트랙인포</div>
+    //   {JSON.stringify(tracksInfoArray)}
+    // </div>
+    <div className="w-full flex mt-10 mb-5">
+      <div className="mx-auto w-full lg:max-w-[50%]">
+        <h3 className="w-full text-center libray_h3 font-bold text-pink-500 text-2xl mb-[15px] mt-2">
+          음악 믹싱하기
+        </h3>
+        <ContentContainer>
+          <div className="w-full h-full flex">
+            <input
+              className="w-full bg-white-50 border border-pink-200 placeholder-gray-400 px-4 text-gray-700"
+              value={riffPrompt}
+              onChange={(e) => setRiffPrompt(e.target.value)}
+              placeholder="어떻게 믹싱할까요?"
+              autoFocus={true}
+            ></input>
+            <div className="w-full max-w-[220px] flex">
+              <button
+                type="button"
+                onClick={onMixing}
+                className={`inline-block text-sm px-4 py-2 w-full max-w-[220px]  leading-none border text-white border-pink-400  mx-1 bg-pink-500 ${
+                  riffPrompt && !isLoading
+                    ? "hover:border-transparent hover:text-pink-500 hover:bg-pink-200"
+                    : "opacity-50"
+                }`}
+                disabled={!riffPrompt || isLoading}
+              >
+                {isLoading ? (
+                  <div className="flex justify-center">
+                    <CssSpinner></CssSpinner>
+                  </div>
+                ) : (
+                  "믹싱하기"
+                )}
+              </button>
+            </div>
+          </div>
+          <div className="w-full flex">
+            {/* <button
+              type="button"
+              onClick={onSubmitHandler}
+              className={`inline-block mx-auto mt-5 mb-3 text-sm px-4 py-2 w-full max-w-[220px]  leading-none border text-white border-pink-400  bg-pink-500 ${
+                mixedString
+                  ? "hover:border-transparent hover:text-pink-500 hover:bg-pink-200"
+                  : "opacity-50"
+              }`}
+              disabled={!mixedString}
+            >
+              믹싱된 음악 저장하기
+            </button> */}
+            {mixedMusicUrl ? (
+              <audio
+                src={mixedMusicUrl}
+                controls
+                className="mx-auto my-4"
+              ></audio>
+            ) : (
+              <></>
+            )}
+          </div>
+        </ContentContainer>
       </div>
-      {mixedString ? (
-        <>
-          <audio src={mixedString} controls />
-          <button onClick={onSubmitHandler}>저장하기</button>
-        </>
-      ) : (
-        <></>
-      )}
-      {JSON.stringify(producingMusic)}
-      <div>트랙인포</div>
-      {JSON.stringify(tracksInfoArray)}
     </div>
   );
 }

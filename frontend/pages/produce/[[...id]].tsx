@@ -196,11 +196,17 @@ function Produce() {
   };
 
   if (!trackIds.length) return <NewTracks setTrackIds={setTrackIds} />;
-  if (canPost) {
-    console.log(canPost);
-    return <PostMusic />;
-  }
-  if (isRiffusion) return <Riffusions />;
+  // if (canPost) {
+  //   console.log(canPost);
+  //   return <PostMusic />;
+  // }
+  if (isRiffusion)
+    return (
+      <>
+        <Riffusions />
+        <PostMusic canPost={canPost} />
+      </>
+    );
 
   //폴더구조 - 시퀀서스 -> 시퀀서 -> 악기선택/채팅/음악재생
   return (
