@@ -105,6 +105,8 @@ Chat Composer는 생성형 AI Chat GPT를 활용하여 이용자가 채팅을 �
 
 ---
 
+:white_check_mark: 예시 산출물 : /docs/BBAMBBAM.mp3
+
 ![!member](./docs/1.gif)
 
 ![!member](./docs/2.gif)![!member](./docs/3.gif)![!member](./docs/4.gif)![!member](./docs/5.gif)![!member](./docs/6.gif)![!member](./docs/7.gif)![!member](./docs/8.gif)![!member](./docs/9.gif)
