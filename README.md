@@ -85,11 +85,11 @@ Chat Composer는 생성형 AI Chat GPT를 활용하여 이용자가 채팅을 �
 
 ## :musical_note: 기능 소개
 
+:white_check_mark: 예시 산출물 : /docs/BBAMBBAM.mp3
+
 ### 메인 페이지
 
 -   구글 소셜 로그인 후 서비스 이용 가능
-
-:white_check_mark: 예시 산출물 : /docs/BBAMBBAM.mp3
 
 ![!member](./docs/1.gif)
 
