@@ -70,32 +70,43 @@ function Chat({ trackId, setTrackIds }) {
         data.prevData = prevData.slice(0, trackId * 2);
       }
     }
-    retrieveChatgpt(data).then((res) => {
-      setAudioState(null);
-      const data = res.data as ChatGPTApiResponseBodyType;
-      const userPrompt = data.prompt?.at(-2);
-      const chatGPTPrompt = data.prompt?.at(-1);
-      setTrack((prev) => ({
-        ...prev,
-        musical_instrument: track?.musical_instrument,
-        midi_description: JSON.stringify(data.noteInfo),
-        request_description: JSON.stringify(userPrompt),
-        response_description: JSON.stringify(chatGPTPrompt),
-        transfer_date: String(date),
-      }));
-      setPrevData((prev) => {
-        const newArray = [...prev];
-        newArray.splice(trackId * 2, 2, userPrompt, chatGPTPrompt);
-        return newArray;
+    retrieveChatgpt(data)
+      .then((res) => {
+        setAudioState(null);
+        const data = res.data as ChatGPTApiResponseBodyType;
+        const noteInfo = data.noteInfo;
+        if (!noteInfo || !noteInfo.length) {
+          toastAlert(`다른 프롬프트로 시도하세요!`);
+          setIsLoading(false);
+          return;
+        }
+        const userPrompt = data.prompt?.at(-2);
+        const chatGPTPrompt = data.prompt?.at(-1);
+        setTrack((prev) => ({
+          ...prev,
+          musical_instrument: track?.musical_instrument,
+          midi_description: JSON.stringify(data.noteInfo),
+          request_description: JSON.stringify(userPrompt),
+          response_description: JSON.stringify(chatGPTPrompt),
+          transfer_date: String(date),
+        }));
+        setPrevData((prev) => {
+          const newArray = [...prev];
+          newArray.splice(trackId * 2, 2, userPrompt, chatGPTPrompt);
+          return newArray;
+        });
+        setTrackIds((prev) => {
+          const newArray = JSON.parse(JSON.stringify(prev));
+          newArray[trackId] = [userPrompt, chatGPTPrompt];
+          return newArray;
+        });
+        setIsLoading(false);
+        toastAlert(`음악 생성 완료!`);
+      })
+      .catch((err) => {
+        toastAlert(`다시 시도하세요!`);
+        setIsLoading(false);
       });
-      setTrackIds((prev) => {
-        const newArray = JSON.parse(JSON.stringify(prev));
-        newArray[trackId] = [userPrompt, chatGPTPrompt];
-        return newArray;
-      });
-      setIsLoading(false);
-      toastAlert(`음악 생성 완료!`);
-    });
   };
 
   return (
