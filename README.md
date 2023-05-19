@@ -26,19 +26,19 @@ Chat Composer는 생성형 AI Chat GPT를 활용하여 이용자가 채팅을 �
 
 **Back-End**
 
-- 노정환
+- 노정환 : 팀장 | 최종 발표 | DB설계 | API 명세 | 소셜 로그인
 
 - 박주희 : 백엔드, 인프라 담당 | CI/CD 파이프라인 구축 | DB설계 | API 명세 | 음악(Music), 태그(Tag) 관련 API 구현 | 포팅매뉴얼 작성
 
 - 이영준 : 인공지능 담당 | Stable Diffusion 모델 분석 및 테스트 | 앨범 커버 관련 FastAPI 프로젝트 구현 | Produce API 구현(S3, 인공지능 API) | RabbitMQ Java 구현 | UCC 기획 및 제작
 
-- 조현민
+- 조현민 : 인공지능 담당 | AI 모델 분석 | 데이터셋 전처리 | 모델 학습 및 테스트 | GPU서버 배포 | 음악모델 서빙
 
 **Front-End**
 
-- 최종현
+- 최종현 : ChatGPT API 생성 | Tone.JS를 이용한 음악 생성 | 디자인 | 중간 발표
 
-- 한원종
+- 한원종 : 소셜 로그인 구현 | Readme 작성 | PPT 제작
 
 ## 
 
@@ -91,9 +91,7 @@ Chat Composer는 생성형 AI Chat GPT를 활용하여 이용자가 채팅을 �
 
 ---
 
-![!member](./docs/architecture.png)
-
-## 
+![!member](./docs/architecture.png) 
 
 ## :musical_note: ERD
 
@@ -107,12 +105,8 @@ Chat Composer는 생성형 AI Chat GPT를 활용하여 이용자가 채팅을 �
 
 ---
 
-## 
+![!member](./docs/1.gif)
 
-## :musical_note: 프로젝트 파일 구조
+![!member](./docs/2.gif)![!member](./docs/3.gif)![!member](./docs/4.gif)![!member](./docs/5.gif)![!member](./docs/6.gif)![!member](./docs/7.gif)![!member](./docs/8.gif)![!member](./docs/9.gif)
 
----
-
-**Back-End**    
-
-**Front-End**
+![!member](./docs/10.gif)
